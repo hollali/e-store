@@ -33,8 +33,7 @@ Conclusion
 
 Our eCommerce site built with Next.js, MongoDB, DaisyUI, and Prisma provides a modern and efficient platform for users to shop online. With its rich set of features and robust development stack, it offers a seamless shopping experience for both customers and administrators alike.
 User
-write a readme.md file for the same thing
-ChatGPT
+
 eCommerce Site
 
 This eCommerce site is a modern web application built using Next.js, MongoDB, DaisyUI, and Prisma. It provides a platform for users to browse, purchase, and manage products in a seamless and efficient manner.
@@ -65,7 +64,7 @@ Getting Started
 
     bash
 
-git clone https://github.com/your-username/ecommerce-site.git
+git clone https://github.com/hollali/ecommerce-site.git
 
 Install dependencies:
 
