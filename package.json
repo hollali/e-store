@@ -11,6 +11,8 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",
     "@prisma/client": "^5.11.0",
+    "@sanity/image-url": "^1.0.2",
+    "@stripe/stripe-js": "^3.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "daisyui": "^4.7.3",
@@ -19,13 +21,16 @@
     "mongodb": "^6.5.0",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
+    "next-sanity": "^8.5.3",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "prisma": "^5.11.0",
     "react": "^18",
     "react-dom": "^18",
+    "stripe": "^14.24.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
+    "use-shopping-cart": "^3.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
