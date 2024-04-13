@@ -1,4 +1,4 @@
-Next.js E-Commerce Website
+ E-Commerce Website
 
 This is an e-commerce website built with Next.js, TypeScript, MongoDB, Tailwind CSS, Shadow, Stripe for payments, and Sanity for content management.
 Getting Started
@@ -9,13 +9,13 @@ To get started with this project, follow these steps:
 
     bash
 
-git clone https://github.com/your-username/nextjs-e-commerce.git
+git clone https://github.com/hollali/e-store.git
 
 Install dependencies:
 
 bash
 
-cd nextjs-e-commerce
+cd e-store
 npm install
 
 Set up environment variables:
@@ -33,7 +33,6 @@ bash
 Tech Stack
 
     Frontend: Next.js, TypeScript, Tailwind CSS, Shadow
-    Backend: MongoDB
     Payments: Stripe
     Content Management: Sanity
 
