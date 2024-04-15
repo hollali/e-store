@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import { Button } from './ui/button';
-import {ShoppingBag} from 'lucide-react'
+import {ShoppingBag} from 'lucide-react';
 const Links = [
     {name: 'Home', href: '/'},
     {name: 'Men', href: '/Men'},
@@ -20,7 +20,6 @@ export default function Navbar() {
                         E-<span className='text-primary'>Store</span>
                     </h1>
                 </Link>
-
                 <nav className='hidden gap-12 lg:flex 2xl:ml-16'>
                     {Links.map((link, idx)=>(
                         <div key={idx}>
