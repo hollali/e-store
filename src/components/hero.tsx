@@ -1,5 +1,5 @@
 import Image from "next/image";
-export default function Home() {
+export default function Hero() {
     return (
         <section className="mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl lg:px-8">
             <div className="mb-8 flex flex-wrap justify-between md:mb-16">
