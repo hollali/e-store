@@ -29,7 +29,18 @@ export default async function Hero() {
                         alt="Great Photo"
                         className="h-full w-full object-cover object-center"
                         width = {500}
-                        height = {500}/>
+                        height = {500}
+                        priority
+                        />
+                    </div>
+                    <div className="overflow-hidden rounded-lg bg-gray-100 shadow-lg">
+                        <Image 
+                        src={urlFor(data.image2).url()}
+                        alt="Great Photo"
+                        className="h-full w-full object-cover object-center"
+                        width={500}
+                        height={500}
+                        priority/>
                     </div>
                 </div>
             </div>
