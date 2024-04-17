@@ -57,7 +57,7 @@ export default async function Newest () {
                                         {product.categoryName}
                                     </p>
                                 </div>
-                                <p>{cedisSign}{product.price}</p>
+                                <p className="text-sm font-medium text-gray-900">{cedisSign}{product.price}</p>
                             </div>
                         </div>
                     ))}
