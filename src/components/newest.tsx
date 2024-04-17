@@ -21,6 +21,7 @@ async function getData() {
 
 export default async function Newest () {
     const data : simplifiedProduct[] = await getData();
+    const cedisSign = '\u20B5';
 
     return (
         <div className="bg-white">
@@ -47,12 +48,16 @@ export default async function Newest () {
                             </div>
                             <div className="mt-4 flex justify-between">
                                 <div>
-                                    <h3 className="text-sm justify-between">
+                                    <h3 className="text-sm text-gray-700">
                                         <Link href={`/products/${product.slug}`}>
                                             {product.name}
                                         </Link>
                                     </h3>
+                                    <p className="mt-1 text-sm text-gray-500">
+                                        {product.categoryName}
+                                    </p>
                                 </div>
+                                <p>{cedisSign}{product.price}</p>
                             </div>
                         </div>
                     ))}
