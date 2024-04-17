@@ -11,7 +11,7 @@ async function getData() {
         name,
         "slug":slug.current,
         "categoryName": category->name,
-        "imageUrl": images[0].assets->url
+        "imageUrl": images[0].asset->url
     }`;
 
     const data = await client.fetch(query);
@@ -35,7 +35,7 @@ export default async function Newest () {
                 </Link>    
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                    {data.map((product)=>(
+                    {data.map((product) => (
                         <div key={product._id} className="group relative">
                             <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                                 <Image 
