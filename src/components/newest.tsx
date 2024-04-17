@@ -2,6 +2,7 @@ import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 async function getData() {
     const query = `*[_type == "product"][0...4] | order(_createdAt desc) {
@@ -33,7 +34,20 @@ export default async function Newest () {
                     </span>
                 </Link>    
                 </div>
-                <div className=""></div>
+                <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    {data.map((product)=>(
+                        <div key={product._id} className="group relative">
+                            <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+                                <Image 
+                                src={product.imageUrl} 
+                                alt="Product image" 
+                                className="w-full h-full object-cover object-center  lg:h-full lg:w-full"
+                                width={300}
+                                height={300}/>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
