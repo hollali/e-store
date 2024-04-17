@@ -1,6 +1,6 @@
  E-Commerce Website
 
-This is an e-commerce website built with Next.js, TypeScript, MongoDB, Tailwind CSS, Shadow, Stripe for payments, and Sanity for content management.
+This is an e-commerce website built with Next.js, TypeScript,  Tailwind CSS, Shadow, Stripe for payments, and Sanity for content management.
 Getting Started
 
 To get started with this project, follow these steps:
