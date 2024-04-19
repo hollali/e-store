@@ -30,7 +30,6 @@ const Footer = () => {
                     <div className="flex-1 md:text-right">
                         <p className="pb-4">Our Story</p>
                         <p className="pb-4">Get in Touch</p>
-                        <p className="pb-4">Our Privacy</p>
                         <p className="pb-4">Terms of Service</p>
                         <p>Customer Support</p>
                     </div>
