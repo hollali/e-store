@@ -64,5 +64,5 @@ export default async function Newest () {
                 </div>
             </div>
         </div>
-    )
+    );
 }
