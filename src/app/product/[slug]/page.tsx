@@ -14,13 +14,14 @@ async function getData(slug: string){
       }`;
 
     const data = await client.fetch(query);
+    
     return data;
 }
-export default async function ProductPage({
+export default async function ProductPge({
     params,
 }:{
     params:{slug:string};
-} ) {
+}) {
     const data:fullProduct = await getData(params.slug);
     return (
         <div className="bg-white">
