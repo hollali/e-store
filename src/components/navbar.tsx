@@ -1,8 +1,10 @@
 "use client";
+import React from 'react';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import { Button } from './ui/button';
 import {ShoppingBag} from 'lucide-react';
+import ItemCounter from './itemCounter';
 const Links = [
     {name: 'Home', href: '/'},
     {name: 'Men', href: '/Men'},
@@ -38,6 +40,7 @@ export default function Navbar() {
                 <div className="flex divide-x border-r sm:border-l">
                     <Button variant={"outline"} className='flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none'>
                         <ShoppingBag/>
+                        <ItemCounter/>
                         <span className="hidden text-xs font-semibold text-gray-500 sm:block">
                             Cart
                         </span>
