@@ -3,6 +3,8 @@
 This is an e-commerce website built with Next.js, TypeScript,  Tailwind CSS, Shadow, Stripe for payments, and Sanity for content management.
 Getting Started
 
+<img src="pic.png"/>
+
 To get started with this project, follow these steps:
 
     Clone the repository:
@@ -52,4 +54,4 @@ License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-<img src="pic.png"/>
+
