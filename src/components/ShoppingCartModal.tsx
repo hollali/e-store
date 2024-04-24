@@ -9,7 +9,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
-export function ShoppingCartModal() {
+export default function ShoppingCartModal() {
   return (
     <Sheet>     
       <SheetContent>
