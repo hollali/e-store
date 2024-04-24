@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <CartProvider>
-          <Navbar/>
-          <ShoppingCartModal/>
+          <Navbar />
+          <ShoppingCartModal />
           {children}
           <Footer/>
-        </CartProvider>   
+        </CartProvider>
       </body>
     </html>
   );

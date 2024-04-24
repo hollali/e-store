@@ -1,4 +1,4 @@
-
+"use client";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,7 +14,7 @@ export default function ShoppingCartModal() {
     <Sheet>     
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
         <div>
           <h1>Hello</h1>
