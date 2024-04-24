@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {BsFillSendFill, BsTelephoneOutbound} from "react-icons/bs";
 import {BiMessageDetail} from "react-icons/bi";
+import {FaWhatsapp} from "react-icons/fa";
 
 const Footer = () => {
     return (
@@ -25,6 +26,11 @@ const Footer = () => {
                         <div className="flex items-center pt-4">
                             <BiMessageDetail />
                             <p className="ml-2">Hollali</p>
+                        </div>
+                        <div className="flex items-center pt-4">
+                            <FaWhatsapp /> 
+                            {/* WhatsApp Business icon */}
+                            <p className="ml-2">+233 0505306932</p>
                         </div>
                     </div>
                     <div className="flex-1 md:text-right">
