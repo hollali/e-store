@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode } from "react";
 import  {CartProvider as USCProvider } from "use-shopping-cart";
 
