@@ -15,9 +15,7 @@ export default function ShoppingCartModal() {
         <SheetHeader>
           <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
-        <div>
-          <h1>Hello</h1>
-        </div>
+        
       </SheetContent>
     </Sheet>
   );
