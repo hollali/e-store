@@ -12,7 +12,7 @@ export default function ShoppingCartModal(){
         <SheetHeader>
             <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
-        <div>Hello</div>
+            
     </SheetContent>
         </Sheet>
 
