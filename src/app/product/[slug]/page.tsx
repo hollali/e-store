@@ -3,6 +3,7 @@ import { fullProduct } from '@/app/interface';
 import ImageGallery from '@/components/imageGallery';
 import { Button} from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
+import AddToBag from '@/components/AddToBag';
 
 async function getData(slug: string){
     const query = `*[_type == "product" && slug.current == "${slug}"][0]{
@@ -58,7 +59,14 @@ export default async function ProductPge({
                             <span className="text-sm">1-3 Days Shipping</span>
                         </div>
                         <div className='flex gap-2.5'>
-                            <Button>Add to Cart</Button>
+                            <AddToBag
+                            currency="USD"
+                            description={data.description}
+                            image={data.images[0]}
+                            name={data.name}
+                            price={data.price}
+                            key={data._id}
+                            />
                             <Button variant={"secondary"}>Checkout</Button>
                         </div>
                         <p className='mt-12 text-gray-500 tracking-wide'>
