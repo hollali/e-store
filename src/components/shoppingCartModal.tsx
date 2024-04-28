@@ -11,7 +11,8 @@ import {
   import { useShoppingCart } from "use-shopping-cart";
   
 export default function ShoppingCartModal(){
-    const {cartCount, 
+    const {
+        cartCount, 
         shouldDisplayCart, 
         handleCartClick,
         cartDetails,

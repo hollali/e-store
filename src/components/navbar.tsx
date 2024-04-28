@@ -17,7 +17,7 @@ const Links = [
 export default function Navbar() {
     
     const pathname = usePathname();
-    const { handleCartClick } = useShoppingCart();
+    const { handleCartClick,cartCount} = useShoppingCart();
     return (
         <header className="mb-8 border-b">
             <div className="flex items-center justify-between mx-auto max-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
