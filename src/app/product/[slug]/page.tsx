@@ -56,7 +56,7 @@ export default async function ProductPge({
                         </div>
                         <div className="mb-6 flex items-center gap-2 text-gray-500">
                             <Truck className='h-6 w-6'/>
-                            <span className="text-sm">1-3 Days Shipping</span>
+                            <span className="text-sm">1-3 Days delivery</span>
                         </div>
                         <div className='flex gap-2.5'>
                             <AddToBag
