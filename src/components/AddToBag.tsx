@@ -34,6 +34,8 @@ export default function AddToBag({
         onClick={()=>{
             addItem(product), handleCartClick();
         }}
-        >Add To Cart</Button>
-    )
+        >
+            Add To Cart
+        </Button>
+    );
 }

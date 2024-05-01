@@ -12,9 +12,13 @@ async function getData(category : string) {
     "slug":slug.current,
     "categoryName":category->name
 }`;
+
+
 const data = await client.fetch(query);
 return data;
 }
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage({
   params,
 }:{params: { category: string };
@@ -56,5 +60,5 @@ export default async function CategoryPage({
                 </div>
             </div>
         </div>
-  )
+ )
 }

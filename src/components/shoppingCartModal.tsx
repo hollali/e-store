@@ -17,7 +17,8 @@ export default function ShoppingCartModal(){
         handleCartClick,
         cartDetails,
         removeItem,
-        totalPrice} 
+        totalPrice
+    } 
         = useShoppingCart();
     const cedisSign = '\u20B5';
     return(
@@ -30,7 +31,7 @@ export default function ShoppingCartModal(){
                 <div className="mt-8 flex-1 overflow-y-auto">
                     <ul className="-my-6 divide-y divide-gray-200">
                         {cartCount === 0 ?(
-                            <h1 className="py-6">You do not have any items here</h1>
+                            <h1 className="py-6">Your cart is empty</h1>
                         ):(
                             <>
                             {Object.values(cartDetails ?? {}).map((entry) =>(

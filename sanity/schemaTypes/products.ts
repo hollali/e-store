@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export default {
     name: 'product',
     type: 'document',
@@ -35,14 +33,19 @@ export default {
             type: 'number',
         },
         {
+            name: 'price_id',
+            title: 'Stripe Price ID',
+            type: 'string'
+        },
+        {
             name: 'category',
             title: 'Product Category',
             type: 'reference',
             to: [
                 {
                     type: 'category',
-                }
-            ]
-        }
+                },
+            ],
+        },
     ],
 }
