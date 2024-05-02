@@ -60,5 +60,5 @@ export default async function CategoryPage({
                 </div>
             </div>
         </div>
- )
+ );
 }
