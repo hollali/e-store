@@ -5,17 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useShoppingCart } from "use-shopping-cart";
-import { FaBars, FaTimes } from "react-icons/fa";
-
+import { FaBars } from "react-icons/fa";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
 
 const links = [
   { name: "Home", href: "/" },
@@ -31,7 +28,9 @@ export default function Navbar() {
     <header className="mb-8 border-b">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
       <DropdownMenu >
-  <DropdownMenuTrigger className='lg:hidden'><FaBars /></DropdownMenuTrigger>
+  <DropdownMenuTrigger className='lg:hidden'>
+    <FaBars />
+  </DropdownMenuTrigger>
   <DropdownMenuContent>
     <DropdownMenuSeparator />
     <DropdownMenuItem>
@@ -54,13 +53,11 @@ export default function Navbar() {
     <DropdownMenuSeparator />
   </DropdownMenuContent>
 </DropdownMenu>
-
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
-            E<span className="text-primary">Store</span>
+            E<span className="text-primary">store</span>
           </h1>
         </Link>
-
         <nav className="hidden gap-12 lg:flex 2xl:ml-16">
           {links.map((link, idx) => (
             <div key={idx}>
