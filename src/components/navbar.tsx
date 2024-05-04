@@ -32,7 +32,6 @@ export default function Navbar() {
     <FaBars />
   </DropdownMenuTrigger>
   <DropdownMenuContent>
-    <DropdownMenuSeparator />
     <DropdownMenuItem>
       <Link href="/Men">
               Men
@@ -50,7 +49,6 @@ export default function Navbar() {
               Children
       </Link>
     </DropdownMenuItem>
-    <DropdownMenuSeparator />
   </DropdownMenuContent>
 </DropdownMenu>
         <Link href="/">
