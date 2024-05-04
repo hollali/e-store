@@ -62,7 +62,7 @@ export default async function ProductPge({
                         </div>
                         <div className='flex gap-2.5'>
                             <AddToBag
-                            currency="GHS"
+                            currency="USD"
                             description={data.description}
                             image={data.images[0]}
                             name={data.name}
