@@ -5,11 +5,12 @@ import {
     SheetContent,
     SheetHeader,
     SheetTitle,
-  } from "@/components/ui/sheet";
-  import {Button} from "@/components/ui/button";
-  import Image from "next/image";
-  import { useShoppingCart } from "use-shopping-cart";
-  
+    } from "@/components/ui/sheet";
+    import {Button} from "@/components/ui/button";
+    import Image from "next/image";
+    import { useShoppingCart } from "use-shopping-cart";
+    import Link from "next/link";
+
 export default function ShoppingCartModal(){
     const {
         cartCount, 
@@ -25,13 +26,21 @@ export default function ShoppingCartModal(){
         <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
     <SheetContent className="sm:max-w-lg w-[90vw]">
         <SheetHeader>
-            <SheetTitle>Shopping Cart</SheetTitle>
+        <SheetTitle className="flex items-center justify-center h-full text-4xl font-bold">Shopping Cart</SheetTitle>
         </SheetHeader>
             <div className="h-full flex flex-col justify-between">
                 <div className="mt-8 flex-1 overflow-y-auto">
                     <ul className="-my-6 divide-y divide-gray-200">
                         {cartCount === 0 ?(
-                            <h1 className="py-6">Your cart is empty</h1>
+                        <div>
+                            <h1 className="py-6 flex items-center justify-center h-full text-2xl font-semibold">
+                                Your cart is empty !!
+                            </h1>
+                                <Button
+                                className="flex items-center justify-center h-full" 
+                                onClick={() => handleCartClick()}
+                                >Shop Now</Button>   
+                        </div>
                         ):(
                             <>
                             {Object.values(cartDetails ?? {}).map((entry) =>(
