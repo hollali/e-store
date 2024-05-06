@@ -6,7 +6,7 @@ import { BsGeoAlt } from "react-icons/bs";
 
 const Footer = () => {
     return (
-        <footer className="mt-16 bg-black text-white">
+        <footer className="mt-16 mb-0 bg-black text-white">
             <div className="container mx-auto px-4">
                 <div className="mt-5">
                 <Link href="/" className="font-black text-tertiary-light">
