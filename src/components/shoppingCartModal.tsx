@@ -36,10 +36,13 @@ export default function ShoppingCartModal(){
                             <h1 className="py-6 flex items-center justify-center h-full text-2xl font-semibold">
                                 Your cart is empty !!
                             </h1>
-                                <Button
-                                className="flex items-center justify-center h-full" 
-                                onClick={() => handleCartClick()}
-                                >Shop Now</Button>   
+                            <div className="flex items-center justify-center">
+                                    <Button 
+                                    className="h-full"
+                                    onClick={() => handleCartClick()}>
+                                        Shop Now
+                                    </Button>
+                            </div>
                         </div>
                         ):(
                             <>
