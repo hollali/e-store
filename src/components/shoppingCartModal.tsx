@@ -26,17 +26,17 @@ export default function ShoppingCartModal(){
         <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
     <SheetContent className="sm:max-w-lg w-[90vw]">
         <SheetHeader>
-        <SheetTitle className="flex items-center justify-center h-full text-4xl font-bold">Shopping Cart</SheetTitle>
+        <SheetTitle className="flex items-center justify-center h-full text-3xl text-purple-400 font-bold">Shopping Cart</SheetTitle>
         </SheetHeader>
             <div className="h-full flex flex-col justify-between">
                 <div className="mt-8 flex-1 overflow-y-auto">
                     <ul className="-my-6 divide-y divide-gray-200">
                         {cartCount === 0 ?(
                         <div>
-                            <h1 className="py-6 flex items-center justify-center h-full text-2xl font-semibold">
+                            <h1 className="mt-36 flex items-center justify-center h-full text-2xl font-semibold">
                                 Your cart is empty !!
                             </h1>
-                            <div className="flex items-center justify-center">
+                            <div className="mt-3 flex items-center justify-center">
                                     <Button 
                                     className="h-full"
                                     onClick={() => handleCartClick()}>

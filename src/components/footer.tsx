@@ -1,36 +1,45 @@
 import Link from "next/link";
-import {BsFillSendFill, BsTelephoneOutbound} from "react-icons/bs";
-import {BiMessageDetail} from "react-icons/bi";
-import {FaWhatsapp} from "react-icons/fa";
+import { BsFillSendFill, BsTelephoneOutbound } from "react-icons/bs";
+import { BiMessageDetail } from "react-icons/bi";
+import { FaWhatsapp } from "react-icons/fa";
+import { BsGeoAlt } from "react-icons/bs";
 
 const Footer = () => {
     return (
-        <footer className="mt-16">
+        <footer className="mt-16 bg-black text-white">
             <div className="container mx-auto px-4">
+                <div className="mt-5">
                 <Link href="/" className="font-black text-tertiary-light">
                     E-<span className='text-primary'>Store</span>
                 </Link>
+                </div>
                 <h4 className="font-semibold text-[40px] py-6">Contact</h4>
-
-                <div className="flex flex-wrap gap-16 items-center justify-between">
+                <div className="flex flex-wrap gap-16 items-start justify-between">
                     <div className="flex-1">
-                        <p>Accra Ghana</p>
-                        <div className="flex items-center py-4">
+                        <div className="flex items-center mb-4">
+                            <BsGeoAlt />
+                        Aviation Road Accra, Ghana
+                        </div>                   
+                            
+                        <div className="flex items-center mb-4">
                             <BsFillSendFill />
-                            <p className="ml-2">Hollali</p>
+                            <a href="mailto:dheztinykartel@gmail.com" 
+                            className="ml-2">dheztinykartel@gmail.com</a>
+                        </div>
+                        <div className="flex items-center mb-4">
+                            <BsTelephoneOutbound />
+                            <a href="tel:+2330505306932" className="ml-2">
+                                +233 0505306932
+                            </a>
                         </div>
                         <div className="flex items-center">
-                            <BsTelephoneOutbound />
-                            <p className="ml-2">+233 0243658631</p>
-                        </div>
-                        <div className="flex items-center pt-4">
                             <BiMessageDetail />
-                            <p className="ml-2">Hollali</p>
+                            <p className="ml-2">Live Chat: Hollali</p>
                         </div>
-                        <div className="flex items-center pt-4">
-                            <FaWhatsapp /> 
-                            {/* WhatsApp Business icon */}
-                            <p className="ml-2">+233 0505306932</p>
+                        <div className="flex items-center mt-4">
+                            <FaWhatsapp />
+                            <a href="https://wa.me/2330505306932" className="ml-2">
+                            +233 0505306932</a>
                         </div>
                     </div>
                     <div className="flex-1 md:text-right">
@@ -40,7 +49,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-tertiary-light h-10 md:h-[70px] mt-16 w-full bottom-0 left-0"></div>
+            <div className="bg-tertiary-light h-10 md:h-[70px] w-full"></div>
         </footer>
     );
 };
