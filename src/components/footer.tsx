@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 <div className="mt-5">
                 <Link href="/" className="font-black text-tertiary-light">
-                    E-<span className='text-primary'>Store</span>
+                    E<span className='text-primary'>store</span>
                 </Link>
                 </div>
                 <h4 className="font-semibold text-[40px] py-6">Contact</h4>
@@ -49,7 +49,9 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-tertiary-light h-10 md:h-[70px] w-full"></div>
+            <div className="bg-lime-50 h-6 md:h-[50px] w-full">
+                <p className="text-black text-center font-bold">Developed by Hollali</p>
+            </div>
         </footer>
     );
 };
