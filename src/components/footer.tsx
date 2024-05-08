@@ -48,7 +48,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-purple-300 h-6 md:h-[50px] w-full">
+            <div className="bg-purple-200 h-6 md:h-[50px] w-full">
                 <p className="text-light text-center font-bold">Developed by Hollali</p>
             </div>
         </footer>
