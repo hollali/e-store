@@ -108,6 +108,5 @@ export default function ShoppingCartModal(){
             </div>
     </SheetContent>
         </Sheet>
-
     )
 }

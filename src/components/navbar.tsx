@@ -77,7 +77,6 @@ export default function Navbar() {
             </div>
           ))}
         </nav>
-
         <div className="flex divide-x border-r sm:border-l">
           <Button
             variant={"outline"}
