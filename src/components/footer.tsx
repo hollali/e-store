@@ -20,7 +20,6 @@ const Footer = () => {
                             <BsGeoAlt />
                         Aviation Road Accra, Ghana
                         </div>                   
-                            
                         <div className="flex items-center mb-4">
                             <BsFillSendFill />
                             <a href="mailto:dheztinykartel@gmail.com" 
