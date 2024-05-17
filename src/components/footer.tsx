@@ -13,7 +13,7 @@ const Footer = () => {
                     E<span className='text-primary'>store</span>
                 </Link>
                 </div>
-                <h4 className="font-semibold text-[40px] py-6">Contact</h4>
+                <h4 className="font-semibold text-[20px] py-3">Contact</h4>
                 <div className="flex flex-wrap gap-16 items-start justify-between">
                     <div className="flex-1">
                         <div className="flex items-center mb-4">
