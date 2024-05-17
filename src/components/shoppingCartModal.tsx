@@ -36,13 +36,6 @@ export default function ShoppingCartModal(){
                             <h1 className="mt-36 flex items-center justify-center h-full text-2xl font-semibold">
                                 Your cart is empty !!
                             </h1>
-                            <div className="mt-3 flex items-center justify-center">
-                                    <Button 
-                                    className="h-full"
-                                    onClick={() => handleCartClick()}>
-                                        Shop Now
-                                    </Button>
-                            </div>
                         </div>
                         ):(
                             <>
