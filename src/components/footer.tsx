@@ -34,12 +34,11 @@ const Footer = () => {
                         </div>
                         <div className="flex items-center mb-4">
                             <BsTelephoneOutbound />
-                            <a href="tel:+2330505306932" className="ml-2">
-                            </a>
+                            <a href="tel:+2330505306932" className="ml-2">0505306932</a>
                         </div>
                         <div className="flex items-center mt-4">
                             <FaWhatsapp />
-                            <a href="https://wa.me/2330505306932" className="ml-2"></a>
+                            <a href="https://wa.me/2330505306932" className="ml-2">0505306932</a>
                         </div>
                     </div>
                     <div className="flex-1 md:text-right">
