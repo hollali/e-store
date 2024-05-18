@@ -10,16 +10,23 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 <div className="mt-5">
                 <Link href="/" className="font-black text-tertiary-light">
-                    E<span className='text-primary'>store</span>
+                    Afric<span className='text-primary'>Vogue</span>
                 </Link>
                 </div>
                 <h4 className="font-semibold text-[20px] py-3">Contact</h4>
                 <div className="flex flex-wrap gap-16 items-start justify-between">
                     <div className="flex-1">
-                        <div className="flex items-center mb-4">
-                            <BsGeoAlt />
-                        Aviation Road Accra, Ghana
-                        </div>                   
+                    <div className="flex items-center mb-4">
+                        <BsGeoAlt />
+                        <a 
+                        href="https://maps.app.goo.gl/segckXu4xHSfdwis9" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="ml-2"
+                        >
+                        Ashaley Botwe Accra,Ghana
+                        </a>
+                    </div>                  
                         <div className="flex items-center mb-4">
                             <BsFillSendFill />
                             <a href="mailto:dheztinykartel@gmail.com" 
@@ -28,20 +35,15 @@ const Footer = () => {
                         <div className="flex items-center mb-4">
                             <BsTelephoneOutbound />
                             <a href="tel:+2330505306932" className="ml-2">
-                                +233 0505306932
                             </a>
-                        </div>
-                        <div className="flex items-center">
-                            <BiMessageDetail />
-                            <p className="ml-2">Live Chat: Hollali</p>
                         </div>
                         <div className="flex items-center mt-4">
                             <FaWhatsapp />
-                            <a href="https://wa.me/2330505306932" className="ml-2">
-                            +233 0505306932</a>
+                            <a href="https://wa.me/2330505306932" className="ml-2"></a>
                         </div>
                     </div>
                     <div className="flex-1 md:text-right">
+                        <p className="pb-4">Blog post</p>
                         <p className="pb-4">Our Story</p>
                         <p className="pb-4">Terms of Service</p>
                         <p>Customer Support</p>

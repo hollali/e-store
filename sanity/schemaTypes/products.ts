@@ -34,7 +34,7 @@ export default {
         },
         {
             name: 'price_id',
-            title: 'Stripe Price ID',
+            title: 'Paystack Price ID',
             type: 'string'
         },
         {
