@@ -53,7 +53,7 @@ export default function Navbar() {
 </DropdownMenu>
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
-            E<span className="text-primary">store</span>
+            Afric<span className="text-primary">Vouge</span>
           </h1>
         </Link>
         <nav className="hidden gap-12 lg:flex 2xl:ml-16">
