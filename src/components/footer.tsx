@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BsFillSendFill, BsTelephoneOutbound } from "react-icons/bs";
-import { BiMessageDetail } from "react-icons/bi";
 import { FaWhatsapp } from "react-icons/fa";
 import { BsGeoAlt } from "react-icons/bs";
 
@@ -56,7 +55,6 @@ const Footer = () => {
                     Developed by Hollali
                 </a>
             </div>
-
         </footer>
     );
 };

@@ -72,7 +72,6 @@ export default async function CategoryPage({
         </Link>
     </div>
 </div>
-
-        </div>
+</div>
  );
 }
