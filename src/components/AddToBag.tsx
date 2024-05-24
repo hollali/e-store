@@ -4,38 +4,41 @@ import { Button } from '@/components/ui/button';
 import { useShoppingCart } from "use-shopping-cart";
 import { urlFor } from '../lib/sanity';
 
-export interface ProductCart{
+export interface ProductCart {
     name: string;
-    description:string;
-    price:number;
+    description: string;
+    price: number;
     currency: string;
     image: any;
-    price_id: string
+    id: string;
 }
+
 export default function AddToBag({
     currency,
     description,
     image,
     name,
     price,
-    price_id,
-}:ProductCart){
+    id,
+}: ProductCart) {
     
     const { addItem, handleCartClick } = useShoppingCart();
 
     const product = {
         name: name,
         description: description,
-        price:price,
-        currency:currency,
+        price: price,
+        currency: currency,
         image: urlFor(image).url(),
-        price_id : "price_id",
+        id: id, // Use the passed id
     };
-    return(
+
+    return (
         <Button
-        onClick={()=>{
-            addItem(product), handleCartClick();
-        }}
+            onClick={() => {
+                addItem(product);
+                handleCartClick();
+            }}
         >
             Add To Cart
         </Button>
