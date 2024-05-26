@@ -67,7 +67,8 @@ export default async function ProductPge({
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
-                                key={data._id} id={''}                            />
+                                key={data._id} id={''}
+                            />
                             <Button variant={"secondary"}>Checkout</Button>
                         </div>
                         <p className='mt-12 text-gray-500 tracking-wide'>
