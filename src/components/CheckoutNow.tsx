@@ -12,12 +12,12 @@ export default function CheckoutNow({
   image,
   name,
   price,
-  id,
+  price_id,
 }: ProductCart) {
   const { checkoutSingleItem } = useShoppingCart();
 
-  function buyNow(Id: string) {
-    checkoutSingleItem(Id);
+  function buyNow(priceId: string) {
+    checkoutSingleItem(priceId);
   }
 
   const product = {
@@ -26,7 +26,7 @@ export default function CheckoutNow({
     price: price,
     currency: currency,
     image: urlFor(image).url(),
-    id: id,
+    price_id: price_id,
   };
 
   // Paystack configuration
@@ -35,7 +35,7 @@ export default function CheckoutNow({
     email: "user@example.com", // Replace with user's email
     amount: product.price * 100, // Paystack works with amounts in cedis
     currency: "GHS",
-    publicKey: "your-paystack-public-key", // Replace with your Paystack public key
+    publicKey: "pk_live_28d0821e0513a70cdf1bd69001dac6f723d93d40", // Replace with your Paystack public key
   };
 
   const handlePaystackSuccessAction = (reference: any) => {
@@ -50,22 +50,15 @@ export default function CheckoutNow({
 
   const componentProps = {
     ...config,
-    text: "Pay with Paystack",
+    text: "Checkout",
     onSuccess: (reference: any) => handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
 
   return (
-    <div>
-      <Button
-        variant="outline"
-        onClick={() => {
-          buyNow(product.id);
-        }}
-      >
-        Checkout Now
-      </Button>
-      <PaystackButton {...componentProps} />
+    <div className="inline-block">
+      <PaystackButton {...componentProps} 
+      className="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-500"/>
     </div>
   );
 }

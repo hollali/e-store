@@ -16,8 +16,8 @@ import {
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "Men", href: "/Men" },
-  { name: "Women", href: "/Women" },
+  { name: "Male", href: "/Men" },
+  { name: "Female", href: "/Women" },
   { name: "Children", href: "/Children" },
 ];
 
@@ -34,13 +34,13 @@ export default function Navbar() {
   <DropdownMenuContent>
     <DropdownMenuItem>
       <Link href="/Men">
-              Men
+              Male
       </Link>
     </DropdownMenuItem>
     <DropdownMenuSeparator />
     <DropdownMenuItem>
     <Link href="/Women">
-              Women
+              Female
       </Link>
     </DropdownMenuItem>
     <DropdownMenuSeparator />

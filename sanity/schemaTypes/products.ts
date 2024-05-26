@@ -33,8 +33,8 @@ export default {
             type: 'number',
         },
         {
-            name: 'id',
-            title: 'ID',
+            name: 'price_id',
+            title: 'Price ID',
             type: 'string'
         },
         {

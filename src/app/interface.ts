@@ -15,5 +15,5 @@ export interface fullProduct {
     categoryName:string;
     name: string;
     description: string;
-    id:string;
+    price_id:string;
 }

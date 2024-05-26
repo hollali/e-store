@@ -1,4 +1,5 @@
 import { client } from '@/lib/sanity';
+import CheckoutNow from '@/components/CheckoutNow';
 import { fullProduct } from '@/app/interface';
 import ImageGallery from '@/components/imageGallery';
 import { Button} from "@/components/ui/button";
@@ -62,14 +63,23 @@ export default async function ProductPge({
                         </div>
                         <div className='flex gap-2.5'>
                             <AddToBag
-                                currency="USD"
+                                currency="GHS"
                                 description={data.description}
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
-                                key={data._id} id={''}
+                                key={data._id} 
+                                price_id={data.price_id}
                             />
-                            <Button variant={"secondary"}>Checkout</Button>
+                            <CheckoutNow
+                                currency="GHS"
+                                description={data.description}
+                                image={data.images[0]}
+                                name={data.name}
+                                price={data.price}
+                                key={data._id} 
+                                price_id={data.price_id}
+                            />
                         </div>
                         <p className='mt-12 text-gray-500 tracking-wide'>
                             {data.description}
