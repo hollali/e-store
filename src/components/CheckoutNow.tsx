@@ -32,7 +32,7 @@ export default function CheckoutNow({
   // Paystack configuration
   const config = {
     reference: new Date().getTime().toString(),
-    email: "user@example.com", // Replace with user's email
+    email: "user@gmail.com", // Replace with user's email
     amount: product.price * 100, // Paystack works with amounts in cedis
     currency: "GHS",
     publicKey: "pk_live_28d0821e0513a70cdf1bd69001dac6f723d93d40", // Replace with your Paystack public key
