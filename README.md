@@ -34,15 +34,15 @@ bash
 
 Tech Stack
 
-    Frontend: Next.js, TypeScript, Tailwind CSS, Shadow
-    Payments: Stripe
+    Frontend: Next.js, TypeScript, Tailwind CSS, Shadow, Shadcn
+    Payments: Stripe, Paystack
     Content Management: Sanity
 
 Features
 
     Responsive design using Tailwind CSS.
     Product management and inventory control.
-    Secure payments with Stripe integration.
+    Secure payments with Stripe and Paystack integration.
     Content management with Sanity.
     User authentication and authorization.
     Order tracking and management.
