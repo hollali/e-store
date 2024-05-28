@@ -40,7 +40,7 @@ export default function ShoppingCartModal() {
         }
     };
 
-    const handlePaystackSuccess = (response:any) => {
+    const handlePaystackSuccess = (response: any) => {
         // Handle successful payment here
         console.log('Payment Success:', response);
     };
