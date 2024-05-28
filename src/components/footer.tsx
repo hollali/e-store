@@ -50,7 +50,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-purple-100 h-6 md:h-[50px] w-full flex items-center justify-center">
+            <div className="h-6 md:h-[50px] w-full flex items-center justify-center">
                 <a href="https://hollali.pxxl.space/" className="text-light font-bold">
                     Developed by Hollali
                 </a>
