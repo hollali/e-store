@@ -28,7 +28,7 @@ export default function ShoppingCartModal() {
         email: "customer@gmail.com", // Replace with the customer's email
         amount: totalPrice * 100, // Paystack works with kobo, so multiply by 100 to convert to kobo
         currency: "GHS",
-        publicKey: "pk_live_28d0821e0513a70cdf1bd69001dac6f723d93d40", // Replace with your Paystack public key
+        publicKey: "", // Replace with your Paystack public key
         metadata: {
             custom_fields: [
                 {
@@ -40,12 +40,12 @@ export default function ShoppingCartModal() {
         }
     };
 
-    const handlePaystackSuccess = (response: any) => {
+    const handlePaystackSuccessAction = (reference: any) => {
         // Handle successful payment here
-        console.log('Payment Success:', response);
+        console.log('Payment Success:', reference);
     };
 
-    const handlePaystackClose = () => {
+    const handlePaystackCloseAction = () => {
         // Handle payment closure here
         console.log('Payment closed');
     };
@@ -75,6 +75,7 @@ export default function ShoppingCartModal() {
                                                     alt="Product image"
                                                     width={100}
                                                     height={100}
+                                                    className="w-full h-full object-cover"
                                                 />
                                             </div>
                                             <div className="ml-4 flex-1 flex-col">
@@ -117,8 +118,8 @@ export default function ShoppingCartModal() {
                                 {...paystackConfig}
                                 text="Checkout"
                                 className="w-full bg-primary text-white py-2 px-4 rounded"
-                                onSuccess={handlePaystackSuccess}
-                                onClose={handlePaystackClose}
+                                onSuccess={handlePaystackSuccessAction}
+                                onClose={handlePaystackCloseAction}
                             />
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
