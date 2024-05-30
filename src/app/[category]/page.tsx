@@ -57,10 +57,11 @@ export default async function CategoryPage({
                   <p className="mt-1 text-sm text-gray-500">
                     {product.categoryName}
                   </p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {cedisSign} {product.price}
+                  </p>
                 </div>
-                <p className="text-sm font-medium text-gray-900">
-                  {cedisSign} {product.price}
-                </p>
+                
               </div>
             </div>
           ))}
