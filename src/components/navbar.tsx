@@ -23,7 +23,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { handleCartClick } = useShoppingCart();
+  const { handleCartClick, cartCount = 0 } = useShoppingCart(); // Default to 0 if cartCount is undefined
   
   return (
     <header className="mb-8 border-b">
@@ -75,13 +75,18 @@ export default function Navbar() {
           ))}
         </nav>
         
-        <div className="flex divide-x border-r sm:border-l">
+        <div className="flex items-center divide-x border-r sm:border-l">
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
             <ShoppingBagIcon />
+            {cartCount > 0 && (
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">
+                {cartCount}
+              </span>
+            )}
             <span className="hidden text-xs font-semibold text-gray-500 sm:block">
               Cart
             </span>
