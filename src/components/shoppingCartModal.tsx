@@ -89,7 +89,7 @@ export default function ShoppingCartModal() {
                               {entry.price}
                             </p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">
+                          <p className="mt-1 text-sm text-gray-500 line-clamp-2">
                             {entry.description}
                           </p>
                         </div>
