@@ -61,7 +61,6 @@ export default async function CategoryPage({
                     {cedisSign} {product.price}
                   </p>
                 </div>
-                
               </div>
             </div>
           ))}

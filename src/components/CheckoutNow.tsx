@@ -56,7 +56,8 @@ export default function CheckoutNow({
 
   return (
     <div className="inline-block">
-      <PaystackButton {...componentProps} 
+      <PaystackButton 
+      {...componentProps} 
       className="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-500"/>
     </div>
   );
