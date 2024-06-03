@@ -83,7 +83,7 @@ export default function ShoppingCartModal() {
                       <div className="ml-4 flex-1 flex-col">
                         <div>
                           <div className="flex justify-between text-base font-medium text-gray-900">
-                            <h3>{entry.name}</h3>
+                            <h3 className="line-clamp-1">{entry.name}</h3>
                             <p className="ml-4">
                               {cedisSign}
                               {entry.price}
