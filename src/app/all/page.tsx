@@ -24,6 +24,11 @@ export default async function AllProducts () {
 
     return (
         <div className="bg-white">
+            <div className="flex justify-center">
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+                    Our Products
+                </h2>
+            </div>
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                 <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     {data.map((product) => (
@@ -53,6 +58,28 @@ export default async function AllProducts () {
                     ))}
                 </div>
             </div>
+            <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+        <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
+          <Link
+            href="/Men"
+            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+          >
+            Men
+          </Link>
+          <Link
+            href="/Women"
+            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+          >
+            Women
+          </Link>
+          <Link
+            href="/Children"
+            className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+          >
+            Children
+          </Link>
+        </div>
+      </div>
         </div>
     );
 }
