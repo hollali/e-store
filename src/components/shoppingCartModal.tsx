@@ -103,14 +103,14 @@ export default function ShoppingCartModal() {
                             <button
                               type="button"
                               onClick={() => decrementItem(entry.id)}
-                              className="font-medium text-primary hover:text-primary/80"
+                              className="font-extrabold text-primary hover:text-primary/80"
                             >
                               -
                             </button>
                             <button
                               type="button"
                               onClick={() => incrementItem(entry.id)}
-                              className="font-medium text-primary hover:text-primary/80"
+                              className="font-extrabold text-primary hover:text-primary/80"
                             >
                               +
                             </button>
