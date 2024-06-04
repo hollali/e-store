@@ -19,12 +19,14 @@ export default function ShoppingCartModal() {
     handleCartClick,
     cartDetails,
     removeItem,
+    incrementItem,
+    decrementItem,
     totalPrice = 0,
   } = useShoppingCart();
-  const cedisSign = '\u20B5';
+  const cedisSign = "\u20B5";
 
   const paystackConfig = {
-    reference: (new Date()).getTime().toString(),
+    reference: new Date().getTime().toString(),
     email: "customer@gmail.com", // Replace with the customer's email
     amount: totalPrice * 100, // Paystack works with kobo, so multiply by 100 to convert to kobo
     currency: "GHS",
@@ -97,7 +99,21 @@ export default function ShoppingCartModal() {
                           <p className="text-gray-500">
                             Quantity: {entry.quantity}
                           </p>
-                          <div className="flex">
+                          <div className="flex space-x-2">
+                            <button
+                              type="button"
+                              onClick={() => decrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              -
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => incrementItem(entry.id)}
+                              className="font-medium text-primary hover:text-primary/80"
+                            >
+                              +
+                            </button>
                             <button
                               type="button"
                               onClick={() => removeItem(entry.id)}
