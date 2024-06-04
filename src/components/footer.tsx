@@ -53,6 +53,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="flex-1 md:text-right">
+                    <h4 className="font-semibold text-[20px] py-3">Information</h4>
                     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger>Blog Post</AccordionTrigger>
