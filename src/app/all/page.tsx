@@ -17,6 +17,8 @@ async function getData() {
   return data;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function AllProducts() {
   const data: simplifiedProduct[] = await getData();
   const cedisSign = "\u20B5";
