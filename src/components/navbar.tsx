@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -78,17 +78,17 @@ export default function Navbar() {
 
         <div className="flex items-center divide-x border-r sm:border-l">
           <Button
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-2"
           >
-            <AccountBoxIcon/>
+            <AccountBoxIcon className="text-primary" />
           </Button>
-          
+
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
-            <ShoppingBagIcon style={{ color: 'var(--icon-color)' }} />
+            <ShoppingBagIcon className="text-primary" />
             {cartCount > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">
                 {cartCount}
