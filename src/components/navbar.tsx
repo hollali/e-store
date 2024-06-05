@@ -79,9 +79,12 @@ export default function Navbar() {
         <div className="flex items-center divide-x border-r sm:border-l">
           <Button
             variant="outline"
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-2"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-4"
           >
             <AccountBoxIcon/>
+            <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+              Login
+            </span>
           </Button>
 
           <Button
