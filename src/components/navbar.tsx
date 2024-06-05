@@ -80,7 +80,7 @@ export default function Navbar() {
           <Button
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-2"
           >
-            <AccountBoxIcon className="text-primary" />
+            <AccountBoxIcon/>
           </Button>
 
           <Button
@@ -88,7 +88,7 @@ export default function Navbar() {
             onClick={() => handleCartClick()}
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
-            <ShoppingBagIcon className="text-primary" />
+            <ShoppingBagIcon/>
             {cartCount > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">
                 {cartCount}
