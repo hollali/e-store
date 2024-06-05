@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 
 const links = [
@@ -25,28 +26,42 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { handleCartClick, cartCount = 0 } = useShoppingCart(); // Default to 0 if cartCount is undefined
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="mb-8 border-b">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="lg:hidden">
-            <MenuIcon />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Link href="/Men">Male</Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href="/Women">Female</Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href="/Children">Children</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <button
+          className="lg:hidden z-50 p-2 mr-4 rounded-md"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <MenuIcon />
+        </button>
+        <div
+          className={`fixed top-0 left-0 h-full w-64 bg-white text-black-900 shadow-lg transform transition-transform duration-300 z-40 ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="p-4">
+            <nav>
+              <ul>
+                {links.map((link, idx) => (
+                  <li key={idx} className="mt-4">
+                    <Link href={link.href}>
+                      <span onClick={() => setIsOpen(false)}>{link.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+        {isOpen && (
+          <div
+            className="fixed inset-0 bg-black opacity-50 z-30"
+            onClick={() => setIsOpen(false)}
+          ></div>
+        )}
 
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
@@ -58,41 +73,24 @@ export default function Navbar() {
           {links.map((link, idx) => (
             <div key={idx}>
               {pathname === link.href ? (
-                <Link
-                  className="text-lg font-semibold text-primary"
-                  href={link.href}
-                >
+                <Link href={link.href} className="text-lg font-semibold text-primary">
                   {link.name}
                 </Link>
               ) : (
-                <Link
-                  href={link.href}
-                  className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary"
-                >
+                <Link href={link.href} className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary">
                   {link.name}
                 </Link>
               )}
             </div>
           ))}
         </nav>
-
         <div className="flex items-center divide-x border-r sm:border-l">
-          <Button
-            variant="outline"
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-4"
-          >
-            <AccountBoxIcon/>
-            <span className="hidden text-xs font-semibold text-gray-500 sm:block">
-              Login
-            </span>
-          </Button>
-
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
-            <ShoppingBagIcon/>
+            <ShoppingBagIcon />
             {cartCount > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">
                 {cartCount}
