@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +25,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { handleCartClick, cartCount = 0 } = useShoppingCart(); // Default to 0 if cartCount is undefined
-  
+
   return (
     <header className="mb-8 border-b">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
@@ -46,13 +47,13 @@ export default function Navbar() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        
+
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
             Afric<span className="text-primary">Vogue</span>
           </h1>
         </Link>
-        
+
         <nav className="hidden gap-12 lg:flex 2xl:ml-16">
           {links.map((link, idx) => (
             <div key={idx}>
@@ -74,14 +75,20 @@ export default function Navbar() {
             </div>
           ))}
         </nav>
-        
+
         <div className="flex items-center divide-x border-r sm:border-l">
+          <Button
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
+          >
+            <AccountBoxIcon/>
+          </Button>
+          
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
             className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
-            <ShoppingBagIcon />
+            <ShoppingBagIcon style={{ color: 'var(--icon-color)' }} />
             {cartCount > 0 && (
               <span className="absolute top-0 right-0 inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-500 text-white text-xs">
                 {cartCount}
