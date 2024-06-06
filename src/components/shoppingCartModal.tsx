@@ -3,14 +3,12 @@
 import { useShoppingCart } from "use-shopping-cart";
 import { PaystackButton } from "react-paystack";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 
 export default function ShoppingCartModal() {
   const {
