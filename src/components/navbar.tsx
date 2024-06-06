@@ -5,14 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 
@@ -38,19 +30,22 @@ export default function Navbar() {
           <MenuIcon />
         </button>
         <div
-          className={`fixed top-0 left-0 h-full w-64 bg-white text-black-900 shadow-lg transform transition-transform duration-300 z-40 ${
+          className={`fixed top-0 left-0 h-full w-64 bg-white text-black shadow-lg transform transition-transform duration-300 z-40 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           <div className="p-4">
             <nav>
-              <ul>
+              <ul className="mt-10">
                 {links.map((link, idx) => (
-                  <li key={idx} className="mt-4">
-                    <Link href={link.href}>
-                      <span onClick={() => setIsOpen(false)}>{link.name}</span>
-                    </Link>
-                  </li>
+                  <div key={idx}>
+                    <li className="my-4">
+                      <Link href={link.href}>
+                        <span onClick={() => setIsOpen(false)}>{link.name}</span>
+                      </Link>
+                    </li>
+                    {idx < links.length - 1 && <hr className="border-gray-200" />}
+                  </div>
                 ))}
               </ul>
             </nav>
@@ -62,13 +57,11 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           ></div>
         )}
-
         <Link href="/">
           <h1 className="text-2xl md:text-4xl font-bold">
             Afric<span className="text-primary">Vogue</span>
           </h1>
         </Link>
-
         <nav className="hidden gap-12 lg:flex 2xl:ml-16">
           {links.map((link, idx) => (
             <div key={idx}>
