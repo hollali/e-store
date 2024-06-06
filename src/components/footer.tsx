@@ -80,8 +80,9 @@ const Footer = () => {
         you agree to comply with and be bound by the following terms and conditions.
         Please read them carefully before using our services.</p>
         2. Definitions
-        <p>We, us, our refers to AfricVogue.
-        You, your refers to the user or customer using our services.</p>
+        <p> We, us, our refers to AfricVogue.
+            You, your refers to the user or customer using our services.
+        </p>
         3. Use of the Website
         <p> Eligibility: By using this website, you represent 
             that you are at least 18 years old or have
@@ -143,7 +144,11 @@ const Footer = () => {
             These terms and conditions are governed by and construed in accordance with the laws of Ghana. 
             Any disputes arising from these terms will be resolved in the courts of Ghana.
             </p>
-Thank you for choosing AfricVogue. We appreciate your business and look forward to serving you.
+        <p>
+        Thank you for choosing AfricVogue. 
+        We appreciate your business and look forward to serving you.
+        </p>    
+
         </AccordionContent>
       </AccordionItem>
     </Accordion>
