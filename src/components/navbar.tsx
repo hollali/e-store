@@ -13,7 +13,7 @@ const links = [
   { name: "Male", href: "/Men" },
   { name: "Female", href: "/Women" },
   { name: "Children", href: "/Children" },
-  { name: "Sign up", href: "/sign-up"},
+  { name: "Sign up", href: "/sign-up" },
 ];
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="mb-8 border-b">
+    <header className="fixed top-0 left-0 right-0 z-50 mb-8 border-b bg-white">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
         <button
           className="lg:hidden z-50 p-2 mr-4 rounded-md"
