@@ -14,14 +14,6 @@ export default function SignUp() {
   const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
   const handleSignUp = async () => {
-    /*try {
-      const res = await createUserWithEmailAndPassword(email, password);
-      console.log({ res });
-      setEmail('');
-      setPassword('');
-    } catch (e) {
-      console.error(e);
-    }*/
     const API_KEY = "AIzaSyDMOZMElaDtfL3rblQWiDFh97fWlateHuk"; // Replace with your actual API key
     const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
     
@@ -56,7 +48,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-2">
+    <div className="flex justify-start px-2 mt-4"> {/* Changed from items-center to justify-start and added mt-4 */}
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg text-center">
         <h1 className="text-2xl md:text-4xl font-bold mb-6">Sign Up</h1>
         <div className="flex justify-center gap-4 mb-4">
