@@ -3,6 +3,9 @@
 import { useShoppingCart } from "use-shopping-cart";
 import { PaystackButton } from "react-paystack";
 import Image from "next/image";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase/config";
+import { signIn } from "next-auth/react";
 import {
   Sheet,
   SheetContent,

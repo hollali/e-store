@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import MenuIcon from "@mui/icons-material/Menu";
-import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 
@@ -14,7 +13,7 @@ const links = [
   { name: "Male", href: "/Men" },
   { name: "Female", href: "/Women" },
   { name: "Children", href: "/Children" },
-  { name: "Login", href: "",icon: <LoginIcon />},
+  { name: "Sign up", href: "/sign-up"},
 ];
 
 export default function Navbar() {
