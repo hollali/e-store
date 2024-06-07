@@ -13,7 +13,7 @@ const links = [
   { name: "Male", href: "/Men" },
   { name: "Female", href: "/Women" },
   { name: "Children", href: "/Children" },
-  { name: "Sign up", href: "/sign-up" },
+  { name: "Sign up", href: "/sign-up"},
 ];
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mb-8 border-b bg-white">
+    <header className="mb-8 border-b">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
         <button
           className="lg:hidden z-50 p-2 mr-4 rounded-md"
@@ -31,7 +31,7 @@ export default function Navbar() {
           <MenuIcon />
         </button>
         <div
-          className={`fixed top-0 left-0 h-full w-64 bg-white text-black shadow-lg transform transition-transform duration-300 z-50 lg:z-0 ${
+          className={`fixed top-0 left-0 h-full w-64 bg-white text-black shadow-lg transform transition-transform duration-300 z-40 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -54,7 +54,7 @@ export default function Navbar() {
         </div>
         {isOpen && (
           <div
-            className="fixed inset-0 bg-black opacity-50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black opacity-50 z-30"
             onClick={() => setIsOpen(false)}
           ></div>
         )}
