@@ -8,43 +8,10 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
-
-  const handleSignUp = async () => {
-    const API_KEY = "AIzaSyDMOZMElaDtfL3rblQWiDFh97fWlateHuk"; // Replace with your actual API key
-    const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
-    
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          returnSecureToken: true
-        })
-      });
-      if (!res.ok) {
-        throw new Error('Sign-up request failed');
-      }
-
-      const data = await res.json();
-      console.log({ data });
-      setEmail('');
-      setPassword('');
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSignUp();
   };
 
   return (
