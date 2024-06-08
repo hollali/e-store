@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
