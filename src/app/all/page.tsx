@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 async function getData() {
   const query = `*[_type == "product"] | order(_createdAt desc) {
@@ -19,9 +22,17 @@ async function getData() {
 
 export const dynamic = "force-dynamic";
 
-export default async function AllProducts() {
-  const data: simplifiedProduct[] = await getData();
+export default function AllProducts() {
+  const [data, setData] = useState<simplifiedProduct[]>([]);
+  const [loading, setLoading] = useState(true);
   const cedisSign = "\u20B5";
+
+  useEffect(() => {
+    getData().then((data) => {
+      setData(data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <div className="bg-white">
@@ -32,36 +43,57 @@ export default async function AllProducts() {
           </h2>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {data.map((product) => (
-            <div key={product._id} className="group relative">
-              <Link href={`/product/${product.slug}`}>
-                <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-                  <Image
-                    src={product.imageUrl}
-                    alt="Product image"
-                    className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                    width={300}
-                    height={300}
-                  />
+          {loading
+            ? Array.from({ length: 8 }).map((_, index) => (
+                <div key={index} className="group relative">
+                  <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200">
+                    <Skeleton height={300} />
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h3 className="text-sm text-primary font-semibold">
+                        <Skeleton width={120} />
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        <Skeleton width={80} />
+                      </p>
+                      <p className="text-sm font-medium text-gray-900">
+                        <Skeleton width={50} />
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </Link>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-primary font-semibold">
-                    <Link href={`/product/${product.slug}`} className="line-clamp-1">
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryName}
-                  </p>
-                  <p className="text-sm font-medium text-gray-900">
-                    {cedisSign} {product.price}
-                  </p>
+              ))
+            : data.map((product) => (
+                <div key={product._id} className="group relative">
+                  <Link href={`/product/${product.slug}`}>
+                    <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
+                      <Image
+                        src={product.imageUrl}
+                        alt="Product image"
+                        className="w-full h-full object-cover object-center lg:h-full lg:w-full"
+                        width={300}
+                        height={300}
+                      />
+                    </div>
+                  </Link>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h3 className="text-sm text-primary font-semibold">
+                        <Link href={`/product/${product.slug}`} className="line-clamp-1">
+                          {product.name}
+                        </Link>
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {product.categoryName}
+                      </p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {cedisSign} {product.price}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
       </div>
       <div className="flex justify-center items-center h-full">
