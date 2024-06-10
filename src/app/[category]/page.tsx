@@ -32,7 +32,7 @@ export default async function CategoryPage({
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="flex justify-center items-center h-full">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our Products for {params.category}
+            Our {params.category} Product
           </h2>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
