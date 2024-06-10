@@ -41,16 +41,14 @@ export default function ShoppingCartModal() {
     },
   };
 
-  const handlePaystackSuccess = (reference :any) => {
+  const handlePaystackSuccess = (reference: any) => {
+    // Handle successful payment here
     console.log("Payment Success:", reference);
   };
 
   const handlePaystackClose = () => {
+    // Handle payment closure here
     console.log("Payment closed");
-  };
-
-  const handlePaystackClick = () => {
-    console.log("Paystack button clicked");
   };
 
   return (
@@ -149,7 +147,6 @@ export default function ShoppingCartModal() {
                 className="w-full bg-primary text-white py-2 px-4 rounded"
                 onSuccess={handlePaystackSuccess}
                 onClose={handlePaystackClose}
-                onClick={handlePaystackClick} // Added this line
               />
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
