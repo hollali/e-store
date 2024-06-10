@@ -12,7 +12,7 @@ const links = [
   { name: "Home", href: "/" },
   { name: "Male", href: "/Men" },
   { name: "Female", href: "/Women" },
-  { name: "Children", href: "/Children" },
+  { name: "Accessories", href: "/Accessories" },
   { name: "Sign up", href: "/sign-up"},
 ];
 
