@@ -51,6 +51,10 @@ export default function ShoppingCartModal() {
     console.log("Payment closed");
   };
 
+   const handlePaystackClick = () => {
+    console.log("Paystack button clicked");
+  };
+
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => handleCartClick()}>
       <SheetContent className="sm:max-w-lg w-[90vw]">
@@ -147,6 +151,7 @@ export default function ShoppingCartModal() {
                 className="w-full bg-primary text-white py-2 px-4 rounded"
                 onSuccess={handlePaystackSuccess}
                 onClose={handlePaystackClose}
+                onClick={handlePaystackClick}
               />
             </div>
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
