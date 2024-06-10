@@ -41,7 +41,7 @@ export default function ShoppingCartModal() {
     },
   };
 
-  const handlePaystackSuccess = (reference) => {
+  const handlePaystackSuccess = (reference :any) => {
     console.log("Payment Success:", reference);
   };
 
