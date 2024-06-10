@@ -87,7 +87,7 @@ export default async function CategoryPage({
               href="/Accessories"
               className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
             >
-              Accessories
+              Trimmings
             </Link>
           </div>
         </div>
