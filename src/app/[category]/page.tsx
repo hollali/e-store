@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getData(category: string) {
-  const query = `*[_type == "product" && category->name == "${category}"]{
+  const query = `*[_type == "product" && category->name == "${category}"] | order(creatAt desc){
     _id,
     "imageUrl": images[0].asset->url,
     price,
