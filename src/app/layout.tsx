@@ -20,11 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CartProvider>
           <Navbar />
           <ShoppingCartModal />
           {children}
-        </CartProvider>
         <Footer/>
       </body>
     </html>
