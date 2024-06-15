@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
         <meta property="og:title" content="AfricVogue" />
         <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVouge" />
         <meta property="og:image" content="https://www.africvouge.com/path-to-your-logo-image.jpg" />
