@@ -25,7 +25,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content="AfricVogue" />
         <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVouge" />
-        <meta property="og:image" content="https://www.africvouge.com/favicon.ico" />
+        <meta property="og:image" content="https:/favicon.ico" />
         <meta property="og:url" content="https://www.africvouge.com" />
         <meta property="og:type" content="website" />
         <meta name="robots" content="index, follow" />
@@ -33,7 +33,7 @@ export default function RootLayout({
           "@context": "https://schema.org",
           "@type": "Organization",
           "url": "https://www.africvouge.com",
-          "logo": "https://www.africvouge.com/favicon.ico"
+          "logo": "/favicon.ico"
         }) }} />
       </Head>
       <body className={inter.className}>
