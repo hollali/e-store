@@ -55,7 +55,7 @@ const Footer = () => {
                         <div className="flex items-center mt-4">
                             <InstagramIcon />
                             <a href="https://www.instagram.com/africvouge" className="ml-2">
-                                @africvouge
+                                africvouge
                             </a>
                         </div>
                     </div>
