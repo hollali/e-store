@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
        <Head>
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta property="og:title" content="AfricVogue" />
         <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVogue" />
         <meta property="og:image" content="https://www.africvouge.com/favicon.ico" />
