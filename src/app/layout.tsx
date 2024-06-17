@@ -21,20 +21,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-         <link rel="icon" type="image/x-icon" href="favicon.ico" />
+       <Head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <meta property="og:title" content="AfricVogue" />
-        <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVouge" />
-        <meta property="og:image" content="https:./favicon.ico" />
+        <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVogue" />
+        <meta property="og:image" content="https://www.africvouge.com/favicon.ico" />
         <meta property="og:url" content="https://www.africvouge.com" />
         <meta property="og:type" content="website" />
         <meta name="robots" content="index, follow" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "url": "https://www.africvouge.com",
-          "logo": "./favicon.ico"
-        }) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "url": "https://www.africvogue.com",
+              "logo": "https://www.africvogue.com/favicon.ico"
+            })
+          }}
+        />
       </Head>
       <body className={inter.className}>
         <CartProvider>
