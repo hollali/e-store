@@ -12,6 +12,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "AfricVouge",
   description: "Discover the latest trends and timeless styles at AfricVouge",
+    icons: {
+    favicon: "/favicon.ico",
+    appleTouchIcon: "/apple-icon.png"
+  }
 };
 
 export default function RootLayout({
