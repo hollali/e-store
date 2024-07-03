@@ -1,6 +1,7 @@
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,7 +20,6 @@ async function getData() {
   return data;
 }
 
-
 export default async function Newest() {
   const data: simplifiedProduct[] = await getData();
   const cedisSign = '\u20B5';
@@ -31,8 +31,8 @@ export default async function Newest() {
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Our Newest Products
           </h2>
-          <Link className="text-primary flex items-center gap-x-1" href="all">
-            See All{""}
+          <Link className="text-primary flex items-center gap-x-1" href="/all">
+            See All
             <span>
               <ArrowRight />
             </span>
@@ -65,6 +65,14 @@ export default async function Newest() {
                   <p className="text-sm font-medium text-gray-900">
                     {cedisSign} {product.price}
                   </p>
+                </div>
+                <div className="absolute top-4 right-4 flex flex-col space-y-2">
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaHeart className="text-gray-500" />
+                  </button>
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaShoppingCart className="text-gray-500" />
+                  </button>
                 </div>
               </div>
             </div>
