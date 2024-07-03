@@ -17,3 +17,11 @@ export interface fullProduct {
     description: string;
     price_id:string;
 }
+
+interface WishlistItem {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  description: string;
+}
