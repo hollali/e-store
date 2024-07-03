@@ -77,19 +77,24 @@ export default function Navbar() {
           </h1>
         </Link>
         <nav className="hidden gap-12 lg:flex">
-          {links.map((link, idx) => (
-            <div key={idx}>
-              {pathname === link.href ? (
-                <Link href={link.href} className="text-lg font-semibold text-primary">
-                  {link.name}
-                </Link>
-              ) : (
-                <Link href={link.href} className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary">
-                  {link.name}
-                </Link>
-              )}
-            </div>
-          ))}
+          {links
+            .filter((link) => !link.isMobileOnly)
+            .map((link, idx) => (
+              <div key={idx}>
+                {pathname === link.href ? (
+                  <Link href={link.href} className="text-lg font-semibold text-primary">
+                    {link.name}
+                  </Link>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary"
+                  >
+                    {link.name}
+                  </Link>
+                )}
+              </div>
+            ))}
         </nav>
         <div className="flex items-center divide-x border-r sm:border-l">
           <Button
