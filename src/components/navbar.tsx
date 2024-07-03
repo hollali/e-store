@@ -79,11 +79,11 @@ export default function Navbar() {
             </div>
           ))}
         </nav>
-        <div className="flex items-center divide-x border-r sm:border-l">
+        <div className="hidden lg:flex items-center divide-x border-r sm:border-l">
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative mr-4" // Added margin right
           >
             <ShoppingBagIcon />
             {cartCount > 0 && (
