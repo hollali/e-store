@@ -60,7 +60,7 @@ export default async function AllProducts() {
                     {cedisSign} {product.price}
                   </p>
                 </div>
-                <div className="absolute top-4 right-4 flex space-x-2">
+                <div className="absolute top-4 right-4 flex flex-col space-y-2">
                   <button className="p-2 rounded-full bg-white hover:bg-gray-100">
                     <FaHeart className="text-gray-500" />
                   </button>
