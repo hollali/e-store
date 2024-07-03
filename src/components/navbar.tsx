@@ -59,7 +59,6 @@ export default function Navbar() {
                   <Link href="/wishlist">
                     <span onClick={() => setIsOpen(false)}>Wishlist</span>
                   </Link>
-                  <hr className="border-gray-200" />
                 </li>
               </ul>
             </nav>
