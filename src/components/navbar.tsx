@@ -96,7 +96,7 @@ export default function Navbar() {
               </div>
             ))}
         </nav>
-        <div className="flex items-center divide-x border-r sm:border-l">
+        <div className="flex items-center space-x-4"> {/* Add space between buttons */}
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
