@@ -15,6 +15,7 @@ const links = [
   { name: "Women", href: "/Women" },
   { name: "Accessories", href: "/Accessories" },
   { name: "Sign up", href: "/sign-up" },
+  { name: "Wishlist", href: "/wishlist", isMobileOnly: true }, // Add isMobileOnly flag
 ];
 
 export default function Navbar() {
@@ -41,14 +42,25 @@ export default function Navbar() {
               <ul className="mt-10">
                 {links.map((link, idx) => (
                   <div key={idx}>
-                    <li className="my-4">
-                      <Link href={link.href}>
-                        <span onClick={() => setIsOpen(false)}>{link.name}</span>
-                      </Link>
-                    </li>
-                    {idx < links.length - 1 && <hr className="border-gray-200" />}
+                    {!link.isMobileOnly && (
+                      <>
+                        <li className="my-4">
+                          <Link href={link.href}>
+                            <span onClick={() => setIsOpen(false)}>{link.name}</span>
+                          </Link>
+                        </li>
+                        {idx < links.length - 1 && <hr className="border-gray-200" />}
+                      </>
+                    )}
                   </div>
                 ))}
+                {/* Add wishlist link conditionally for mobile */}
+                <li className="my-4 lg:hidden">
+                  <Link href="/wishlist">
+                    <span onClick={() => setIsOpen(false)}>Wishlist</span>
+                  </Link>
+                  <hr className="border-gray-200" />
+                </li>
               </ul>
             </nav>
           </div>
@@ -79,11 +91,11 @@ export default function Navbar() {
             </div>
           ))}
         </nav>
-        <div className="flex items-center">
+        <div className="flex items-center divide-x border-r sm:border-l">
           <Button
             variant="outline"
             onClick={() => handleCartClick()}
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative border-l-0 border-r-0"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
             <ShoppingBagIcon />
             {cartCount > 0 && (
@@ -97,7 +109,7 @@ export default function Navbar() {
           </Button>
           <Button
             variant="outline"
-            className="hidden lg:flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative ml-4 border-l-0 border-r-0"
+            className="hidden lg:flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
           >
             <FavoriteBorderIcon />
             <span className="hidden text-xs font-semibold text-gray-500 sm:block">
