@@ -15,7 +15,6 @@ const links = [
   { name: "Women", href: "/Women" },
   { name: "Accessories", href: "/Accessories" },
   { name: "Sign up", href: "/sign-up" },
-  { name: "Wishlist", href: "/wishlist", isMobileOnly: true }, // Add isMobileOnly flag
 ];
 
 export default function Navbar() {
