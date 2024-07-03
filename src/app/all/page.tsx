@@ -2,6 +2,7 @@ import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 async function getData() {
   const query = `*[_type == "product"] | order(_createdAt desc) {
@@ -58,6 +59,14 @@ export default async function AllProducts() {
                   <p className="text-sm font-medium text-gray-900">
                     {cedisSign} {product.price}
                   </p>
+                </div>
+                <div className="absolute top-4 right-4 flex space-x-2">
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaHeart className="text-gray-500" />
+                  </button>
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaShoppingCart className="text-gray-500" />
+                  </button>
                 </div>
               </div>
             </div>
