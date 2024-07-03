@@ -4,16 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "Male", href: "/Men" },
-  { name: "Female", href: "/Women" },
+  { name: "Men", href: "/Men" },
+  { name: "Women", href: "/Women" },
   { name: "Accessories", href: "/Accessories" },
-  { name: "Sign up", href: "/sign-up"},
+  { name: "Sign up", href: "/sign-up" },
 ];
 
 export default function Navbar() {
@@ -63,7 +64,7 @@ export default function Navbar() {
             Afric<span className="text-primary">Vogue</span>
           </h1>
         </Link>
-        <nav className="hidden gap-12 lg:flex 2xl:ml-16">
+        <nav className="hidden gap-12 lg:flex">
           {links.map((link, idx) => (
             <div key={idx}>
               {pathname === link.href ? (
@@ -92,6 +93,15 @@ export default function Navbar() {
             )}
             <span className="hidden text-xs font-semibold text-gray-500 sm:block">
               Cart
+            </span>
+          </Button>
+          <Button
+            variant="outline"
+            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-none relative"
+          >
+            <FavoriteBorderIcon />
+            <span className="hidden text-xs font-semibold text-gray-500 sm:block">
+              Wishlist
             </span>
           </Button>
         </div>
