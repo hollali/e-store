@@ -1,36 +1,49 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import sanityClient from "@sanity/client";
+import { WishlistItem } from "@/app/interface";
 
-interface WishlistItem {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  description: string;
-}
+
 
 export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
 
   useEffect(() => {
-    // Fetch wishlist items from your API or state management
-    // For demonstration, using static data
     const fetchWishlistItems = async () => {
-      const items: WishlistItem[] = [
-        { id: 1, name: "Product 1", price: 50, imageUrl: "/images/product1.jpg", description: "Description for product 1" },
-        { id: 2, name: "Product 2", price: 75, imageUrl: "/images/product2.jpg", description: "Description for product 2" },
-      ];
-      setWishlistItems(items);
+      try {
+        // Fetch wishlist items from Sanity
+        const query = `*[_type == "product"] {_id, name, price, imageUrl, description}`;
+        const products = await client.fetch(query);
+
+        // Map the fetched data into your WishlistItem interface
+        const wishlistItemsData: WishlistItem[] = products.map((product: any) => ({
+          id: product._id,
+          name: product.name,
+          price: product.price,
+          imageUrl: product.imageUrl,
+          description: product.description,
+        }));
+
+        setWishlistItems(wishlistItemsData);
+      } catch (error) {
+        console.error("Error fetching wishlist items:", error);
+      }
     };
 
     fetchWishlistItems();
   }, []);
 
-  const removeItem = (id: number) => {
-    setWishlistItems(wishlistItems.filter(item => item.id !== id));
+  const removeItem = async (id: string) => {
+    try {
+      // Delete item from Sanity if needed
+      // Example: const response = await client.delete(id);
+
+      // Remove item from local state
+      setWishlistItems(wishlistItems.filter(item => item.id !== id));
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
   };
 
   return (
@@ -85,4 +98,3 @@ export default function Wishlist() {
     </div>
   );
 }
-
