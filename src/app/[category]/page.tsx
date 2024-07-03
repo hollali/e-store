@@ -2,6 +2,7 @@ import { client } from "@/lib/sanity";
 import { simplifiedProduct } from "../interface";
 import Image from "next/image";
 import Link from "next/link";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 async function getData(category: string) {
   const query = `*[_type == "product" && category->name == "${category}"] | order(creatAt desc){
@@ -26,7 +27,7 @@ export default async function CategoryPage({
 }) {
   const data: simplifiedProduct[] = await getData(params.category);
   const cedisSign = '\u20B5';
-  
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -62,6 +63,14 @@ export default async function CategoryPage({
                   <p className="text-sm font-medium text-gray-900">
                     {cedisSign} {product.price}
                   </p>
+                </div>
+                <div className="absolute top-4 right-4 flex flex-col space-y-2">
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaHeart className="text-gray-500" />
+                  </button>
+                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
+                    <FaShoppingCart className="text-gray-500" />
+                  </button>
                 </div>
               </div>
             </div>
