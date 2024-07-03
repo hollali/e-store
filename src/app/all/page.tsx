@@ -2,7 +2,8 @@ import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import AddToBag from "@/components/AddToBag"; // Import the AddToBag component
 
 async function getData() {
   const query = `*[_type == "product"] | order(_createdAt desc) {
@@ -11,7 +12,8 @@ async function getData() {
     name,
     "slug": slug.current,
     "categoryName": category->name,
-    "imageUrl": images[0].asset->url
+    "imageUrl": images[0].asset->url,
+    "price_id": price_id // Add price_id if it's part of the product schema
   }`;
 
   const data = await client.fetch(query);
@@ -64,9 +66,15 @@ export default async function AllProducts() {
                   <button className="p-2 rounded-full bg-white hover:bg-gray-100">
                     <FaHeart className="text-gray-500" />
                   </button>
-                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
-                    <FaShoppingCart className="text-gray-500" />
-                  </button>
+                  <AddToBag 
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    currency="GHS"
+                    image={product.imageUrl}
+                    price_id={product.price_id}
+                    icon // Pass icon prop to render as an icon button
+                  />
                 </div>
               </div>
             </div>
