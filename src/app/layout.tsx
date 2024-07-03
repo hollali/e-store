@@ -46,7 +46,6 @@ export default function RootLayout({
         <CartProvider>
           <Navbar />
           <ShoppingCartModal />
-          <wishlist />
           {children}
         </CartProvider>
         <Footer />
