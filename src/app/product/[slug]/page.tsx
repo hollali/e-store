@@ -1,7 +1,7 @@
 import { client } from '@/lib/sanity';
 import CheckoutNow from '@/components/CheckoutNow';
 import { fullProduct } from '@/app/interface';
-import ImageGallery from '@/components/ImageGallery'; // Ensure the path and name are correct
+import ImageGallery from '@/components/imageGallery';
 import { Button } from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
 import AddToBag from '@/components/AddToBag';
