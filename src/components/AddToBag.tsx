@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { useShoppingCart } from "use-shopping-cart";
 import { urlFor } from '../lib/sanity';
 
-// Corrected the interface to match the destructured parameter names
 export interface ProductCart {
     name: string;
     description: string;
@@ -22,17 +21,15 @@ export default function AddToBag({
     price,
     price_id,
 }: ProductCart) {
-
     const { addItem, handleCartClick } = useShoppingCart();
 
-    // Ensure the product object has the expected structure
     const product = {
-        name: name,
-        description: description,
-        price: price,
-        currency: currency,
-        image: urlFor(image).url(), 
-        price_id: price_id, 
+        name,
+        description,
+        price,
+        currency,
+        image: urlFor(image).url(),
+        price_id,
     };
 
     return (
