@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react';
 import { client } from '@/lib/sanity';
 import CheckoutNow from '@/components/CheckoutNow';
