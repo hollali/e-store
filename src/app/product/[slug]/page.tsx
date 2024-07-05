@@ -1,15 +1,13 @@
-"use client";
-import { useState } from 'react';
 import { client } from '@/lib/sanity';
 import CheckoutNow from '@/components/CheckoutNow';
 import { fullProduct } from '@/app/interface';
 import ImageGallery from '@/components/imageGallery';
-import { Button } from "@/components/ui/button";
+import { Button} from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
 import AddToBag from '@/components/AddToBag';
 
 async function getData(slug: string){
-    const query = `*[_type == "product" && slug.current == "${slug}"][0]{
+    const query = *[_type == "product" && slug.current == "${slug}"][0]{
         _id,
           images,
           price,
@@ -18,7 +16,7 @@ async function getData(slug: string){
           "slug": slug.current,
           "categoryName": category->name,
           price_id
-      }`;
+      };
 
     const data = await client.fetch(query);
 
@@ -26,18 +24,13 @@ async function getData(slug: string){
 }
 export const dynamic = "force-dynamic";
 
-export default async function ProductPage({
+export default async function ProductPge({
     params,
-}: {
+}:{
     params: { slug: string };
 }) {
-    const [quantity, setQuantity] = useState(1);
-    const data: fullProduct = await getData(params.slug);
+    const data:fullProduct = await getData(params.slug);
     const cedisSign = '\u20B5';
-
-    const handleIncrease = () => setQuantity(prev => prev + 1);
-    const handleDecrease = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
-
     return (
         <div className="bg-white">
             <div className='mx-auto max-w-screen-xl px-4 md:px-8'>
@@ -69,12 +62,7 @@ export default async function ProductPage({
                             <Truck className='h-6 w-6'/>
                             <span className="text-sm">4-6 Days delivery</span>
                         </div>
-                        <div className='flex flex-col md:flex-row gap-2.5'>
-                            <div className="flex items-center gap-2 mb-4 md:mb-0">
-                                <Button onClick={handleDecrease} className="px-2 py-1">-</Button>
-                                <span>{quantity}</span>
-                                <Button onClick={handleIncrease} className="px-2 py-1">+</Button>
-                            </div>
+                        <div className='flex gap-2.5'>
                             <AddToBag
                                 currency="GHS"
                                 description={data.description}
