@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { client } from '@/lib/sanity';
 import CheckoutNow from '@/components/CheckoutNow';
 import { fullProduct } from '@/app/interface';
 import ImageGallery from '@/components/imageGallery';
-import { Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
 import AddToBag from '@/components/AddToBag';
 
@@ -24,13 +25,18 @@ async function getData(slug: string){
 }
 export const dynamic = "force-dynamic";
 
-export default async function ProductPge({
+export default async function ProductPage({
     params,
-}:{
+}: {
     params: { slug: string };
 }) {
-    const data:fullProduct = await getData(params.slug);
+    const [quantity, setQuantity] = useState(1);
+    const data: fullProduct = await getData(params.slug);
     const cedisSign = '\u20B5';
+
+    const handleIncrease = () => setQuantity(prev => prev + 1);
+    const handleDecrease = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
+
     return (
         <div className="bg-white">
             <div className='mx-auto max-w-screen-xl px-4 md:px-8'>
@@ -62,13 +68,19 @@ export default async function ProductPge({
                             <Truck className='h-6 w-6'/>
                             <span className="text-sm">4-6 Days delivery</span>
                         </div>
-                        <div className='flex gap-2.5'>
+                        <div className='flex flex-col md:flex-row gap-2.5'>
+                            <div className="flex items-center gap-2 mb-4 md:mb-0">
+                                <Button onClick={handleDecrease} className="px-2 py-1">-</Button>
+                                <span>{quantity}</span>
+                                <Button onClick={handleIncrease} className="px-2 py-1">+</Button>
+                            </div>
                             <AddToBag
                                 currency="GHS"
                                 description={data.description}
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
+                                quantity={quantity}
                                 key={data._id} 
                                 price_id={data.price_id}
                             />
@@ -78,6 +90,7 @@ export default async function ProductPge({
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
+                                quantity={quantity}
                                 key={data._id} 
                                 price_id={data.price_id}
                             />
