@@ -81,7 +81,6 @@ export default async function ProductPage({
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
-                                quantity={quantity}
                                 key={data._id} 
                                 price_id={data.price_id}
                             />
@@ -91,7 +90,6 @@ export default async function ProductPage({
                                 image={data.images[0]}
                                 name={data.name}
                                 price={data.price}
-                                quantity={quantity}
                                 key={data._id} 
                                 price_id={data.price_id}
                             />
