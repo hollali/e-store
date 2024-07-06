@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 async function getData(category: string) {
-  const query = `*[_type == "product" && category->name == "${category}"] | order(creatAt desc){
+  const query = `*[_type == "product" && category->name == "${category}"]{
     _id,
     "imageUrl": images[0].asset->url,
     price,
