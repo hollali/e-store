@@ -3,7 +3,9 @@
 This is an e-commerce website built with Next.js, TypeScript,  Tailwind CSS, Shadow, Stripe or Paystack for payments, and Sanity for content management.
 Getting Started
 
-<img src="pic1.png"/>
+<img src="./images/pic1.png"/>
+<img src="./images/pic2.jpeg"/>
+<img src="./images/pic3.jpeg"/>
 
 To get started with this project, follow these steps:
 
