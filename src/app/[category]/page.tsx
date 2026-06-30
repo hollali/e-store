@@ -8,27 +8,31 @@ import Link from "next/link";
 const ITEMS_PER_PAGE = 12;
 
 async function getData(category: string, page: number) {
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const end = start + ITEMS_PER_PAGE;
+  try {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
 
-  const [products, total] = await Promise.all([
-    client.fetch(
-      `*[_type == "product" && category->name == "${category}"] | order(_createdAt desc)[$start...$end]{
-        _id,
-        "imageUrl": images[0].asset->url,
-        price,
-        name,
-        "slug": slug.current,
-        "categoryName": category->name
-      }`,
-      { start, end },
-    ),
-    client.fetch(
-      `count(*[_type == "product" && category->name == "${category}"])`,
-    ),
-  ]);
+    const [products, total] = await Promise.all([
+      client.fetch(
+        `*[_type == "product" && category->name == "${category}"] | order(_createdAt desc)[$start...$end]{
+          _id,
+          "imageUrl": images[0].asset->url,
+          price,
+          name,
+          "slug": slug.current,
+          "categoryName": category->name
+        }`,
+        { start, end },
+      ),
+      client.fetch(
+        `count(*[_type == "product" && category->name == "${category}"])`,
+      ),
+    ]);
 
-  return { products, total };
+    return { products, total };
+  } catch {
+    return { products: [], total: 0 };
+  }
 }
 
 export const dynamic = "force-dynamic";

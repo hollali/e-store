@@ -8,30 +8,34 @@ import Pagination from "@/components/Pagination";
 const ITEMS_PER_PAGE = 12;
 
 async function getData(query: string, page: number) {
-  const sanitized = query.replace(/[^a-zA-Z0-9\s]/g, "").trim();
-  if (!sanitized) return { products: [], total: 0 };
+  try {
+    const sanitized = query.replace(/[^a-zA-Z0-9\s]/g, "").trim();
+    if (!sanitized) return { products: [], total: 0 };
 
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const end = start + ITEMS_PER_PAGE;
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
 
-  const [products, total] = await Promise.all([
-    client.fetch(
-      `*[_type == "product" && name match "*${sanitized}*"] | order(_createdAt desc)[$start...$end]{
-        _id,
-        price,
-        name,
-        "slug": slug.current,
-        "categoryName": category->name,
-        "imageUrl": images[0].asset->url
-      }`,
-      { start, end },
-    ),
-    client.fetch(
-      `count(*[_type == "product" && name match "*${sanitized}*"])`,
-    ),
-  ]);
+    const [products, total] = await Promise.all([
+      client.fetch(
+        `*[_type == "product" && name match "*${sanitized}*"] | order(_createdAt desc)[$start...$end]{
+          _id,
+          price,
+          name,
+          "slug": slug.current,
+          "categoryName": category->name,
+          "imageUrl": images[0].asset->url
+        }`,
+        { start, end },
+      ),
+      client.fetch(
+        `count(*[_type == "product" && name match "*${sanitized}*"])`,
+      ),
+    ]);
 
-  return { products, total };
+    return { products, total };
+  } catch {
+    return { products: [], total: 0 };
+  }
 }
 
 export const dynamic = "force-dynamic";

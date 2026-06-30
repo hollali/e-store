@@ -7,25 +7,29 @@ import Pagination from "@/components/Pagination";
 const ITEMS_PER_PAGE = 12;
 
 async function getData(page: number) {
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const end = start + ITEMS_PER_PAGE;
+  try {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
 
-  const [products, total] = await Promise.all([
-    client.fetch(
-      `*[_type == "product"] | order(_createdAt desc)[$start...$end]{
-        _id,
-        price,
-        name,
-        "slug": slug.current,
-        "categoryName": category->name,
-        "imageUrl": images[0].asset->url
-      }`,
-      { start, end },
-    ),
-    client.fetch(`count(*[_type == "product"])`),
-  ]);
+    const [products, total] = await Promise.all([
+      client.fetch(
+        `*[_type == "product"] | order(_createdAt desc)[$start...$end]{
+          _id,
+          price,
+          name,
+          "slug": slug.current,
+          "categoryName": category->name,
+          "imageUrl": images[0].asset->url
+        }`,
+        { start, end },
+      ),
+      client.fetch(`count(*[_type == "product"])`),
+    ]);
 
-  return { products, total };
+    return { products, total };
+  } catch {
+    return { products: [], total: 0 };
+  }
 }
 
 export const dynamic = "force-dynamic";
