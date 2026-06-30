@@ -1,32 +1,64 @@
 import { client } from "@/lib/sanity";
 import { simplifiedProduct } from "../interface";
-import Image from "next/image";
+import { notFound } from "next/navigation";
+import ProductCard from "@/components/ProductCard";
+import Pagination from "@/components/Pagination";
 import Link from "next/link";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
-async function getData(category: string) {
-  const query = `*[_type == "product" && category->name == "${category}"]{
-    _id,
-    "imageUrl": images[0].asset->url,
-    price,
-    name,
-    "slug": slug.current,
-    "categoryName": category->name
-  }`;
+const ITEMS_PER_PAGE = 12;
 
-  const data = await client.fetch(query);
-  return data;
+async function getData(category: string, page: number) {
+  const start = (page - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+
+  const [products, total] = await Promise.all([
+    client.fetch(
+      `*[_type == "product" && category->name == "${category}"] | order(_createdAt desc)[$start...$end]{
+        _id,
+        "imageUrl": images[0].asset->url,
+        price,
+        name,
+        "slug": slug.current,
+        "categoryName": category->name
+      }`,
+      { start, end },
+    ),
+    client.fetch(
+      `count(*[_type == "product" && category->name == "${category}"])`,
+    ),
+  ]);
+
+  return { products, total };
 }
 
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params }: { params: { category: string } }) {
+  return {
+    title: `${params.category} - AfricVogue`,
+    description: `Shop our ${params.category} collection at AfricVogue. Discover the latest trends and timeless styles.`,
+    openGraph: {
+      title: `${params.category} - AfricVogue`,
+      description: `Shop our ${params.category} collection at AfricVogue.`,
+    },
+  };
+}
+
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: { category: string };
+  searchParams: { page?: string };
 }) {
-  const data: simplifiedProduct[] = await getData(params.category);
-  const cedisSign = '\u20B5';
+  const validCategories = ["Men", "Women", "Accessories"];
+  if (!validCategories.includes(params.category)) {
+    notFound();
+  }
+
+  const currentPage = Math.max(1, Number(searchParams.page) || 1);
+  const { products, total } = await getData(params.category, currentPage);
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   return (
     <div className="bg-white">
@@ -37,45 +69,15 @@ export default async function CategoryPage({
           </h2>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {data.map((product) => (
-            <div key={product._id} className="group relative">
-              <Link href={`/product/${product.slug}`}>
-                <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-                  <Image
-                    src={product.imageUrl}
-                    alt="Product image"
-                    className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                    width={300}
-                    height={300}
-                  />
-                </div>
-              </Link>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h6 className="text-sm text-primary font-semibold">
-                    <Link href={`/product/${product.slug}`} className="line-clamp-1">
-                      {product.name}
-                    </Link>
-                  </h6>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryName}
-                  </p>
-                  <p className="text-sm font-medium text-gray-900">
-                    {cedisSign} {product.price}
-                  </p>
-                </div>
-                <div className="absolute top-4 right-4 flex flex-col space-y-2 lg:hidden group-hover:flex">
-                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
-                    <FaHeart className="text-gray-500" />
-                  </button>
-                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
-                    <FaShoppingCart className="text-gray-500" />
-                  </button>
-                </div>
-              </div>
-            </div>
+          {products.map((product: simplifiedProduct) => (
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          basePath={`/${params.category}`}
+        />
       </div>
       <div className="flex justify-center items-center h-full">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">

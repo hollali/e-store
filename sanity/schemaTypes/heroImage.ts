@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export default {
     name: 'heroImage',
     type: 'document',

@@ -1,9 +1,8 @@
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import Image from "next/image";
+import ProductCard from "@/components/ProductCard";
 
 async function getData() {
   const query = `*[_type == "product"][0...4] | order(_createdAt desc) {
@@ -22,7 +21,6 @@ async function getData() {
 
 export default async function Newest() {
   const data: simplifiedProduct[] = await getData();
-  const cedisSign = '\u20B5';
 
   return (
     <div className="bg-white">
@@ -40,42 +38,7 @@ export default async function Newest() {
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
-            <div key={product._id} className="group relative">
-              <Link href={`/product/${product.slug}`}>
-                <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-                  <Image
-                    src={product.imageUrl}
-                    alt="Product image"
-                    className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                    width={300}
-                    height={300}
-                  />
-                </div>
-              </Link>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-primary font-semibold">
-                    <Link href={`/product/${product.slug}`} className="line-clamp-1">
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.categoryName}
-                  </p>
-                  <p className="text-sm font-medium text-gray-900">
-                    {cedisSign} {product.price}
-                  </p>
-                </div>
-                <div className="absolute top-4 right-4 flex flex-col space-y-2 lg:hidden group-hover:flex">
-                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
-                    <FaHeart className="text-gray-500" />
-                  </button>
-                  <button className="p-2 rounded-full bg-white hover:bg-gray-100">
-                    <FaShoppingCart className="text-gray-500" />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>

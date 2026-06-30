@@ -1,17 +1,32 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import CartProvider from "@/components/provider";
+import AppProviders from "@/components/provider";
 import ShoppingCartModal from "@/components/shoppingCartModal";
-import Head from 'next/head';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AfricVouge",
   description: "Discover the latest trends and timeless styles at AfricVouge",
+  openGraph: {
+    title: "AfricVogue",
+    description: "Discover the latest trends and timeless styles at AfricVogue",
+    url: "https://www.africvouge.com",
+    siteName: "AfricVogue",
+    images: [{ url: "https://www.africvouge.com/og-image.png" }],
+    locale: "en_GH",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AfricVogue",
+    description: "Discover the latest trends and timeless styles at AfricVogue",
+  },
 };
 
 export default function RootLayout({
@@ -20,36 +35,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-       <Head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-         <link rel="apple-touch-icon" href="/apple-icon.png<generated>" type="image/<generated> "sizes="<generated>" />
-        <meta property="og:title" content="AfricVogue" />
-        <meta property="og:description" content="Discover the latest trends and timeless styles at AfricVogue" />
-        <meta property="og:image" content="https://www.africvouge.com/favicon.ico" />
-        <meta property="og:url" content="https://www.africvouge.com" />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="index, follow" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "url": "https://www.africvogue.com",
-              "logo": "https://www.africvogue.com/favicon.ico"
-            })
-          }}
-        />
-      </Head>
-      <body className={inter.className}>
-        <CartProvider>
-          <Navbar />
-          <ShoppingCartModal />
-          {children}
-        </CartProvider>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" href="/apple-icon.png" type="image/png" sizes="180x180" />
+        </head>
+        <body className={inter.className}>
+          <AppProviders>
+            <Navbar />
+            <ShoppingCartModal />
+            {children}
+          </AppProviders>
+          <Footer />
+          <SpeedInsights />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

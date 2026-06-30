@@ -1,59 +1,144 @@
- E-Commerce Website
+# AfricVogue - E-Commerce Website
 
-This is an e-commerce website built with Next.js, TypeScript,  Tailwind CSS, Shadow, Stripe or Paystack for payments, and Sanity for content management.
-Getting Started
+African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind CSS, Sanity CMS, Clerk auth, NeonDB (Postgres), and Paystack payments.
 
-<img src="./images/pic1.png"/>
-<img src="./images/pic2.jpeg"/>
-<img src="./images/pic3.jpeg"/>
+## Tech Stack
 
-To get started with this project, follow these steps:
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + shadcn/ui
+- **CMS:** Sanity.io (headless CMS for products, hero images)
+- **Auth:** Clerk (authentication, user management)
+- **Database:** NeonDB (serverless Postgres) with Drizzle ORM
+- **Payments:** Paystack (GHS)
+- **Deployment:** Vercel
 
-    Clone the repository:
+## Features
 
-    bash
+- **Product Catalog** — Browse by category (Men, Women, Accessories), search, and paginated listing
+- **Product Details** — Image gallery, ratings, description, JSON-LD structured data for SEO
+- **Shopping Cart** — Persistent cart via NeonDB when signed in, localStorage fallback for guests
+- **Wishlist** — Save items with dual persistence (NeonDB / localStorage)
+- **Orders** — Past order history with item details, saved to NeonDB on successful payment
+- **Checkout** — Paystack payment integration (GHS)
+- **Authentication** — Clerk sign-in/sign-up with custom-styled pages
+- **Search** — Full-text product search via Sanity GROQ `match`
+- **Pagination** — 12 items per page with page navigation
+- **Skeleton Loading** — Shimmer placeholders while pages load
+- **SEO** — Dynamic metadata, Open Graph / Twitter cards, JSON-LD Product schema, sitemap.xml
+- **Responsive** — Mobile-first design with slide-in navigation, dark mode support
+- **Accessibility** — ARIA labels, keyboard navigation, semantic HTML
+- **Hero Section** — Staggered entrance animations, split layout, circular category buttons
 
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- A Sanity.io project
+- A Clerk application
+- A NeonDB database
+- A Paystack public key
+
+### 1. Clone and install
+
+```bash
 git clone https://github.com/hollali/e-store.git
-
-Install dependencies:
-
-bash
-
 cd e-store
 npm install
+```
 
-Set up environment variables:
+### 2. Set environment variables
 
-    Copy the .env.example file to .env.local and fill in your environment variables.
+Create a `.env` file:
 
-Start the development server:
+```env
+# Clerk (from https://clerk.com)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
 
-bash
+# Clerk redirect URLs
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
-    npm run dev
+# Paystack (from https://paystack.com)
+NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_...
 
-    Open http://localhost:3000 in your browser to see the website.
+# Sanity (from Sanity management dashboard)
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 
-Tech Stack
+# NeonDB (from https://neon.tech)
+DATABASE_URL=postgresql://user:pass@ep-xxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+```
 
-    Frontend: Next.js, TypeScript, Tailwind CSS, Shadow, Shadcn
-    Payments: Stripe, Paystack
-    Content Management: Sanity
+### 3. Set up the database
 
-Features
+```bash
+npm run db:push
+```
 
-    Responsive design using Tailwind CSS.
-    Product management and inventory control.
-    Secure payments with Stripe and Paystack integration.
-    Content management with Sanity.
-    User authentication and authorization.
-    Order tracking and management.
+This creates the required tables (`cart_items`, `wishlist_items`, `orders`) in your NeonDB.
 
-Contributing
+### 4. Run the development server
 
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
-License
+```bash
+npm run dev
+```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Open [http://localhost:3000](http://localhost:3000) (or port 3001 if 3000 is in use).
 
+## Project Structure
 
+```
+src/
+├── app/
+│   ├── [category]/         # Dynamic category pages (Men, Women, Accessories)
+│   ├── all/                # All products page with pagination
+│   ├── api/
+│   │   ├── cart/           # Cart CRUD API (NeonDB)
+│   │   ├── orders/         # Orders API
+│   │   └── wishlist/       # Wishlist API
+│   ├── orders/             # Order history page
+│   ├── product/[slug]/     # Product detail page
+│   ├── search/             # Search results page
+│   ├── sign-in/            # Clerk sign-in
+│   ├── sign-up/            # Clerk sign-up
+│   └── wishlist/           # Wishlist page
+├── components/
+│   ├── ui/                 # shadcn/ui components (Button, Sheet, Accordion, Skeleton)
+│   ├── ProductCard.tsx     # Reusable product card
+│   ├── Pagination.tsx      # Page navigation component
+│   ├── navbar.tsx          # Main navigation with mobile drawer
+│   ├── hero.tsx            # Homepage hero
+│   ├── newest.tsx          # Newest products section
+│   ├── AddToBag.tsx        # Add to cart + wishlist toggle
+│   ├── shoppingCartModal.tsx # Cart sheet with Paystack checkout
+│   └── ...                 # Other components
+├── context/
+│   ├── CartContext.tsx      # Cart state (NeonDB + localStorage)
+│   └── WishlistContext.tsx  # Wishlist state (NeonDB + localStorage)
+└── lib/
+    ├── sanity.ts           # Sanity client + image builder
+    ├── db.ts               # Lazy NeonDB + Drizzle client
+    └── schema.ts           # Drizzle table schemas
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run TypeScript check |
+| `npm run db:push` | Push Drizzle schema to NeonDB |
+
+## Deployment
+
+Deploy to Vercel. Set all environment variables in the Vercel dashboard (especially `DATABASE_URL` and Clerk keys).
+
+## License
+
+MIT

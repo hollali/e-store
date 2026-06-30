@@ -1,9 +1,6 @@
 import Link from "next/link";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import { MapPin, Mail, Phone } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import {
     Accordion,
     AccordionContent,
@@ -24,7 +21,7 @@ const Footer = () => {
                 <div className="flex flex-wrap gap-16 items-start justify-between">
                     <div className="flex-1">
                         <div className="flex items-center mb-4">
-                            <LocationOnIcon />
+                            <MapPin className="h-5 w-5 shrink-0" />
                             <a 
                                 href="https://maps.app.goo.gl/segckXu4xHSfdwis9" 
                                 target="_blank" 
@@ -35,25 +32,25 @@ const Footer = () => {
                             </a>
                         </div>                  
                         <div className="flex items-center mb-4">
-                            <EmailIcon />
+                            <Mail className="h-5 w-5 shrink-0" />
                             <a href="mailto:dheztinykartel@gmail.com" className="ml-2">
                                 dheztinykartel@gmail.com
                             </a>
                         </div>
                         <div className="flex items-center mb-4">
-                            <PhoneIcon />
+                            <Phone className="h-5 w-5 shrink-0" />
                             <a href="tel:+2330505306932" className="ml-2">
                                 0505306932
                             </a>
                         </div>
                         <div className="flex items-center mt-4">
-                            <WhatsAppIcon />
+                            <FaWhatsapp className="h-5 w-5 shrink-0" />
                             <a href="https://wa.me/2330505306932" className="ml-2">
                                 0505306932
                             </a>
                         </div>
                         <div className="flex items-center mt-4">
-                            <InstagramIcon />
+                            <FaInstagram className="h-5 w-5 shrink-0" />
                             <a href="https://www.instagram.com/africvouge" className="ml-2">
                                 africvouge
                             </a>
@@ -162,7 +159,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="h-6 md:h-[50px] w-full flex items-center justify-center">
-                <a href="https://hollali.pxxl.space/" className="text-light font-bold">
+                <a href="https://hollali.pxxl.space/" className="text-light font-bold" rel="noopener noreferrer">
                     Developed by Hollali
                 </a>
             </div>

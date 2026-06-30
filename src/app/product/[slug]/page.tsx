@@ -1,10 +1,11 @@
-import { client } from '@/lib/sanity';
+import { client, urlFor } from '@/lib/sanity';
 import CheckoutNow from '@/components/CheckoutNow';
 import { fullProduct } from '@/app/interface';
 import ImageGallery from '@/components/imageGallery';
 import { Button } from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
 import AddToBag from '@/components/AddToBag';
+import { notFound } from 'next/navigation';
 
 async function getData(slug: string) {
     const query = `*[_type == "product" && slug.current == $slug][0]{
@@ -19,11 +20,25 @@ async function getData(slug: string) {
     }`;
 
     const data = await client.fetch(query, { slug });
-
     return data;
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const data: fullProduct = await getData(params.slug);
+    if (!data) return { title: "Product Not Found - AfricVogue" };
+
+    return {
+        title: `${data.name} - AfricVogue`,
+        description: data.description,
+        openGraph: {
+            title: `${data.name} - AfricVogue`,
+            description: data.description,
+            images: data.images?.[0] ? [{ url: urlFor(data.images[0]).url() }] : [],
+        },
+    };
+}
 
 export default async function ProductPage({
     params,
@@ -31,9 +46,29 @@ export default async function ProductPage({
     params: { slug: string };
 }) {
     const data: fullProduct = await getData(params.slug);
+    if (!data) notFound();
+
     const cedisSign = '\u20B5';
+
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: data.name,
+        description: data.description,
+        offers: {
+            '@type': 'Offer',
+            price: data.price,
+            priceCurrency: 'GHS',
+            availability: 'https://schema.org/InStock',
+        },
+    };
+
     return (
         <div className="bg-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className='mx-auto max-w-screen-xl px-4 md:px-8'>
                 <div className='grid gap-8 md:grid-cols-2'>
                     <ImageGallery images={data.images} />
@@ -54,7 +89,6 @@ export default async function ProductPage({
                         <div className='mb-4'>
                             <div className='flex items-end gap-2'>
                                 <span className="text-xl font-bold text-gray-800 md:text-2xl">{cedisSign} {data.price}</span>
-                                <span className="mb-0.5 text-red-500 line-through">{cedisSign} {data.price + 20}</span>
                             </div>
                             <span className='text-sm text-gray-500'>
                                 Incl. VAT. Shipping is different
