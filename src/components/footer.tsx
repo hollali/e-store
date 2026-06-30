@@ -1,170 +1,159 @@
 import Link from "next/link";
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone, Heart } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
 
 const Footer = () => {
-    return (
-        <footer className="mt-16 mb-0 bg-white">
-            <div className="container mx-auto px-4">
-                <div className="mt-5">
-                    <Link href="/" className="font-black text-tertiary-light">
-                        Afric<span className='text-primary'>Vogue</span>
-                    </Link>
-                </div>
-                <h4 className="font-semibold text-[20px] py-3">Contact</h4>
-                <div className="flex flex-wrap gap-16 items-start justify-between">
-                    <div className="flex-1">
-                        <div className="flex items-center mb-4">
-                            <MapPin className="h-5 w-5 shrink-0" />
-                            <a 
-                                href="https://maps.app.goo.gl/segckXu4xHSfdwis9" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="ml-2"
-                            >
-                                Ashaley Botwe Accra, Ghana
-                            </a>
-                        </div>                  
-                        <div className="flex items-center mb-4">
-                            <Mail className="h-5 w-5 shrink-0" />
-                            <a href="mailto:dheztinykartel@gmail.com" className="ml-2">
-                                dheztinykartel@gmail.com
-                            </a>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <Phone className="h-5 w-5 shrink-0" />
-                            <a href="tel:+2330505306932" className="ml-2">
-                                0505306932
-                            </a>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <FaWhatsapp className="h-5 w-5 shrink-0" />
-                            <a href="https://wa.me/2330505306932" className="ml-2">
-                                0505306932
-                            </a>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <FaInstagram className="h-5 w-5 shrink-0" />
-                            <a href="https://www.instagram.com/africvouge" className="ml-2">
-                                africvouge
-                            </a>
-                        </div>
-                    </div>
-                    <div className="flex-1 md:text-right">
-                        <h4 className="font-semibold text-[20px] py-3">Information</h4>
-                        <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger>Blog Post</AccordionTrigger>
-                                <AccordionContent>
-                                    COMING SOON.
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-2">
-                                <AccordionTrigger>Our Story</AccordionTrigger>
-                                <AccordionContent>
-                                    For over two decades, AfricVogue has been a beacon of style and cultural pride in the African fashion industry.
-                                    Established with a passion for vibrant fabrics and traditional craftsmanship, AfricVogue has consistently celebrated the rich heritage of African fashion.
-                                    Our collections, inspired by diverse African cultures, 
-                                    feature exquisite designs that blend contemporary trends with timeless elegance. 
-                                    Through our commitment to quality and innovation, we have earned the trust and admiration of customers both locally and globally, making AfricVogue a leading name in African fashion. As we look to the future, we remain dedicated to honoring our roots while setting 
-                                    new standards in fashion excellence.
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-3">
-                                <AccordionTrigger>Terms & Conditions</AccordionTrigger>
-                                <AccordionContent>
-                                    1. Introduction
-                                    <p>Welcome to AfricVogue. By accessing or using our website and services,
-                                    you agree to comply with and be bound by the following terms and conditions.
-                                    Please read them carefully before using our services.</p>
-                                    2. Definitions
-                                    <p> We, us, our refers to AfricVogue.
-                                        You, your refers to the user or customer using our services.
-                                    </p>
-                                    3. Use of the Website
-                                    <p> Eligibility: By using this website, you represent 
-                                        that you are at least 18 years old or have
-                                        the permission of a guardian.
-                                        Account: You may need to create an account to access certain features. 
-                                        You are responsible for maintaining the confidentiality of your account information and for all activities under your account.
-                                        Prohibited Activities: You agree not to engage in any activity that could harm the website, its users, or violate any laws.</p>
-                                    4. Products and Orders 
-                                    <p>
-                                        Product Information: We strive to display accurate product information. 
-                                        However, slight variations in color, design, or packaging may occur.
-                                        Pricing: All prices are listed in Ghanaian cedis (GHS). 
-                                        Prices and availability are subject to change without notice.
-                                        Order Acceptance: We reserve the right to refuse or cancel any order at
-                                        our discretion.
-                                    </p>
-                                    5. Payment
-                                    <p>
-                                        Methods: We accept various payment methods, including but not limited to credit/debit cards and mobile money.
-                                        Payment Security: We use secure payment gateways to process transactions. 
-                                        Your payment details are encrypted and safe.
-                                    </p>
-                                    6. Shipping and Delivery
-                                    <p>
-                                        Shipping: We offer local and international shipping. 
-                                        Shipping costs and delivery times vary based on your location and the shipping method selected.
-                                        Delivery: Delivery times are estimates and not guaranteed.
-                                        We are not responsible for delays caused by carriers or customs.
-                                    </p>
-                                    7. Returns and Refunds
-                                    <p>
-                                        Returns: You may return eligible items within 14 days of receipt for a refund or exchange. Items must be in original condition and packaging.
-                                        Refunds: Refunds will be processed within 7-10 business days after we receive the returned items. Shipping costs are non-refundable.
-                                    </p>
-                                    8. Intellectual Property
-                                    <p>
-                                        All content on this website, including but not limited to text, images, 
-                                        graphics, logos, and designs, is the property of 
-                                        AfricVogue and is protected by intellectual property laws. 
-                                        Unauthorized use of any content is prohibited.
-                                    </p>              
-                                    9. Privacy
-                                    <p>
-                                        We value your privacy. Please review our Privacy Policy to understand
-                                        how we collect, use, and protect your personal information.
-                                    </p>
-                                    10. Limitation of Liability
-                                    <p>
-                                        AfricVogue is not liable for any direct, indirect, incidental, special, 
-                                        or consequential damages arising from your use of our website or services.
-                                    </p>
-                                    11. Changes to Terms and Conditions
-                                    <p>
-                                        We reserve the right to update these terms and conditions at any time without prior notice. Changes will be effective upon posting on the website. 
-                                        Continued use of the website constitutes acceptance of the revised terms.
-                                    </p>
-                                    12. Governing Law
-                                    <p>
-                                        These terms and conditions are governed by and construed in accordance with the laws of Ghana. 
-                                        Any disputes arising from these terms will be resolved in the courts of Ghana.
-                                    </p>
-                                    <p>
-                                        Thank you for choosing AfricVogue. 
-                                        We appreciate your business and look forward to serving you.
-                                    </p>    
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    </div>
-                </div>
-            </div>
-            <div className="h-6 md:h-[50px] w-full flex items-center justify-center">
-                <a href="https://hollali.pxxl.space/" className="text-light font-bold" rel="noopener noreferrer">
-                    Developed by Hollali
+  const year = new Date().getFullYear();
+
+  const quickLinks = [
+    { name: "Home", href: "/" },
+    { name: "Men", href: "/Men" },
+    { name: "Women", href: "/Women" },
+    { name: "Accessories", href: "/Accessories" },
+    { name: "All Products", href: "/all" },
+  ];
+
+  const accountLinks = [
+    { name: "Wishlist", href: "/wishlist" },
+    { name: "Orders", href: "/orders" },
+    { name: "Sign In", href: "/sign-in" },
+  ];
+
+  return (
+    <footer className="mt-16 bg-white dark:bg-gray-950 border-t dark:border-gray-800">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand + Contact */}
+          <div>
+            <Link href="/" className="inline-block mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold">
+                Afric<span className="text-primary">Vogue</span>
+              </h3>
+            </Link>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-xs">
+              Discover the latest trends and timeless styles in African fashion.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+                <MapPin className="h-4 w-4 shrink-0 text-primary" />
+                <a
+                  href="https://maps.app.goo.gl/segckXu4xHSfdwis9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  Ashaley Botwe Accra, Ghana
                 </a>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+                <Mail className="h-4 w-4 shrink-0 text-primary" />
+                <a
+                  href="mailto:dheztinykartel@gmail.com"
+                  className="hover:text-primary transition-colors"
+                >
+                  dheztinykartel@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+                <Phone className="h-4 w-4 shrink-0 text-primary" />
+                <a href="tel:+2330505306932" className="hover:text-primary transition-colors">
+                  0505306932
+                </a>
+              </div>
             </div>
-        </footer>
-    );
+            {/* Social */}
+            <div className="flex items-center gap-3 mt-6">
+              <a
+                href="https://wa.me/2330505306932"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors"
+                aria-label="WhatsApp"
+              >
+                <FaWhatsapp className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/africvouge"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 text-white hover:opacity-90 transition-opacity"
+                aria-label="Instagram"
+              >
+                <FaInstagram className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
+              Quick Links
+            </h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Account + Info */}
+          <div>
+            <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
+              Account
+            </h4>
+            <ul className="space-y-3 mb-8">
+              {accountLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
+              Our Story
+            </h4>
+            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              For over two decades, AfricVogue has celebrated the rich heritage
+              of African fashion. Our collections blend contemporary trends with
+              timeless elegance, bringing you the finest in African design.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Copyright + Attribution */}
+      <div className="border-t dark:border-gray-800 py-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500 dark:text-gray-400">
+          <p>
+            &copy; {year} AfricVogue. All rights reserved.
+          </p>
+          <div className="flex items-center gap-1">
+            <span>Developed with</span>
+            <Heart className="h-3 w-3 text-red-500 fill-red-500" />
+            <span>by</span>
+            <a
+              href="https://hollali.netlify.app/"
+              className="font-semibold hover:text-primary transition-colors"
+              rel="noopener noreferrer"
+            >
+              Hollali
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
