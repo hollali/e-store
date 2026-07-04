@@ -2,19 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { ShoppingBag, Menu, Search, Heart, Package, X, User } from "lucide-react";
+import { ShoppingBag, Menu, Heart, Package, X, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const { isSignedIn } = useUser();
   const { handleCartClick, cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,7 +22,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setSearchOpen(false);
     setIsOpen(false);
   }, [pathname]);
 
@@ -46,15 +43,6 @@ export default function Navbar() {
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-      setSearchOpen(false);
-    }
-  };
 
   const links = [
     { name: "Home", href: "/" },
@@ -111,35 +99,9 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-2">
-            {/* Search (desktop only) */}
-            <div className="hidden lg:relative lg:flex lg:items-center">
-              <button
-                onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Toggle search"
-              >
-                <Search className="h-5 w-5" />
-              </button>
-              <form
-                onSubmit={handleSearch}
-                className={`absolute right-0 top-full mt-2 flex items-center transition-all duration-200 origin-top-right ${
-                  searchOpen
-                    ? "opacity-100 scale-100 pointer-events-auto"
-                    : "opacity-0 scale-95 pointer-events-none"
-                }`}
-              >
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="w-56 sm:w-64 pl-10 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-full bg-white dark:bg-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-primary dark:text-white"
-                    autoFocus
-                  />
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                </div>
-              </form>
+            {/* Desktop search */}
+            <div className="hidden lg:block w-48 xl:w-56">
+              <SearchBar />
             </div>
 
             {/* Wishlist icon */}
@@ -219,18 +181,7 @@ export default function Navbar() {
 
           {/* Mobile search */}
           <div className="p-4 border-b dark:border-gray-800">
-            <form onSubmit={handleSearch}>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search products..."
-                  className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-full bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary dark:text-white"
-                />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              </div>
-            </form>
+            <SearchBar variant="mobile" onNavigate={() => setIsOpen(false)} />
           </div>
 
           {/* Links */}
