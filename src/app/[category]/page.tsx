@@ -3,6 +3,7 @@ import { simplifiedProduct } from "../interface";
 import { notFound } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import Pagination from "@/components/Pagination";
+import { getBatchRatings } from "@/lib/ratings";
 import Link from "next/link";
 
 const ITEMS_PER_PAGE = 12;
@@ -20,7 +21,8 @@ async function getData(category: string, page: number) {
           price,
           name,
           "slug": slug.current,
-          "categoryName": category->name
+          "categoryName": category->name,
+          price_id
         }`,
         { start, end },
       ),
@@ -29,7 +31,19 @@ async function getData(category: string, page: number) {
       ),
     ]);
 
-    return { products, total };
+    let enriched = products;
+    try {
+      const productIds = products.map((p: any) => p.price_id).filter(Boolean);
+      const ratingMap = await getBatchRatings(productIds);
+      enriched = products.map((p: any) => {
+        const rating = p.price_id ? ratingMap.get(p.price_id) : undefined;
+        return { ...p, rating: rating?.average, reviewCount: rating?.count };
+      });
+    } catch {
+      // ratings unavailable, show products without ratings
+    }
+
+    return { products: enriched, total };
   } catch {
     return { products: [], total: 0 };
   }

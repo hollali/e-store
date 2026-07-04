@@ -5,7 +5,10 @@ import ImageGallery from '@/components/imageGallery';
 import { Button } from "@/components/ui/button";
 import { Star, Truck } from 'lucide-react';
 import AddToBag from '@/components/AddToBag';
+import StarRating from '@/components/StarRating';
+import ReviewSection from '@/components/ReviewSection';
 import { notFound } from 'next/navigation';
+import { getProductRating } from '@/lib/ratings';
 
 async function getData(slug: string) {
     try {
@@ -21,7 +24,16 @@ async function getData(slug: string) {
         }`;
 
         const data = await client.fetch(query, { slug });
-        return data;
+        if (!data) return null;
+
+        let rating = null;
+        try {
+            rating = data.price_id ? await getProductRating(data.price_id) : null;
+        } catch {
+            // ratings unavailable
+        }
+
+        return { ...data, rating: rating?.average || 0, reviewCount: rating?.count || 0 };
     } catch {
         return null;
     }
@@ -49,7 +61,7 @@ export default async function ProductPage({
 }: {
     params: { slug: string };
 }) {
-    const data: fullProduct = await getData(params.slug);
+    const data: any = await getData(params.slug);
     if (!data) notFound();
 
     const cedisSign = '\u20B5';
@@ -84,11 +96,8 @@ export default async function ProductPage({
                             </h2>
                         </div>
                         <div className='mb-6 flex items-center gap-3 md:mb-10'>
-                            <Button className='rounded-full gap-x-2'>
-                                <span className='text-sm'>4.5</span>
-                                <Star className='h-5 w-5' />
-                            </Button>
-                            <span className="text-sm text-gray-500">56 Ratings</span>
+                            <StarRating rating={data.rating} size="lg" />
+                            <span className="text-sm text-gray-500">{data.reviewCount} {data.reviewCount === 1 ? 'Rating' : 'Ratings'}</span>
                         </div>
                         <div className='mb-4'>
                             <div className='flex items-end gap-2'>
@@ -128,6 +137,7 @@ export default async function ProductPage({
                         </p>
                     </div>
                 </div>
+                <ReviewSection productId={data.price_id} />
             </div>
         </div>
     );

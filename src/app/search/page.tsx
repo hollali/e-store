@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import Pagination from "@/components/Pagination";
+import { getBatchRatings } from "@/lib/ratings";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -23,7 +24,8 @@ async function getData(query: string, page: number) {
           name,
           "slug": slug.current,
           "categoryName": category->name,
-          "imageUrl": images[0].asset->url
+          "imageUrl": images[0].asset->url,
+          price_id
         }`,
         { start, end },
       ),
@@ -32,7 +34,19 @@ async function getData(query: string, page: number) {
       ),
     ]);
 
-    return { products, total };
+    let enriched = products;
+    try {
+      const productIds = products.map((p: any) => p.price_id).filter(Boolean);
+      const ratingMap = await getBatchRatings(productIds);
+      enriched = products.map((p: any) => {
+        const rating = p.price_id ? ratingMap.get(p.price_id) : undefined;
+        return { ...p, rating: rating?.average, reviewCount: rating?.count };
+      });
+    } catch {
+      // ratings unavailable, show products without ratings
+    }
+
+    return { products: enriched, total };
   } catch {
     return { products: [], total: 0 };
   }

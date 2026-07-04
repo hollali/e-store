@@ -5,6 +5,9 @@ export interface simplifiedProduct {
     slug: string;
     categoryName:string;
     name: string;
+    price_id?: string;
+    rating?: number;
+    reviewCount?: number;
 }
 
 export interface fullProduct {
@@ -16,4 +19,15 @@ export interface fullProduct {
     name: string;
     description: string;
     price_id:string;
+}
+
+export interface Review {
+    id: string;
+    userId: string;
+    userName: string;
+    productId: string;
+    rating: number;
+    title: string | null;
+    body: string | null;
+    createdAt: string;
 }

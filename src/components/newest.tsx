@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import { getBatchRatings } from "@/lib/ratings";
 
 async function getData() {
   try {
@@ -12,9 +13,24 @@ async function getData() {
       name,
       "slug": slug.current,
       "categoryName": category->name,
-      "imageUrl": images[0].asset->url
+      "imageUrl": images[0].asset->url,
+      price_id
     }`;
-    return await client.fetch(query);
+    const products = await client.fetch(query);
+
+    let enriched = products;
+    try {
+      const productIds = products.map((p: any) => p.price_id).filter(Boolean);
+      const ratingMap = await getBatchRatings(productIds);
+      enriched = products.map((p: any) => {
+        const rating = p.price_id ? ratingMap.get(p.price_id) : undefined;
+        return { ...p, rating: rating?.average, reviewCount: rating?.count };
+      });
+    } catch {
+      // ratings unavailable, show products without ratings
+    }
+
+    return enriched;
   } catch {
     return [];
   }

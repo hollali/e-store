@@ -1,6 +1,7 @@
 import { simplifiedProduct } from "@/app/interface";
 import Image from "next/image";
 import Link from "next/link";
+import StarRating from "./StarRating";
 
 const cedisSign = "\u20B5";
 
@@ -26,6 +27,11 @@ export default function ProductCard({ product }: { product: simplifiedProduct })
             </Link>
           </h3>
           <p className="mt-1 text-sm text-gray-500">{product.categoryName}</p>
+          {product.rating !== undefined && (
+            <div className="mt-1">
+              <StarRating rating={product.rating} count={product.reviewCount} size="sm" />
+            </div>
+          )}
           <p className="text-sm font-medium text-gray-900">
             {cedisSign} {product.price}
           </p>

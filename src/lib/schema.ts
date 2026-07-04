@@ -24,6 +24,17 @@ export const wishlistItems = pgTable("wishlist_items", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const reviews = pgTable("reviews", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  userName: text("user_name").notNull(),
+  productId: text("product_id").notNull(),
+  rating: integer("rating").notNull(),
+  title: text("title"),
+  body: text("body"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const orders = pgTable("orders", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull(),
