@@ -8,6 +8,7 @@ export interface WishlistItem {
   name: string;
   price: number;
   image: string;
+  slug?: string;
 }
 
 interface WishlistContextType {
@@ -56,7 +57,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
           const res = await fetch("/api/wishlist");
           if (res.ok) {
             const data: any[] = await res.json();
-            setItems(data.map((i) => ({ id: i.productId, name: i.name, price: Number(i.price), image: i.image })));
+            setItems(data.map((i) => ({ id: i.productId, name: i.name, price: Number(i.price), image: i.image, slug: i.slug })));
           }
         } catch {
           setItems(loadLocalWishlist());

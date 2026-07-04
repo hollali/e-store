@@ -37,6 +37,7 @@ export async function POST(req: Request) {
           name: item.name,
           price: String(item.price),
           image: item.image,
+          slug: item.slug,
         })),
       );
     }
@@ -58,7 +59,7 @@ export async function POST(req: Request) {
 
   const created = await db
     .insert(wishlistItems)
-    .values({ id: generateId(), userId, productId, name, price: String(price), image })
+    .values({ id: generateId(), userId, productId, name, price: String(price), image, slug: body.slug })
     .returning();
   return NextResponse.json(created[0]);
 }

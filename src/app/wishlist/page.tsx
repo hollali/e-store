@@ -41,7 +41,7 @@ export default function WishlistPage() {
           <div className="grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {items.map((item) => (
               <div key={item.id} className="group relative">
-                <Link href={`/product/${item.id}`}>
+                <Link href={`/product/${item.slug || item.id}`}>
                   <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
                     <Image
                       src={item.image}
@@ -63,7 +63,7 @@ export default function WishlistPage() {
                   <div>
                     <h3 className="text-sm text-primary font-semibold">
                       <Link
-                        href={`/product/${item.id}`}
+                        href={`/product/${item.slug || item.id}`}
                         className="line-clamp-1"
                       >
                         {item.name}

@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation';
 
 async function getData(slug: string) {
     try {
-        const query = `*[_type == "product" && slug.current == $slug][0]{
+        const query = `*[_type == "product" && (slug.current == $slug || price_id == $slug || _id == $slug)][0]{
             _id,
             images,
             price,
@@ -111,6 +111,7 @@ export default async function ProductPage({
                                 price={data.price}
                                 key={data._id}
                                 price_id={data.price_id}
+                                slug={data.slug}
                             />
                             <CheckoutNow
                                 currency="GHS"

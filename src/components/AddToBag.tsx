@@ -13,6 +13,7 @@ export interface ProductCart {
     currency: string;
     image: any;
     price_id: string;
+    slug?: string;
 }
 
 export default function AddToBag({
@@ -22,6 +23,7 @@ export default function AddToBag({
     name,
     price,
     price_id,
+    slug,
 }: ProductCart) {
     const { addItem, handleCartClick, cartDetails } = useCart();
     const { isInWishlist, toggleItem } = useWishlist();
@@ -49,7 +51,7 @@ export default function AddToBag({
             </Button>
             <button
                 onClick={() =>
-                    toggleItem({ id: price_id, name, price, image: imageUrl })
+                    toggleItem({ id: price_id, name, price, image: imageUrl, slug })
                 }
                 className="p-2 rounded-full border hover:bg-gray-100 transition-colors"
                 aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}

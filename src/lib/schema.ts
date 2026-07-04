@@ -20,6 +20,7 @@ export const wishlistItems = pgTable("wishlist_items", {
   name: text("name").notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   image: text("image"),
+  slug: text("slug"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
