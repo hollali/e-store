@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton, useUser } from "@clerk/nextjs";
-import { ShoppingBag, Menu, Heart, Package, X, User } from "lucide-react";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { ShoppingBag, Menu, Heart, X, Search } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import SearchBar from "@/components/SearchBar";
 
@@ -13,13 +13,7 @@ export default function Navbar() {
   const { isSignedIn } = useUser();
   const { handleCartClick, cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(false);
@@ -36,14 +30,6 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) setIsOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen]);
-
   const links = [
     { name: "Home", href: "/" },
     { name: "Men", href: "/Men" },
@@ -52,43 +38,95 @@ export default function Navbar() {
   ];
 
   return (
-    <header
-      className={`sticky top-0 z-50 mb-8 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg shadow-sm"
-          : "bg-white dark:bg-gray-950"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Mobile: hamburger */}
-          <button
-            className="lg:hidden p-2 -ml-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+    <header className="sticky top-0 z-50 bg-white">
+      <div className="border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            <button
+              className="lg:hidden p-2"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
 
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
-              Afric<span className="text-primary">Vogue</span>
-            </h1>
-          </Link>
+            <Link href="/" className="flex-shrink-0">
+              <span className="text-2xl font-bold tracking-tight">
+                Afric<span className="text-primary">Vogue</span>
+              </span>
+              <span className="block text-[8px] text-gray-400 tracking-[0.2em] uppercase">
+                Leading Online Fashion Store
+              </span>
+            </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+            <div className="hidden md:flex flex-1 max-w-xl mx-8">
+              <div className="relative w-full">
+                <SearchBar />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <button
+                className="md:hidden p-2"
+                onClick={() => setSearchOpen(!searchOpen)}
+              >
+                <Search size={20} />
+              </button>
+              <Link
+                href="/wishlist"
+                className="hidden sm:flex items-center gap-1 text-sm text-gray-700 hover:text-primary"
+              >
+                <Heart size={20} />
+                <span className="hidden lg:inline">Wishlist</span>
+              </Link>
+              <button
+                onClick={() => handleCartClick()}
+                className="relative flex items-center gap-1 text-sm text-gray-700 hover:text-primary"
+              >
+                <ShoppingBag size={20} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 h-4 min-w-[16px] flex items-center justify-center bg-primary text-white text-[10px] font-bold rounded-full px-1">
+                    {cartCount}
+                  </span>
+                )}
+                <span className="hidden lg:inline">Cart</span>
+              </button>
+              <div className="hidden lg:flex items-center">
+                {isSignedIn ? (
+                  <UserButton afterSignOutUrl="/" />
+                ) : (
+                  <Link
+                    href="/sign-in"
+                    className="ml-1 px-4 py-2 text-sm font-medium text-white bg-primary rounded-full hover:bg-primary/90 transition-colors"
+                  >
+                    Sign in
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {searchOpen && (
+        <div className="md:hidden border-b border-gray-200 p-4">
+          <div className="relative">
+            <SearchBar />
+          </div>
+        </div>
+      )}
+
+      {/* Desktop nav */}
+      <div className="border-b border-gray-200 bg-white hidden lg:block">
+        <div className="max-w-7xl mx-auto px-4">
+          <nav className="flex items-center">
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                    isActive
-                      ? "text-primary bg-primary/10"
-                      : "text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className={`inline-flex items-center h-12 px-4 text-sm font-semibold uppercase tracking-wide text-gray-800 hover:text-primary border-b-2 border-transparent hover:border-primary transition-all ${
+                    isActive ? "text-primary border-primary" : ""
                   }`}
                 >
                   {link.name}
@@ -96,163 +134,58 @@ export default function Navbar() {
               );
             })}
           </nav>
-
-          {/* Actions */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            {/* Desktop search */}
-            <div className="hidden lg:block w-48 xl:w-56">
-              <SearchBar />
-            </div>
-
-            {/* Wishlist icon */}
-            {isSignedIn && (
-              <Link
-                href="/wishlist"
-                className="hidden sm:flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Wishlist"
-              >
-                <Heart className="h-5 w-5" />
-              </Link>
-            )}
-
-            {/* Cart */}
-            <button
-              onClick={() => handleCartClick()}
-              className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label={`Shopping cart${cartCount > 0 ? `, ${cartCount} items` : ""}`}
-            >
-              <ShoppingBag className="h-5 w-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-4 w-4 min-w-4 rounded-full bg-primary text-primary-foreground text-[10px] font-bold px-1">
-                  {cartCount}
-                </span>
-              )}
-            </button>
-
-            {/* User (desktop only) */}
-            <div className="hidden lg:flex items-center">
-              {isSignedIn ? (
-                <div className="ml-1">
-                  <UserButton afterSignOutUrl="/" />
-                </div>
-              ) : (
-                <Link
-                  href="/sign-in"
-                  className="ml-1 px-4 py-2 text-sm font-medium text-white bg-primary rounded-full hover:bg-primary/90 transition-colors"
-                >
-                  Sign in
-                </Link>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Mobile overlay */}
-      {isOpen && (
+      {/* Mobile sidebar drawer */}
+      <div className={`fixed inset-0 z-50 lg:hidden ${isOpen ? "" : "pointer-events-none"}`}>
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
           onClick={() => setIsOpen(false)}
-          aria-hidden="true"
         />
-      )}
-
-      {/* Mobile slide-in menu (left side) */}
-      <div
-        className={`fixed top-0 left-0 h-full w-72 max-w-[80vw] bg-white dark:bg-gray-950 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation menu"
-      >
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
-            <h2 className="text-lg font-semibold">Menu</h2>
+        <div
+          className={`absolute inset-y-0 left-0 w-72 bg-white shadow-xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
+          <div className="flex items-center justify-between h-16 px-4 border-b">
+            <Link href="/" className="text-lg font-bold tracking-tight" onClick={() => setIsOpen(false)}>
+              Afric<span className="text-primary">Vogue</span>
+            </Link>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 -mr-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Close menu"
+              className="p-2 hover:bg-gray-100 rounded-md"
             >
-              <X className="h-5 w-5" />
+              <X size={20} />
             </button>
           </div>
 
-          {/* Mobile search */}
-          <div className="p-4 border-b dark:border-gray-800">
-            <SearchBar variant="mobile" onNavigate={() => setIsOpen(false)} />
+          <div className="px-4 py-4 space-y-1 overflow-y-auto" style={{ maxHeight: "calc(100% - 7rem)" }}>
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block py-3 text-sm font-semibold uppercase text-gray-800 hover:text-primary border-b border-gray-100"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
 
-          {/* Links */}
-          <nav className="flex-1 overflow-y-auto p-4">
-            <ul className="space-y-1">
-              {links.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                        isActive
-                          ? "text-primary bg-primary/10"
-                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                );
-              })}
-
-              {/* Divider */}
-              <li className="pt-4 mt-4 border-t dark:border-gray-800">
-                <span className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Account
-                </span>
-              </li>
-
-              {isSignedIn ? (
-                <>
-                  <li>
-                    <Link
-                      href="/wishlist"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <Heart className="h-4 w-4" /> Wishlist
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/orders"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <Package className="h-4 w-4" /> Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <div className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300">
-                      <User className="h-4 w-4 shrink-0" />
-                      <UserButton afterSignOutUrl="/" showName />
-                    </div>
-                  </li>
-                </>
-              ) : (
-                <li>
-                  <Link
-                    href="/sign-in"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    <User className="h-4 w-4" /> Sign in
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </nav>
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-gray-50">
+            {!isSignedIn ? (
+              <Link
+                href="/sign-in"
+                className="block w-full text-center py-2.5 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign in
+              </Link>
+            ) : (
+              <div className="flex items-center gap-3 px-2 py-1">
+                <UserButton afterSignOutUrl="/" showName />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
