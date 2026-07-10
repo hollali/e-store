@@ -11,14 +11,26 @@ import ShoppingCartModal from "@/components/shoppingCartModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AfricVouge",
-  description: "Discover the latest trends and timeless styles at AfricVouge",
+  title: "AfricVogue",
+  description: "Discover the latest trends and timeless styles at AfricVogue",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/apple-touch-icon.png",
+    other: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "AfricVogue",
     description: "Discover the latest trends and timeless styles at AfricVogue",
-    url: "https://www.africvouge.com",
+    url: "https://www.africvogue.com",
     siteName: "AfricVogue",
-    images: [{ url: "https://www.africvouge.com/og-image.png" }],
+    images: [{ url: "https://www.africvogue.com/og-image.png" }],
     locale: "en_GH",
     type: "website",
   },
@@ -37,10 +49,6 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <head>
-          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-          <link rel="apple-touch-icon" href="/apple-icon.png" type="image/png" sizes="180x180" />
-        </head>
         <body className={inter.className}>
           <AppProviders>
             <Navbar />
