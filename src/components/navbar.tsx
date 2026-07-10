@@ -66,7 +66,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-4">
               <button
-                className="md:hidden p-2"
+                className="md:hidden"
                 onClick={() => setSearchOpen(!searchOpen)}
               >
                 <Search size={20} />
