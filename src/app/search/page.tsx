@@ -10,15 +10,16 @@ const ITEMS_PER_PAGE = 12;
 
 async function getData(query: string, page: number) {
   try {
-    const sanitized = query.replace(/[^a-zA-Z0-9\s]/g, "").trim();
+    const sanitized = query.replace(/[^\p{L}\p{N}\s'-]/gu, "").trim().slice(0, 60);
     if (!sanitized) return { products: [], total: 0, similar: [] };
 
     const start = (page - 1) * ITEMS_PER_PAGE;
     const end = start + ITEMS_PER_PAGE;
+    const pattern = `*${sanitized}*`;
 
     const [products, total] = await Promise.all([
       client.fetch(
-        `*[_type == "product" && name match "*${sanitized}*"] | order(_createdAt desc)[$start...$end]{
+        `*[_type == "product" && name match $pattern] | order(_createdAt desc)[$start...$end]{
           _id,
           price,
           name,
@@ -27,10 +28,11 @@ async function getData(query: string, page: number) {
           "imageUrl": images[0].asset->url,
           price_id
         }`,
-        { start, end },
+        { start, end, pattern },
       ),
       client.fetch(
-        `count(*[_type == "product" && name match "*${sanitized}*"])`,
+        `count(*[_type == "product" && name match $pattern])`,
+        { pattern },
       ),
     ]);
 
@@ -50,7 +52,7 @@ async function getData(query: string, page: number) {
     if (products.length === 0) {
       try {
         similar = await client.fetch(
-          `*[_type == "product" && category->name match "*${sanitized}*"] | order(_createdAt desc)[0...4]{
+          `*[_type == "product" && category->name match $pattern] | order(_createdAt desc)[0...4]{
             _id,
             price,
             name,
@@ -59,6 +61,7 @@ async function getData(query: string, page: number) {
             "imageUrl": images[0].asset->url,
             price_id
           }`,
+          { pattern },
         );
         if (similar.length === 0) {
           similar = await client.fetch(
@@ -110,10 +113,15 @@ export default async function SearchPage({
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="flex flex-col items-center gap-4 mb-8">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+        <div className="flex flex-col items-center gap-2 mb-8">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
             {query ? `Search results for "${query}"` : "Search Products"}
-          </h2>
+          </h1>
+          {query && total > 0 && (
+            <p className="text-sm text-gray-500" aria-live="polite">
+              {total} {total === 1 ? "result" : "results"}
+            </p>
+          )}
           {!query && (
             <p className="text-gray-500 flex items-center gap-2">
               <Search className="h-4 w-4" />
@@ -189,7 +197,7 @@ export default async function SearchPage({
           </div>
         ) : (
           <>
-            <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
               {products.map((product: simplifiedProduct) => (
                 <ProductCard key={product._id} product={product} />
               ))}
@@ -202,28 +210,6 @@ export default async function SearchPage({
             />
           </>
         )}
-        <div className="flex justify-center items-center h-full mt-8">
-          <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
-            <Link
-              href="/Men"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Men
-            </Link>
-            <Link
-              href="/Women"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Women
-            </Link>
-            <Link
-              href="/Accessories"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Trimmings
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

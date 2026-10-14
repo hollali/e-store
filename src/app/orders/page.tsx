@@ -51,7 +51,13 @@ export default function OrdersPage() {
   if (!isLoaded || loading) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <p className="text-center text-gray-500">Loading orders...</p>
+        <div className="h-8 w-48 animate-pulse rounded-md bg-gray-200" />
+        <div className="mt-8 space-y-4">
+          {[0, 1].map((i) => (
+            <div key={i} className="h-32 animate-pulse rounded-lg bg-gray-100" />
+          ))}
+        </div>
+        <span className="sr-only">Loading orders…</span>
       </div>
     );
   }
@@ -79,7 +85,20 @@ export default function OrdersPage() {
         ) : (
           <div className="space-y-6">
             {orders.map((order) => {
-              const items: OrderItem[] = JSON.parse(order.items);
+              let items: OrderItem[] = [];
+              try {
+                items = JSON.parse(order.items);
+                if (!Array.isArray(items)) items = [];
+              } catch {
+                items = [];
+              }
+              const status = (order.status || "paid").toLowerCase();
+              const statusStyles =
+                status === "paid" || status === "completed" || status === "delivered"
+                  ? "bg-green-100 text-green-800"
+                  : status === "pending" || status === "processing"
+                    ? "bg-yellow-100 text-yellow-800"
+                    : "bg-gray-100 text-gray-700";
               return (
                 <div
                   key={order.id}
@@ -100,7 +119,7 @@ export default function OrdersPage() {
                         })}
                       </p>
                     </div>
-                    <span className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${statusStyles}`}>
                       {order.status}
                     </span>
                   </div>

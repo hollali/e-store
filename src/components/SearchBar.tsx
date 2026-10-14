@@ -22,8 +22,10 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [listId] = useState(() => `search-list-${Math.random().toString(36).slice(2)}`);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<NodeJS.Timeout>();
@@ -31,8 +33,10 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
   const fetchSuggestions = useCallback(async (q: string) => {
     if (q.length < 2) {
       setSuggestions([]);
+      setIsSearching(false);
       return;
     }
+    setIsSearching(true);
     try {
       const res = await fetch(`/api/search/suggest?q=${encodeURIComponent(q)}`);
       if (res.ok) {
@@ -41,6 +45,8 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
       }
     } catch {
       setSuggestions([]);
+    } finally {
+      setIsSearching(false);
     }
   }, []);
 
@@ -55,7 +61,6 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
     e.preventDefault();
     if (query.trim()) {
       router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-      setQuery("");
       setShowSuggestions(false);
       onNavigate?.();
     }
@@ -63,7 +68,6 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
 
   const handleSelect = (suggestion: Suggestion) => {
     router.push(`/product/${suggestion.slug}`);
-    setQuery("");
     setShowSuggestions(false);
     onNavigate?.();
   };
@@ -114,7 +118,12 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "/" && !e.ctrlKey && !e.metaKey && document.activeElement !== inputRef.current) {
+      const target = e.target as HTMLElement | null;
+      const isTyping =
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target?.isContentEditable;
+      if (e.key === "/" && !e.ctrlKey && !e.metaKey && !isTyping) {
         e.preventDefault();
         inputRef.current?.focus();
       }
@@ -142,7 +151,13 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
           <Search className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 ${isMobile ? "h-4 w-4" : "h-4 w-4"}`} />
           <input
             ref={inputRef}
-            type="text"
+            type="search"
+            role="combobox"
+            aria-expanded={showSuggestions}
+            aria-controls={listId}
+            aria-autocomplete="list"
+            aria-label="Search products"
+            aria-busy={isSearching}
             value={query}
             onChange={(e) => handleChange(e.target.value)}
             onFocus={() => suggestions.length > 0 && query.length >= 2 && setShowSuggestions(true)}
@@ -176,16 +191,21 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
 
       {showSuggestions && (
         <div
+          id={listId}
+          role="listbox"
+          aria-label="Product suggestions"
           className={`absolute left-0 right-0 mt-1 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 ${
             isMobile ? "static mt-2" : ""
           }`}
         >
-          <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
-            Suggestions
+          <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wider" aria-hidden="true">
+            {isSearching ? "Searching…" : "Suggestions"}
           </div>
           {suggestions.map((s, i) => (
             <button
               key={s._id}
+              role="option"
+              aria-selected={i === selectedIndex}
               onClick={() => handleSelect(s)}
               className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${
                 i === selectedIndex

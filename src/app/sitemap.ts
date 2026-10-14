@@ -5,7 +5,7 @@ export default async function sitemap() {
 
   let productUrls: { url: string; lastModified: Date; changeFrequency: "weekly"; priority: number }[] = [];
   try {
-    const productsQuery = `*[_type == "product"]{ "slug": slug.current }`;
+    const productsQuery = `*[_type == "product"] | order(_createdAt desc)[0...500]{ "slug": slug.current }`;
     const products = await client.fetch(productsQuery);
     productUrls = products.map((product: { slug: string }) => ({
       url: `${baseUrl}/product/${product.slug}`,

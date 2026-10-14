@@ -43,6 +43,10 @@ export default function ReviewSection({ productId }: { productId: string }) {
       setError("Please sign in to leave a review");
       return;
     }
+    if (!formBody.trim()) {
+      setError("Please write a few words about the product");
+      return;
+    }
     setSubmitting(true);
     setError("");
 
@@ -134,13 +138,16 @@ export default function ReviewSection({ productId }: { productId: string }) {
             <textarea
               id="body"
               rows={3}
+              required
+              minLength={4}
               value={formBody}
               onChange={(e) => setFormBody(e.target.value)}
+              aria-describedby={error ? "review-error" : undefined}
               className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Share your experience with this product..."
             />
           </div>
-          {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+          {error && <p id="review-error" role="alert" className="text-red-500 text-sm mb-3">{error}</p>}
           <Button type="submit" disabled={submitting}>
             {submitting ? "Submitting..." : "Submit Review"}
           </Button>

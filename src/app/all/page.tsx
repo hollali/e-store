@@ -1,7 +1,5 @@
 import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
-import Image from "next/image";
-import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import Pagination from "@/components/Pagination";
 import { getBatchRatings } from "@/lib/ratings";
@@ -66,68 +64,29 @@ export default async function AllProducts({
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="flex justify-center">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our Products
-          </h2>
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            All Products
+          </h1>
+          <p className="text-sm text-gray-500" aria-live="polite">
+            {total === 0 ? "No products" : `${total} ${total === 1 ? "product" : "products"}`}
+          </p>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.map((product: simplifiedProduct) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        {products.length === 0 ? (
+          <p className="py-16 text-center text-gray-500">No products available yet.</p>
+        ) : (
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            {products.map((product: simplifiedProduct) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           basePath="/all"
         />
-      </div>
-      <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-        <div className="flex gap-6 flex-wrap justify-center">
-          <Link
-            href="/Men"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
-          >
-            <Image
-              src="/maleitem.png"
-              alt="Men"
-              fill
-              className="object-cover transition group-hover:scale-110"
-            />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Men
-            </span>
-          </Link>
-          <Link
-            href="/Women"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
-          >
-            <Image
-              src="/model.jpeg"
-              alt="Women"
-              fill
-              className="object-cover transition group-hover:scale-110"
-            />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Women
-            </span>
-          </Link>
-          <Link
-            href="/Accessories"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
-          >
-            <Image
-              src="/bracelets.jpeg"
-              alt="Accessories"
-              fill
-              className="object-cover transition group-hover:scale-110"
-            />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Accessories
-            </span>
-          </Link>
-        </div>
       </div>
     </div>
   );

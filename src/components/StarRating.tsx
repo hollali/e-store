@@ -27,11 +27,14 @@ export default function StarRating({
 
   if (interactive) {
     return (
-      <div className="flex items-center gap-0.5">
+      <div className="flex items-center gap-0.5" role="radiogroup" aria-label="Choose a rating">
         {stars.map((star) => (
           <button
             key={star}
             type="button"
+            role="radio"
+            aria-checked={star === rating}
+            aria-label={`Rate ${star} out of 5 stars`}
             onClick={() => onChange?.(star)}
             className={`${sizes[size]} transition-colors ${
               star <= rating
@@ -47,7 +50,7 @@ export default function StarRating({
   }
 
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-0.5" role="img" aria-label={`Rated ${rating} out of 5 stars${count !== undefined ? ` based on ${count} reviews` : ""}`}>
       {stars.map((star) => {
         const fill = star <= Math.floor(rating) ? "fill-yellow-400" : "";
         const half = star === Math.ceil(rating) && rating % 1 >= 0.25 ? "half" : "";

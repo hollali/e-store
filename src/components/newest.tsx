@@ -7,7 +7,7 @@ import { getBatchRatings } from "@/lib/ratings";
 
 async function getData() {
   try {
-    const query = `*[_type == "product"][0...4] | order(_createdAt desc) {
+    const query = `*[_type == "product"] | order(_createdAt desc)[0...4] {
       _id,
       price,
       name,
@@ -53,7 +53,7 @@ export default async function Newest() {
             </span>
           </Link>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
           {data.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

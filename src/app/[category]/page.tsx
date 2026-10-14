@@ -15,7 +15,7 @@ async function getData(category: string, page: number) {
 
     const [products, total] = await Promise.all([
       client.fetch(
-        `*[_type == "product" && category->name == "${category}"] | order(_createdAt desc)[$start...$end]{
+        `*[_type == "product" && category->name == $category] | order(_createdAt desc)[$start...$end]{
           _id,
           "imageUrl": images[0].asset->url,
           price,
@@ -24,10 +24,11 @@ async function getData(category: string, page: number) {
           "categoryName": category->name,
           price_id
         }`,
-        { start, end },
+        { start, end, category },
       ),
       client.fetch(
-        `count(*[_type == "product" && category->name == "${category}"])`,
+        `count(*[_type == "product" && category->name == $category])`,
+        { category },
       ),
     ]);
 
@@ -80,46 +81,41 @@ export default async function CategoryPage({
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="flex justify-center items-center h-full">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Our {params.category} Product
-          </h2>
+      <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:max-w-7xl lg:px-8">
+        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-gray-500">
+          <ol className="flex items-center gap-1.5">
+            <li><Link href="/" className="hover:text-primary hover:underline">Home</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="font-medium text-gray-900">{params.category}</li>
+          </ol>
+        </nav>
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            {params.category}
+          </h1>
+          <p className="text-sm text-gray-500" aria-live="polite">
+            {total === 0 ? "No products" : `${total} ${total === 1 ? "product" : "products"}`}
+          </p>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.map((product: simplifiedProduct) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        {products.length === 0 ? (
+          <div className="py-16 text-center">
+            <p className="text-gray-500">No products in this category yet.</p>
+            <Link href="/all" className="mt-4 inline-block font-medium text-primary hover:underline">
+              Browse all products
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            {products.map((product: simplifiedProduct) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        )}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           basePath={`/${params.category}`}
         />
-      </div>
-      <div className="flex justify-center items-center h-full">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-          <div className="flex h-12 w-64 divide-x overflow-hidden rounded-lg border">
-            <Link
-              href="/Men"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Men
-            </Link>
-            <Link
-              href="/Women"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Women
-            </Link>
-            <Link
-              href="/Accessories"
-              className="flex w-1/3 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-            >
-              Trimmings
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

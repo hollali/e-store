@@ -19,10 +19,16 @@ const Footer = () => {
     { name: "Sign In", href: "/sign-in" },
   ];
 
+  const supportLinks = [
+    { name: "Shipping & Delivery", href: "/all" },
+    { name: "Returns & Exchanges", href: "/all" },
+    { name: "All Products", href: "/all" },
+  ];
+
   return (
     <footer className="mt-16 bg-white dark:bg-gray-950 border-t dark:border-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand + Contact */}
           <div>
             <Link href="/" className="inline-block mb-4">
@@ -56,8 +62,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
                 <Phone className="h-4 w-4 shrink-0 text-primary" />
-                <a href="tel:+2330505306932" className="hover:text-primary transition-colors">
-                  0505306932
+                <a href="tel:+233505306932" className="hover:text-primary transition-colors">
+                  +233 50 530 6932
                 </a>
               </div>
             </div>
@@ -120,6 +126,25 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
+              Support
+            </h4>
+            <ul className="space-y-3 mb-8">
+              {supportLinks.map((link) => (
+                <li key={`${link.href}-${link.name}`}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
               Our Story
             </h4>
@@ -128,6 +153,16 @@ const Footer = () => {
               of African fashion. Our collections blend contemporary trends with
               timeless elegance, bringing you the finest in African design.
             </p>
+            <div className="mt-4 flex flex-wrap gap-2" aria-label="Accepted payment methods">
+              {["Visa", "Mastercard", "MTN MoMo", "Paystack"].map((method) => (
+                <span
+                  key={method}
+                  className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-500"
+                >
+                  {method}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
