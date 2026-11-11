@@ -238,7 +238,7 @@ export default function SignUpPage() {
                 className={inputClass(false)}
               />
             </Field>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field label="City" id="city" required error={touched.city ? errors.city : undefined}>
                 <input
                   id="city"
@@ -261,8 +261,6 @@ export default function SignUpPage() {
                   className={inputClass(false)}
                 />
               </Field>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Field label="Postal code" id="postalCode">
                 <input
                   id="postalCode"
