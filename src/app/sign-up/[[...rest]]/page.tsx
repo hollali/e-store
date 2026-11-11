@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
@@ -8,6 +9,31 @@ import { authClient } from "@/lib/auth/client";
 
 function isValidEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function Field({
+  label,
+  id,
+  required,
+  error,
+  children,
+}: {
+  label: string;
+  id: string;
+  required?: boolean;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor={id}>
+        {label}
+        {required && <span className="text-red-500"> *</span>}
+      </label>
+      {children}
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+    </div>
+  );
 }
 
 type Errors = {
@@ -107,38 +133,15 @@ export default function SignUpPage() {
   }
 
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-lg border px-3 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 ${
+    `w-full rounded-lg border px-3 py-2.5 text-base transition-colors focus:outline-none focus:ring-2 ${
       hasError
         ? "border-red-400 focus:border-red-500 focus:ring-red-200"
         : "border-gray-300 focus:border-primary focus:ring-primary/20"
     }`;
 
-  const Field = ({
-    label,
-    id,
-    required,
-    error,
-    children,
-  }: {
-    label: string;
-    id: string;
-    required?: boolean;
-    error?: string;
-    children: React.ReactNode;
-  }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor={id}>
-        {label}
-        {required && <span className="text-red-500"> *</span>}
-      </label>
-      {children}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
-    </div>
-  );
-
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/50 px-4 py-10">
-      <div className="w-full max-w-2xl rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="w-full max-w-2xl rounded-2xl border border-gray-200 bg-white animate-in fade-in slide-in-from-bottom-4 duration-700 p-6 shadow-sm">
         <div className="mb-4">
           <h1 className="text-2xl font-bold text-gray-900 text-center">Create account</h1>
           <p className="mt-1 text-sm text-gray-500 text-center">Join AfricVogue today</p>
