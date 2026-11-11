@@ -104,12 +104,6 @@ export default async function Hero() {
             >
               Shop Now
             </Link>
-            <Link
-              href="/Women"
-              className="inline-flex h-12 items-center rounded-md border border-gray-300 px-6 text-sm font-semibold text-gray-900 hover:border-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            >
-              Shop Women
-            </Link>
           </div>
         </div>
         <div className="mb-12 flex w-full md:mb-16 lg:w-2/3">
