@@ -168,6 +168,17 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            {isSignedIn && (
+              <Link
+                href="/orders"
+                aria-current={pathname === "/orders" ? "page" : undefined}
+                className={`inline-flex h-12 items-center px-4 text-sm font-semibold uppercase tracking-wide text-gray-800 transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary border-b-2 ${
+                  pathname === "/orders" ? "border-primary text-primary" : "border-transparent"
+                }`}
+              >
+                Orders
+              </Link>
+            )}
           </nav>
         </div>
       </div>
