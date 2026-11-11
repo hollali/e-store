@@ -39,7 +39,6 @@ export default function Navbar() {
     { name: "Men", href: "/Men" },
     { name: "Women", href: "/Women" },
     { name: "Accessories", href: "/Accessories" },
-    { name: "All Products", href: "/all" },
   ];
 
   return (
