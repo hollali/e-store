@@ -46,7 +46,7 @@ export default async function Hero() {
                 src="/maleitem.png"
                 alt="Men"
                 fill
-                className="object-cover transition group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
                 Men
@@ -60,7 +60,7 @@ export default async function Hero() {
                 src="/model.jpeg"
                 alt="Women"
                 fill
-                className="object-cover transition group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
                 Women
@@ -74,7 +74,7 @@ export default async function Hero() {
                 src="/bracelets.jpeg"
                 alt="Accessories"
                 fill
-                className="object-cover transition group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
               <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
                 Accessories
@@ -140,7 +140,7 @@ export default async function Hero() {
               src="/maleitem.png"
               alt="Men"
               fill
-              className="object-cover transition group-hover:scale-110"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
             <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
               Men
@@ -154,7 +154,7 @@ export default async function Hero() {
               src="/model.jpeg"
               alt="Women"
               fill
-              className="object-cover transition group-hover:scale-110"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
             <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
               Women
@@ -168,7 +168,7 @@ export default async function Hero() {
               src="/bracelets.jpeg"
               alt="Accessories"
               fill
-              className="object-cover transition group-hover:scale-110"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
             <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
               Accessories

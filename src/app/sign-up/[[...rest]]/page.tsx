@@ -31,7 +31,7 @@ function Field({
         {required && <span className="text-red-500"> *</span>}
       </label>
       {children}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p id={`${id}-error`} className="mt-1 text-xs text-red-600">{error}</p>}
     </div>
   );
 }
@@ -162,6 +162,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("name")}
                   className={inputClass(!!(touched.name && errors.name))}
                   aria-invalid={!!(touched.name && errors.name)}
+                aria-describedby={touched.name && errors.name ? "name-error" : undefined}
                 />
               </Field>
               <Field label="Email" id="email" required error={touched.email ? errors.email : undefined}>
@@ -174,6 +175,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("email")}
                   className={inputClass(!!(touched.email && errors.email))}
                   aria-invalid={!!(touched.email && errors.email)}
+                aria-describedby={touched.email && errors.email ? "email-error" : undefined}
                 />
               </Field>
             </div>
@@ -188,6 +190,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("password")}
                   className={`${inputClass(!!(touched.password && errors.password))} pr-10`}
                   aria-invalid={!!(touched.password && errors.password)}
+                aria-describedby={touched.password && errors.password ? "password-error" : undefined}
                 />
                 <button
                   type="button"
@@ -216,6 +219,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("phone")}
                   className={inputClass(!!(touched.phone && errors.phone))}
                   aria-invalid={!!(touched.phone && errors.phone)}
+                aria-describedby={touched.phone && errors.phone ? "phone-error" : undefined}
                 />
               </Field>
               <Field label="Address line 1" id="addressLine1" required error={touched.addressLine1 ? errors.addressLine1 : undefined}>
@@ -228,6 +232,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("addressLine1")}
                   className={inputClass(!!(touched.addressLine1 && errors.addressLine1))}
                   aria-invalid={!!(touched.addressLine1 && errors.addressLine1)}
+                aria-describedby={touched.addressLine1 && errors.addressLine1 ? "addressLine1-error" : undefined}
                 />
               </Field>
             </div>
@@ -252,6 +257,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("city")}
                   className={inputClass(!!(touched.city && errors.city))}
                   aria-invalid={!!(touched.city && errors.city)}
+                aria-describedby={touched.city && errors.city ? "city-error" : undefined}
                 />
               </Field>
               <Field label="Region / State" id="region">
@@ -284,6 +290,7 @@ export default function SignUpPage() {
                   onBlur={() => blur("country")}
                   className={inputClass(!!(touched.country && errors.country))}
                   aria-invalid={!!(touched.country && errors.country)}
+                aria-describedby={touched.country && errors.country ? "country-error" : undefined}
                 />
               </Field>
             </div>

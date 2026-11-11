@@ -81,9 +81,10 @@ export default function SignInPage() {
               onBlur={() => blur("email")}
               className={inputClass(!!(touched.email && errors.email))}
               aria-invalid={!!(touched.email && errors.email)}
+              aria-describedby={touched.email && errors.email ? "email-error" : undefined}
             />
             {touched.email && errors.email && (
-              <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+              <p id="email-error" className="mt-1 text-xs text-red-600">{errors.email}</p>
             )}
           </div>
           <div>
@@ -104,6 +105,7 @@ export default function SignInPage() {
                 onBlur={() => blur("password")}
                 className={`${inputClass(!!(touched.password && errors.password))} pr-10`}
                 aria-invalid={!!(touched.password && errors.password)}
+                aria-describedby={touched.password && errors.password ? "password-error" : undefined}
               />
               <button
                 type="button"
@@ -115,7 +117,7 @@ export default function SignInPage() {
               </button>
             </div>
             {touched.password && errors.password && (
-              <p className="mt-1 text-xs text-red-600">{errors.password}</p>
+              <p id="password-error" className="mt-1 text-xs text-red-600">{errors.password}</p>
             )}
           </div>
           {errors.form && (
