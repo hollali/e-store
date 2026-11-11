@@ -140,12 +140,12 @@ export default function SignUpPage() {
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/50 px-4 py-10">
       <div className="w-full max-w-2xl rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
-          <p className="mt-1 text-sm text-gray-500">Join AfricVogue today</p>
+          <h1 className="text-2xl font-bold text-gray-900 text-center">Create account</h1>
+          <p className="mt-1 text-sm text-gray-500 text-center">Join AfricVogue today</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <section className="space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500 text-center">
               Account details
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -199,7 +199,7 @@ export default function SignUpPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500 text-center">
               Contact &amp; shipping
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
