@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 import { Star, MessageSquare, ChevronDown, ChevronUp } from "lucide-react";
 import StarRating from "./StarRating";
 import { Button } from "./ui/button";
@@ -18,7 +18,8 @@ interface Review {
 }
 
 export default function ReviewSection({ productId }: { productId: string }) {
-  const { user, isSignedIn } = useUser();
+  const { data: session } = authClient.useSession();
+  const isSignedIn = !!session?.user;
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -59,7 +60,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
           rating: formRating,
           title: formTitle,
           body: formBody,
-          userName: user?.fullName || user?.username || user?.primaryEmailAddress?.emailAddress || "Anonymous",
+           userName: (session?.user as any)?.name || (session?.user as any)?.username || (session?.user as any)?.email || "Anonymous",
         }),
       });
 

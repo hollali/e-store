@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useUser, UserButton } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 import { ShoppingBag, Menu, Heart, X, Search } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
@@ -11,7 +11,8 @@ import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { isSignedIn } = useUser();
+  const { data: session, isPending } = authClient.useSession();
+  const isSignedIn = !!session?.user;
   const { handleCartClick, cartCount } = useCart();
   const { items: wishlistItems } = useWishlist();
   const [isOpen, setIsOpen] = useState(false);
@@ -122,7 +123,13 @@ export default function Navbar() {
               </button>
               <div className="hidden lg:flex items-center">
                 {isSignedIn ? (
-                  <UserButton afterSignOutUrl="/" />
+                  <button
+                    type="button"
+                    onClick={() => authClient.signOut()}
+                    className="ml-1 inline-flex h-11 items-center rounded-full bg-gray-100 px-4 text-sm font-medium text-gray-900 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    Sign out
+                  </button>
                 ) : (
                   <Link
                     href="/sign-in"
@@ -230,11 +237,15 @@ export default function Navbar() {
               >
                 Sign in
               </Link>
-            ) : (
-              <div className="flex items-center gap-3 px-2 py-1">
-                <UserButton afterSignOutUrl="/" showName />
-              </div>
-            )}
+             ) : (
+               <button
+                 type="button"
+                 onClick={() => authClient.signOut()}
+                 className="flex h-11 w-full items-center justify-center rounded-md text-sm font-medium text-white bg-primary hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+               >
+                 Sign out
+               </button>
+             )}
           </div>
         </div>
       </div>

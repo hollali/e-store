@@ -4,7 +4,7 @@ import { useState } from "react";
 import { PaystackConsumer } from "react-paystack";
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { formatGHS } from "@/lib/utils";
@@ -28,7 +28,9 @@ export default function ShoppingCartModal() {
     totalPrice,
     clearCart,
   } = useCart();
-  const { user, isSignedIn } = useUser();
+  const { data: session } = authClient.useSession();
+  const isSignedIn = !!session?.user;
+  const user = session?.user;
   const router = useRouter();
   const [isPaying, setIsPaying] = useState(false);
   const [payError, setPayError] = useState("");
@@ -39,7 +41,7 @@ export default function ShoppingCartModal() {
 
   const paystackConfig = {
     reference: `av-${Date.now()}-${cartCount}`,
-    email: user?.primaryEmailAddress?.emailAddress ?? "",
+    email: (user as any)?.email ?? "",
     amount: Math.round(totalPrice * 100),
     currency: "GHS",
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string,

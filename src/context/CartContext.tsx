@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 
 export interface CartItem {
   id: string;
@@ -51,7 +51,9 @@ function saveLocalCart(items: Record<string, CartItem>) {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const { user, isSignedIn, isLoaded } = useUser();
+  const { data: session, isPending } = authClient.useSession();
+  const isSignedIn = !!session?.user;
+  const isLoaded = !isPending;
   const [cartDetails, setCartDetails] = useState<Record<string, CartItem>>({});
   const [shouldDisplayCart, setShouldDisplayCart] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +64,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (!isLoaded) return;
 
     async function load() {
-      if (isSignedIn && user) {
+      if (isSignedIn) {
         try {
           const res = await fetch("/api/cart");
           if (res.ok) {
@@ -92,7 +94,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
 
     load();
-  }, [isSignedIn, user, isLoaded]);
+  }, [isSignedIn, isLoaded]);
 
   // Persist cart
   const persist = useCallback(

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/lib/auth/server";
 import { getDb } from "@/lib/db";
 import { orders } from "@/lib/schema";
 import { eq, desc } from "drizzle-orm";
@@ -44,7 +44,8 @@ async function verifyPaystackPayment(reference: string, expectedAmountPesewas: n
 }
 
 export async function GET() {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
@@ -59,7 +60,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });

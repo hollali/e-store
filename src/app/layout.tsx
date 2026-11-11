@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -47,7 +46,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
           <a
@@ -65,6 +63,5 @@ export default function RootLayout({
           <SpeedInsights />
         </body>
       </html>
-    </ClerkProvider>
   );
 }

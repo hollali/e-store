@@ -1,16 +1,24 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { auth } from "@/lib/auth/server";
 
-const isProtectedRoute = createRouteMatcher(["/orders(.*)"]);
-
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) {
-    auth().protect();
-  }
+export default auth.middleware({
+  loginUrl: "/sign-in",
+  publicRoutes: [
+    "/",
+    "/Men",
+    "/Women",
+    "/Accessories",
+    "/all",
+    "/product",
+    "/search",
+    "/sign-in",
+    "/sign-up",
+    "/wishlist",
+    "/api",
+  ],
 });
 
 export const config = {
   matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
+    "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };

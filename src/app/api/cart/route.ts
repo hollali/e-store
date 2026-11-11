@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/lib/auth/server";
 import { getDb } from "@/lib/db";
 import { cartItems } from "@/lib/schema";
 import { eq, and } from "drizzle-orm";
@@ -30,7 +30,8 @@ async function safeJson(req: Request) {
 }
 
 export async function GET() {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
@@ -40,7 +41,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
@@ -117,7 +119,8 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
@@ -141,7 +144,8 @@ export async function DELETE(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });

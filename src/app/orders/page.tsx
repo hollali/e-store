@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
 import { Package, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -24,7 +24,9 @@ interface Order {
 }
 
 export default function OrdersPage() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { data: session, isPending } = authClient.useSession();
+  const isSignedIn = !!session?.user;
+  const isLoaded = !isPending;
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);

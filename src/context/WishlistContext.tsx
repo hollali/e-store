@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 
 export interface WishlistItem {
   id: string;
@@ -44,7 +44,9 @@ function saveLocalWishlist(items: WishlistItem[]) {
 }
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const { user, isSignedIn, isLoaded } = useUser();
+  const { data: session, isPending } = authClient.useSession();
+  const isSignedIn = !!session?.user;
+  const isLoaded = !isPending;
   const [items, setItems] = useState<WishlistItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -69,7 +71,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     }
 
     load();
-  }, [isSignedIn, user, isLoaded]);
+  }, [isSignedIn, isLoaded]);
 
   const persist = useCallback(
     async (newItems: WishlistItem[]) => {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { urlFor } from "../lib/sanity";
 import { ProductCart } from "./AddToBag";
 import { PaystackButton } from "react-paystack";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth/client";
 import { useRouter } from "next/navigation";
 
 export default function CheckoutNow({
@@ -15,10 +15,11 @@ export default function CheckoutNow({
   price,
   price_id,
 }: ProductCart) {
-  const { user, isSignedIn } = useUser();
+  const { data: session } = authClient.useSession();
+  const isSignedIn = !!session?.user;
   const router = useRouter();
   const [error, setError] = useState("");
-  const email = user?.primaryEmailAddress?.emailAddress ?? "";
+  const email = (session?.user as any)?.email ?? "";
   const hasPublicKey = Boolean(process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY);
 
   const config = {

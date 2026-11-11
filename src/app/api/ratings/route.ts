@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@/lib/auth/server";
 import { getDb } from "@/lib/db";
 import { reviews } from "@/lib/schema";
 import { eq, and, desc } from "drizzle-orm";
@@ -46,7 +46,8 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { userId } = await auth();
+  const { data: session } = await auth.getSession();
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   if (isRateLimited(`ratings:${userId}`)) {
@@ -81,12 +82,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Please write a few words" }, { status: 400 });
   }
 
-  // Derive display name server-side — never trust client-supplied userName
-  const user = await currentUser().catch(() => null);
   const displayName =
-    user?.fullName?.trim() ||
-    (user?.username as string | null) ||
-    user?.primaryEmailAddress?.emailAddress ||
+    (session?.user?.name as string | undefined)?.trim() ||
+    (session?.user as any)?.username ||
+    (session?.user as any)?.email ||
     "Anonymous";
 
   const existing = await db
