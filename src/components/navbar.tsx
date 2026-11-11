@@ -88,7 +88,7 @@ export default function Navbar() {
               <Link
                 href="/wishlist"
                 aria-label={wishlistItems.length > 0 ? `Wishlist, ${wishlistItems.length} items` : "Wishlist"}
-                className="relative flex h-11 min-w-11 items-center justify-center gap-1 rounded-md px-2 text-sm text-gray-700 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="relative hidden h-11 min-w-11 items-center justify-center gap-1 rounded-md px-2 text-sm text-gray-700 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:flex"
               >
                 <Heart size={20} aria-hidden="true" />
                 {wishlistItems.length > 0 && (

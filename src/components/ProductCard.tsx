@@ -45,7 +45,7 @@ export default function ProductCard({ product }: { product: simplifiedProduct })
             className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
-        <div className="absolute right-2 top-2">
+        <div className="absolute bottom-2 right-28">
           <WishlistButton
             productId={productId}
             name={product.name}
@@ -53,15 +53,14 @@ export default function ProductCard({ product }: { product: simplifiedProduct })
             image={product.imageUrl}
           />
         </div>
-        <button
-          type="button"
-          onClick={handleQuickAdd}
-          aria-label={`Quick add ${product.name} to cart`}
-          className="absolute inset-x-2 bottom-2 flex h-11 items-center justify-center gap-1.5 rounded-md bg-white/95 text-sm font-semibold text-gray-900 shadow-sm backdrop-blur transition-all hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100"
-        >
-          <Plus className="h-4 w-4" aria-hidden="true" />
-          Quick Add
-        </button>
+          <button
+            type="button"
+            onClick={handleQuickAdd}
+            aria-label={`Quick add ${product.name} to cart`}
+            className="absolute bottom-2 right-2 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-gray-900 shadow-sm backdrop-blur transition-all hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100"
+          >
+            <Plus className="h-5 w-5" aria-hidden="true" />
+          </button>
       </div>
       <div className="mt-3 flex flex-1 flex-col gap-1">
         <p className="text-xs uppercase tracking-wide text-gray-500">{product.categoryName}</p>
