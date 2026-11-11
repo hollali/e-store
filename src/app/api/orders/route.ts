@@ -68,7 +68,7 @@ export async function POST(req: Request) {
 
   const body = await safeJson(req);
   if (!body) return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
-  const { orderRef, total, items, email } = body;
+  const { orderRef, total, items, email, customerName, phone, shippingAddress } = body;
 
   if (typeof orderRef !== "string" || !/^[A-Za-z0-9_-]{4,100}$/.test(orderRef)) {
     return NextResponse.json({ error: "Invalid orderRef" }, { status: 400 });
@@ -108,6 +108,9 @@ export async function POST(req: Request) {
   if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
+  const safeCustomerName = typeof customerName === "string" ? customerName.trim().slice(0, 120) : null;
+  const safePhone = typeof phone === "string" ? phone.trim().slice(0, 40) : null;
+  const safeShippingAddress = typeof shippingAddress === "string" ? shippingAddress.trim().slice(0, 500) : null;
 
   const verification = await verifyPaystackPayment(orderRef, Math.round(totalNum * 100));
   if (!verification.ok) {
@@ -125,6 +128,9 @@ export async function POST(req: Request) {
         total: String(totalNum),
         items: JSON.stringify(items),
         email,
+        customerName: safeCustomerName,
+        phone: safePhone,
+        shippingAddress: safeShippingAddress,
       })
       .returning();
     return NextResponse.json(created[0], { status: 201 });

@@ -56,8 +56,24 @@ export const orders = pgTable("orders", {
   total: decimal("total", { precision: 10, scale: 2 }).notNull(),
   items: text("items").notNull(),
   email: text("email"),
+  customerName: text("customer_name"),
+  phone: text("phone"),
+  shippingAddress: text("shipping_address"),
   createdAt: timestamp("created_at").defaultNow(),
 }, (t) => [
   index("orders_user_idx").on(t.userId),
   index("orders_created_idx").on(t.createdAt),
 ]);
+
+export const profiles = pgTable("profiles", {
+  userId: text("user_id").primaryKey(),
+  phone: text("phone"),
+  addressLine1: text("address_line1"),
+  addressLine2: text("address_line2"),
+  city: text("city"),
+  region: text("region"),
+  postalCode: text("postal_code"),
+  country: text("country"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});

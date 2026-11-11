@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { urlFor } from "../lib/sanity";
 import { ProductCart } from "./AddToBag";
 import { PaystackButton } from "react-paystack";
@@ -19,7 +19,12 @@ export default function CheckoutNow({
   const isSignedIn = !!session?.user;
   const router = useRouter();
   const [error, setError] = useState("");
+  const [profile, setProfile] = useState<any>(null);
   const email = (session?.user as any)?.email ?? "";
+  useEffect(() => {
+    if (!isSignedIn) return;
+    fetch("/api/profile").then((r) => r.json()).then((d) => { if (d && !d.error) setProfile(d); }).catch(() => {});
+  }, [isSignedIn]);
   const hasPublicKey = Boolean(process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY);
 
   const config = {
@@ -41,6 +46,9 @@ export default function CheckoutNow({
           total: price,
           items: [{ id: price_id, name, price, quantity: 1 }],
           email,
+          customerName: (session?.user as any)?.name ?? "",
+          phone: profile?.phone ?? "",
+          shippingAddress: [profile?.addressLine1, profile?.addressLine2, profile?.city, profile?.region, profile?.postalCode, profile?.country].filter(Boolean).join(", "),
         }),
       });
     } catch {
