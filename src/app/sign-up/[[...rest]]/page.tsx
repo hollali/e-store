@@ -138,40 +138,42 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/50 px-4 py-10">
-      <div className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-        <div className="mb-6">
+      <div className="w-full max-w-2xl rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="mb-4">
           <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
           <p className="mt-1 text-sm text-gray-500">Join AfricVogue today</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-          <section className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <section className="space-y-3">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
               Account details
             </h2>
-            <Field label="Full name" id="name" required error={touched.name ? errors.name : undefined}>
-              <input
-                id="name"
-                type="text"
-                autoComplete="name"
-                value={name}
-                onChange={(e) => change(setName, "name", e.target.value)}
-                onBlur={() => blur("name")}
-                className={inputClass(!!(touched.name && errors.name))}
-                aria-invalid={!!(touched.name && errors.name)}
-              />
-            </Field>
-            <Field label="Email" id="email" required error={touched.email ? errors.email : undefined}>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => change(setEmail, "email", e.target.value)}
-                onBlur={() => blur("email")}
-                className={inputClass(!!(touched.email && errors.email))}
-                aria-invalid={!!(touched.email && errors.email)}
-              />
-            </Field>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field label="Full name" id="name" required error={touched.name ? errors.name : undefined}>
+                <input
+                  id="name"
+                  type="text"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => change(setName, "name", e.target.value)}
+                  onBlur={() => blur("name")}
+                  className={inputClass(!!(touched.name && errors.name))}
+                  aria-invalid={!!(touched.name && errors.name)}
+                />
+              </Field>
+              <Field label="Email" id="email" required error={touched.email ? errors.email : undefined}>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => change(setEmail, "email", e.target.value)}
+                  onBlur={() => blur("email")}
+                  className={inputClass(!!(touched.email && errors.email))}
+                  aria-invalid={!!(touched.email && errors.email)}
+                />
+              </Field>
+            </div>
             <Field label="Password" id="password" required error={touched.password ? errors.password : undefined}>
               <div className="relative">
                 <input
@@ -196,34 +198,36 @@ export default function SignUpPage() {
             </Field>
           </section>
 
-          <section className="space-y-4">
+          <section className="space-y-3">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
               Contact &amp; shipping
             </h2>
-            <Field label="Phone number" id="phone" required error={touched.phone ? errors.phone : undefined}>
-              <input
-                id="phone"
-                type="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => change(setPhone, "phone", e.target.value)}
-                onBlur={() => blur("phone")}
-                className={inputClass(!!(touched.phone && errors.phone))}
-                aria-invalid={!!(touched.phone && errors.phone)}
-              />
-            </Field>
-            <Field label="Address line 1" id="addressLine1" required error={touched.addressLine1 ? errors.addressLine1 : undefined}>
-              <input
-                id="addressLine1"
-                type="text"
-                autoComplete="address-line1"
-                value={addressLine1}
-                onChange={(e) => change(setAddressLine1, "addressLine1", e.target.value)}
-                onBlur={() => blur("addressLine1")}
-                className={inputClass(!!(touched.addressLine1 && errors.addressLine1))}
-                aria-invalid={!!(touched.addressLine1 && errors.addressLine1)}
-              />
-            </Field>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field label="Phone number" id="phone" required error={touched.phone ? errors.phone : undefined}>
+                <input
+                  id="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => change(setPhone, "phone", e.target.value)}
+                  onBlur={() => blur("phone")}
+                  className={inputClass(!!(touched.phone && errors.phone))}
+                  aria-invalid={!!(touched.phone && errors.phone)}
+                />
+              </Field>
+              <Field label="Address line 1" id="addressLine1" required error={touched.addressLine1 ? errors.addressLine1 : undefined}>
+                <input
+                  id="addressLine1"
+                  type="text"
+                  autoComplete="address-line1"
+                  value={addressLine1}
+                  onChange={(e) => change(setAddressLine1, "addressLine1", e.target.value)}
+                  onBlur={() => blur("addressLine1")}
+                  className={inputClass(!!(touched.addressLine1 && errors.addressLine1))}
+                  aria-invalid={!!(touched.addressLine1 && errors.addressLine1)}
+                />
+              </Field>
+            </div>
             <Field label="Address line 2 (optional)" id="addressLine2">
               <input
                 id="addressLine2"
@@ -234,7 +238,7 @@ export default function SignUpPage() {
                 className={inputClass(false)}
               />
             </Field>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Field label="City" id="city" required error={touched.city ? errors.city : undefined}>
                 <input
                   id="city"
@@ -258,7 +262,7 @@ export default function SignUpPage() {
                 />
               </Field>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Field label="Postal code" id="postalCode">
                 <input
                   id="postalCode"
