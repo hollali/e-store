@@ -1,21 +1,23 @@
-import { auth } from "@/lib/auth/server";
+import { getAuth } from "@/lib/auth/server";
 
-export default auth.middleware({
-  loginUrl: "/sign-in",
-  publicRoutes: [
-    "/",
-    "/Men",
-    "/Women",
-    "/Accessories",
-    "/all",
-    "/product",
-    "/search",
-    "/sign-in",
-    "/sign-up",
-    "/wishlist",
-    "/api",
-  ],
-});
+export default function middleware(request: any) {
+  return getAuth().middleware({
+    loginUrl: "/sign-in",
+    publicRoutes: [
+      "/",
+      "/Men",
+      "/Women",
+      "/Accessories",
+      "/all",
+      "/product",
+      "/search",
+      "/sign-in",
+      "/sign-up",
+      "/wishlist",
+      "/api",
+    ],
+  })(request);
+}
 
 export const config = {
   matcher: [
