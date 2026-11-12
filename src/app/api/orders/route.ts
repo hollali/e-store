@@ -20,9 +20,14 @@ function isValidEmail(email: unknown): boolean {
   return typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
 }
 
-async function verifyPaystackPayment(reference: string, expectedAmountPesewas: number): Promise<{ ok: boolean; error?: string }> {
+async function verifyPaystackPayment(reference: string, expectedAmountPesewas: number): Promise<{ ok: boolean; error?: string; customerEmail?: string | null }> {
   const secret = process.env.PAYSTACK_SECRET_KEY;
-  if (!secret) return { ok: true }; // dev fallback: no secret configured, skip verification
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      return { ok: false, error: "Payment verification not configured" };
+    }
+    return { ok: true, customerEmail: null }; // dev fallback: no secret configured, skip verification
+  }
   try {
     const res = await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`, {
       headers: { Authorization: `Bearer ${secret}` },
@@ -37,7 +42,11 @@ async function verifyPaystackPayment(reference: string, expectedAmountPesewas: n
     if (Number(data.data.amount) !== expectedAmountPesewas) {
       return { ok: false, error: "Amount mismatch" };
     }
-    return { ok: true };
+    const customerEmail =
+      (typeof data?.data?.customer?.email === "string" && data.data.customer.email) ||
+      (typeof data?.data?.customer_email === "string" && data.data.customer_email) ||
+      null;
+    return { ok: true, customerEmail };
   } catch {
     return { ok: false, error: "Payment verification failed" };
   }
@@ -63,12 +72,16 @@ export async function POST(req: Request) {
   const { data: session } = await auth.getSession();
   const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const sessionEmail = (session?.user as any)?.email;
+  if (typeof sessionEmail !== "string" || !isValidEmail(sessionEmail)) {
+    return NextResponse.json({ error: "Account email required" }, { status: 401 });
+  }
   const db = await getDb();
   if (!db) return NextResponse.json({ error: "Database not configured" }, { status: 500 });
 
   const body = await safeJson(req);
   if (!body) return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
-  const { orderRef, total, items, email, customerName, phone, shippingAddress } = body;
+  const { orderRef, total, items, email: bodyEmail, customerName, phone, shippingAddress } = body;
 
   if (typeof orderRef !== "string" || !/^[A-Za-z0-9_-]{4,100}$/.test(orderRef)) {
     return NextResponse.json({ error: "Invalid orderRef" }, { status: 400 });
@@ -105,16 +118,25 @@ export async function POST(req: Request) {
   if (Math.abs(recomputed - totalNum) > 0.01) {
     return NextResponse.json({ error: "Total does not match items" }, { status: 400 });
   }
-  if (!isValidEmail(email)) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  if (bodyEmail !== undefined && bodyEmail !== null && bodyEmail !== sessionEmail) {
+    return NextResponse.json({ error: "Email mismatch" }, { status: 400 });
   }
-  const safeCustomerName = typeof customerName === "string" ? customerName.trim().slice(0, 120) : null;
+  const email = sessionEmail;
+  const safeCustomerName =
+    typeof customerName === "string"
+      ? customerName.trim().slice(0, 120)
+      : typeof (session?.user as any)?.name === "string"
+        ? String((session?.user as any).name).trim().slice(0, 120)
+        : null;
   const safePhone = typeof phone === "string" ? phone.trim().slice(0, 40) : null;
   const safeShippingAddress = typeof shippingAddress === "string" ? shippingAddress.trim().slice(0, 500) : null;
 
   const verification = await verifyPaystackPayment(orderRef, Math.round(totalNum * 100));
   if (!verification.ok) {
     return NextResponse.json({ error: verification.error ?? "Payment verification failed" }, { status: 402 });
+  }
+  if (verification.customerEmail && verification.customerEmail.toLowerCase() !== email.toLowerCase()) {
+    return NextResponse.json({ error: "Payment email mismatch" }, { status: 402 });
   }
 
   try {

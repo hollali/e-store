@@ -74,7 +74,7 @@ export default function CheckoutNow({
           type="button"
           disabled
           title={!email ? "Sign in to use Buy Now (we need an email for receipt)" : "Payment not configured"}
-          className="h-11 cursor-not-allowed rounded-md border border-gray-200 bg-white px-6 text-sm font-semibold text-gray-400"
+          className="h-11 w-full cursor-not-allowed rounded-md border border-gray-200 bg-white px-6 text-sm font-semibold text-gray-400"
         >
           Buy Now
         </button>
@@ -99,7 +99,7 @@ export default function CheckoutNow({
           componentProps.onSuccess(ref);
         }}
         onClose={() => {}}
-        className="h-11 rounded-md border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="h-11 w-full rounded-md border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       />
       <span className="sr-only">
         Buy {name} now for {price} {currency}. {description}

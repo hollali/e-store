@@ -1,6 +1,6 @@
 # AfricVogue - E-Commerce Website
 
-African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind CSS, Sanity CMS, Clerk auth, NeonDB (Postgres), and Paystack payments.
+African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind CSS, Sanity CMS, Neon Auth, NeonDB (Postgres), and Paystack payments.
 
 ## Tech Stack
 
@@ -8,7 +8,7 @@ African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind 
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS + shadcn/ui
 - **CMS:** Sanity.io (headless CMS for products, hero images)
-- **Auth:** Clerk (authentication, user management)
+- **Auth:** Neon Auth (authentication, user management)
 - **Database:** NeonDB (serverless Postgres) with Drizzle ORM
 - **Payments:** Paystack (GHS)
 - **Deployment:** Vercel
@@ -17,11 +17,11 @@ African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind 
 
 - **Product Catalog** — Browse by category (Men, Women, Accessories), search, and paginated listing
 - **Product Details** — Image gallery, ratings, description, JSON-LD structured data for SEO
-- **Shopping Cart** — Persistent cart via NeonDB when signed in, localStorage fallback for guests
+- **Shopping Cart** — Persistent cart via NeonDB when signed in, localStorage fallback for guests; signed-in checkout only
 - **Wishlist** — Save items with dual persistence (NeonDB / localStorage)
-- **Orders** — Past order history with item details, saved to NeonDB on successful payment
-- **Checkout** — Paystack payment integration (GHS)
-- **Authentication** — Clerk sign-in/sign-up with custom-styled pages
+- **Orders** — Past order history tied to the signed-in user, saved to NeonDB after verified payment
+- **Checkout** — Paystack payment integration (GHS) with server-side amount/email verification
+- **Authentication** — Neon Auth sign-in/sign-up with custom-styled pages
 - **Search** — Full-text product search via Sanity GROQ `match`
 - **Pagination** — 12 items per page with page navigation
 - **Skeleton Loading** — Shimmer placeholders while pages load
@@ -36,7 +36,7 @@ African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind 
 
 - Node.js 18+
 - A Sanity.io project
-- A Clerk application
+- A Neon Auth application
 - A NeonDB database
 - A Paystack public key
 
@@ -53,18 +53,13 @@ npm install
 Create a `.env` file:
 
 ```env
-# Clerk (from https://clerk.com)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-
-# Clerk redirect URLs
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+# Neon Auth
+NEON_AUTH_BASE_URL=https://your-neon-auth-url
+NEON_AUTH_COOKIE_SECRET=your-cookie-secret
 
 # Paystack (from https://paystack.com)
 NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_...
+PAYSTACK_SECRET_KEY=sk_test_...
 
 # Sanity (from Sanity management dashboard)
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
