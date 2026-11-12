@@ -185,14 +185,6 @@ export default async function ProductPage({
                         <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100 sm:p-8">
                             <h2 className="text-lg font-semibold text-gray-900">Product details</h2>
                             <div className="mt-4 space-y-3">
-                                <details className="group rounded-2xl border border-gray-100 bg-gray-50/60 px-4 py-3" open>
-                                    <summary className="cursor-pointer list-none text-sm font-medium text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-                                        Description
-                                    </summary>
-                                    <p className="mt-3 text-sm leading-7 text-gray-600">
-                                        {data.description}
-                                    </p>
-                                </details>
                                 <details className="group rounded-2xl border border-gray-100 bg-gray-50/60 px-4 py-3">
                                     <summary className="cursor-pointer list-none text-sm font-medium text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                                         Shipping &amp; delivery
