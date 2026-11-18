@@ -2,12 +2,12 @@ import { simplifiedProduct } from "@/app/interface";
 import { client } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
+import ProductCarousel from "@/components/ProductCarousel";
 import { getBatchRatings } from "@/lib/ratings";
 
 async function getData() {
   try {
-    const query = `*[_type == "product"] | order(_createdAt desc)[0...4] {
+    const query = `*[_type == "product"] | order(_createdAt desc)[0...6] {
       _id,
       price,
       name,
@@ -53,11 +53,7 @@ export default async function Newest() {
             </span>
           </Link>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-          {data.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        <ProductCarousel products={data} />
       </div>
     </div>
   );

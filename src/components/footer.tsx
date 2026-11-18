@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Mail, Phone, Heart } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import PaymentCarousel from "@/components/PaymentCarousel";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -153,16 +154,7 @@ const Footer = () => {
               of African fashion. Our collections blend contemporary trends with
               timeless elegance, bringing you the finest in African design.
             </p>
-            <div className="mt-4 flex flex-wrap gap-2" aria-label="Accepted payment methods">
-              {["Visa", "Mastercard", "MTN MoMo", "Paystack"].map((method) => (
-                <span
-                  key={method}
-                  className="rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-500"
-                >
-                  {method}
-                </span>
-              ))}
-            </div>
+            <PaymentCarousel />
           </div>
         </div>
       </div>
