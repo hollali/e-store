@@ -1,10 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { authClient } from "@/lib/auth/client";
-import { useRouter } from "next/navigation";
-import { Package, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Package } from "lucide-react";
+import { authClient } from "@/lib/auth/client";
+import { formatGHS } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface OrderItem {
   id: string;
@@ -48,15 +56,13 @@ export default function OrdersPage() {
       .finally(() => setLoading(false));
   }, [isSignedIn, isLoaded, router]);
 
-  const cedisSign = "\u20B5";
-
   if (!isLoaded || loading) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="h-8 w-48 animate-pulse rounded-md bg-gray-200" />
+        <div className="h-8 w-48 animate-pulse rounded-md bg-muted" />
         <div className="mt-8 space-y-4">
           {[0, 1].map((i) => (
-            <div key={i} className="h-32 animate-pulse rounded-lg bg-gray-100" />
+            <div key={i} className="h-32 animate-pulse rounded-xl bg-muted" />
           ))}
         </div>
         <span className="sr-only">Loading orders…</span>
@@ -65,18 +71,18 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="flex items-center gap-3 mb-8">
-          <Package className="h-6 w-6 text-primary" />
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+        <div className="mb-8 flex items-center gap-3">
+          <Package className="h-6 w-6 text-primary" aria-hidden="true" />
+          <h2 className="font-serif text-3xl font-semibold tracking-tight text-foreground">
             My Orders
           </h2>
         </div>
         {orders.length === 0 ? (
-          <div className="text-center py-16">
-            <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">No orders yet</p>
+          <div className="py-16 text-center">
+            <Package className="mx-auto mb-4 h-12 w-12 text-muted-foreground/40" aria-hidden="true" />
+            <p className="font-serif text-xl text-foreground">No orders yet</p>
             <Link
               href="/all"
               className="mt-4 inline-block text-primary hover:underline"
@@ -95,58 +101,53 @@ export default function OrdersPage() {
                 items = [];
               }
               const status = (order.status || "paid").toLowerCase();
+              const statusLabel = order.status?.trim() || "Paid";
               const statusStyles =
                 status === "paid" || status === "completed" || status === "delivered"
                   ? "bg-green-100 text-green-800"
                   : status === "pending" || status === "processing"
                     ? "bg-yellow-100 text-yellow-800"
-                    : "bg-gray-100 text-gray-700";
+                    : "bg-muted text-muted-foreground";
               return (
-                <div
-                  key={order.id}
-                  className="border rounded-lg p-6 shadow-sm"
-                >
-                  <div className="flex justify-between items-start mb-4">
+                <Card key={order.id} className="overflow-hidden">
+                  <CardHeader className="flex flex-row items-start justify-between gap-4 border-b border-border p-6">
                     <div>
-                      <p className="text-sm text-gray-500">
-                        Order Ref:{" "}
-                        <span className="font-mono">{order.orderRef}</span>
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Date:{" "}
-                        {new Date(order.createdAt).toLocaleDateString("en-GH", {
+                      <CardTitle className="text-lg">
+                        Order <span className="font-mono text-sm font-normal text-muted-foreground">{order.orderRef}</span>
+                      </CardTitle>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Placed {new Date(order.createdAt).toLocaleDateString("en-GH", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
                         })}
                       </p>
                     </div>
-                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${statusStyles}`}>
-                      {order.status}
+                    <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium ${statusStyles}`}>
+                      {statusLabel}
                     </span>
-                  </div>
-                  <div className="border-t pt-4">
-                    {items.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex justify-between text-sm mb-2"
-                      >
-                        <span>
-                          {item.name} x{item.quantity}
-                        </span>
-                        <span className="font-medium">
-                          {cedisSign} {item.price * item.quantity}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t pt-4 flex justify-between font-semibold">
-                    <span>Total</span>
-                    <span className="text-primary">
-                      {cedisSign} {order.total}
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <ul className="space-y-2">
+                      {items.map((item) => (
+                        <li key={item.id} className="flex justify-between gap-4 text-sm">
+                          <span className="text-muted-foreground">
+                            {item.name} <span aria-label={`quantity ${item.quantity}`}>x{item.quantity}</span>
+                          </span>
+                          <span className="font-medium text-foreground">
+                            {formatGHS(item.price * item.quantity)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter className="justify-between border-t border-border px-6 py-4">
+                    <span className="eyebrow">Total</span>
+                    <span className="font-serif text-xl font-semibold text-primary">
+                      {formatGHS(Number(order.total))}
                     </span>
-                  </div>
-                </div>
+                  </CardFooter>
+                </Card>
               );
             })}
           </div>
@@ -156,7 +157,7 @@ export default function OrdersPage() {
             href="/"
             className="inline-flex items-center gap-2 text-primary hover:underline"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Continue Shopping
           </Link>
         </div>

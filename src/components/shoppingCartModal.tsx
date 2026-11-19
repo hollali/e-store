@@ -91,10 +91,10 @@ export default function ShoppingCartModal() {
 
   return (
     <Sheet open={shouldDisplayCart} onOpenChange={() => !isPaying && handleCartClick()}>
-      <SheetContent className="flex w-full flex-col gap-0 border-l border-gray-100 bg-white p-0 sm:max-w-lg">
-        <SheetHeader className="border-b border-gray-100 px-6 py-5">
+      <SheetContent className="flex w-full flex-col gap-0 border-l border-border bg-background p-0 sm:max-w-lg">
+        <SheetHeader className="border-b border-border px-6 py-5">
           <div className="flex items-center justify-between gap-3">
-            <SheetTitle className="text-lg font-bold text-gray-900">Your cart</SheetTitle>
+            <SheetTitle className="font-serif text-2xl font-semibold text-foreground">Your cart</SheetTitle>
           </div>
         </SheetHeader>
 
@@ -105,7 +105,7 @@ export default function ShoppingCartModal() {
                 <ShoppingBag className="h-9 w-9 text-primary" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-lg font-semibold text-gray-900">Your cart is empty</p>
+                <p className="font-serif text-xl font-semibold text-foreground">Your cart is empty</p>
                 <p className="mt-1 max-w-xs text-sm text-muted-foreground">
                   Add something you love to get started.
                 </p>
@@ -123,11 +123,11 @@ export default function ShoppingCartModal() {
               {entries.map((entry) => (
                 <li
                   key={entry.id}
-                  className="flex gap-4 rounded-2xl border border-gray-100 bg-gray-50/60 p-3"
+                  className="flex gap-4 rounded-xl border border-border bg-card p-3 shadow-sm transition-colors hover:border-primary/30"
                 >
-                  <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100">
+                  <div className="h-20 w-24 shrink-0 overflow-hidden rounded-lg bg-muted">
                     <Image
-                      src={entry.image as string}
+                      src={entry.image || "/maleitem.png"}
                       alt={entry.name || "Product image"}
                       width={160}
                       height={160}
@@ -136,24 +136,24 @@ export default function ShoppingCartModal() {
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="line-clamp-2 text-sm font-semibold text-gray-900">
+                      <h3 className="line-clamp-2 font-serif text-base font-semibold leading-snug text-foreground">
                         {entry.name}
                       </h3>
-                      {entry.description && (
-                        <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
-                          {entry.description}
-                        </p>
-                      )}
                       <button
                         type="button"
                         onClick={() => removeItem(entry.id)}
                         aria-label={`Remove ${entry.name} from cart`}
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-white hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </div>
-                    <p className="mt-1 text-sm font-bold text-primary">
+                    {entry.description && (
+                      <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+                        {entry.description}
+                      </p>
+                    )}
+                    <p className="mt-1 font-serif text-base font-semibold text-primary">
                       {formatGHS(entry.price)}
                     </p>
                     {entry.quantity > 1 && (
@@ -163,7 +163,7 @@ export default function ShoppingCartModal() {
                     )}
                     <div className="mt-3 flex items-center justify-between">
                       <div
-                        className="flex items-center gap-1 rounded-full border border-gray-200 bg-white p-1"
+                        className="flex items-center gap-1 rounded-full border border-border bg-background p-1"
                         aria-label="Quantity"
                       >
                         <button
@@ -171,7 +171,7 @@ export default function ShoppingCartModal() {
                           onClick={() => decrementItem(entry.id)}
                           disabled={entry.quantity <= 1}
                           aria-label={`Decrease quantity of ${entry.name}`}
-                          className="flex h-8 w-8 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-40"
+                          className="flex h-8 w-8 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                         </button>
@@ -185,12 +185,12 @@ export default function ShoppingCartModal() {
                           type="button"
                           onClick={() => incrementItem(entry.id)}
                           aria-label={`Increase quantity of ${entry.name}`}
-                          className="flex h-8 w-8 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                          className="flex h-8 w-8 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         >
                           <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                         </button>
                       </div>
-                      <p className="text-sm font-bold text-gray-900">
+                      <p className="font-serif text-base font-semibold text-foreground">
                         {formatGHS(entry.price * entry.quantity)}
                       </p>
                     </div>
@@ -202,8 +202,8 @@ export default function ShoppingCartModal() {
         </div>
 
         {!isEmpty && (
-          <div className="border-t border-gray-100 bg-white px-6 py-5">
-            <div className="flex items-center justify-between text-base font-semibold text-gray-900">
+          <div className="border-t border-border bg-background px-6 py-5">
+            <div className="flex items-center justify-between font-serif text-lg font-semibold text-foreground">
               <span>Subtotal</span>
               <span>{formatGHS(totalPrice)}</span>
             </div>
@@ -232,7 +232,7 @@ export default function ShoppingCartModal() {
                   <button
                     type="button"
                     disabled
-                    className="h-12 w-full cursor-not-allowed rounded-full bg-gray-200 text-sm font-semibold text-gray-500"
+                    className="h-12 w-full cursor-not-allowed rounded-full bg-muted text-sm font-semibold text-muted-foreground"
                     title={
                       !hasPublicKey
                         ? "Payment is not configured"

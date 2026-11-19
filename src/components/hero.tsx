@@ -40,7 +40,7 @@ export default async function Hero() {
           <div className="flex gap-6 flex-wrap justify-center">
             <Link
               href="/Men"
-              className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+              className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
             >
               <Image
                 src="/maleitem.png"
@@ -48,13 +48,15 @@ export default async function Hero() {
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
-              <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-                Men
+              <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+                <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                  Men
+                </span>
               </span>
             </Link>
             <Link
               href="/Women"
-              className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+              className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
             >
               <Image
                 src="/model.jpeg"
@@ -62,13 +64,15 @@ export default async function Hero() {
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
-              <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-                Women
+              <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+                <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                  Women
+                </span>
               </span>
             </Link>
             <Link
               href="/Accessories"
-              className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+              className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
             >
               <Image
                 src="/bracelets.jpeg"
@@ -76,8 +80,10 @@ export default async function Hero() {
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
-              <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-                Accessories
+              <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+                <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                  Accessories
+                </span>
               </span>
             </Link>
           </div>
@@ -134,7 +140,7 @@ export default async function Hero() {
         <div className="flex gap-6 flex-wrap justify-center">
           <Link
             href="/Men"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+            className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
           >
             <Image
               src="/maleitem.png"
@@ -142,13 +148,15 @@ export default async function Hero() {
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Men
+            <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+              <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                Men
+              </span>
             </span>
           </Link>
           <Link
             href="/Women"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+            className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
           >
             <Image
               src="/model.jpeg"
@@ -156,13 +164,15 @@ export default async function Hero() {
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Women
+            <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+              <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                Women
+              </span>
             </span>
           </Link>
           <Link
             href="/Accessories"
-            className="relative flex h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden shadow-md group"
+            className="group relative flex h-24 w-24 overflow-hidden rounded-full shadow-md ring-1 ring-border/70 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-32 md:w-32"
           >
             <Image
               src="/bracelets.jpeg"
@@ -170,8 +180,10 @@ export default async function Hero() {
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
-            <span className="absolute inset-0 flex items-center justify-center text-white bg-black/40 dark:bg-black/60">
-              Accessories
+            <span className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/75 via-black/25 to-black/10 transition-colors group-hover:from-black/60 dark:from-black/80">
+              <span className="font-serif text-sm font-medium tracking-wide text-white md:text-base">
+                Accessories
+              </span>
             </span>
           </Link>
         </div>

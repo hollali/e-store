@@ -74,6 +74,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               mapped[item.productId] = {
                 id: item.productId,
                 name: item.name,
+                description: item.description,
                 price: Number(item.price),
                 currency: item.currency || "GHS",
                 image: item.image,
@@ -128,10 +129,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const updated = {
           ...prev,
           [item.id]: existing
-            ? { ...existing, quantity: existing.quantity + qty }
+            ? {
+                ...existing,
+                description: existing.description ?? item.description,
+                quantity: existing.quantity + qty,
+              }
             : {
                 id: item.id,
                 name: item.name,
+                description: item.description,
                 price: item.price,
                 currency: item.currency,
                 image: item.image,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Navbar from "@/components/navbar";
@@ -7,7 +7,13 @@ import Footer from "@/components/footer";
 import AppProviders from "@/components/provider";
 import ShoppingCartModal from "@/components/shoppingCartModal";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "AfricVogue",
@@ -47,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"

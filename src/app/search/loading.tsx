@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SearchLoading() {
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex flex-col items-center gap-4 mb-8">
           <Skeleton className="h-8 w-64" />

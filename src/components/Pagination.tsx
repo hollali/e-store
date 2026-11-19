@@ -27,30 +27,30 @@ export default function Pagination({ currentPage, totalPages, basePath, searchPa
   }
 
   return (
-    <nav className="flex items-center justify-center gap-1 mt-12" aria-label="Pagination">
+    <nav className="mt-12 flex items-center justify-center gap-1.5" aria-label="Pagination">
       {currentPage > 1 && (
         <Link
           href={pageUrl(currentPage - 1)}
-          className="flex items-center justify-center h-10 w-10 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
           aria-label="Previous page"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         </Link>
       )}
 
       {pages.map((page, idx) =>
         page === "..." ? (
-          <span key={`ellipsis-${idx}`} className="h-10 w-10 flex items-center justify-center text-gray-400">
+          <span key={`ellipsis-${idx}`} className="flex h-10 w-10 items-center justify-center text-muted-foreground">
             ...
           </span>
         ) : (
           <Link
             key={page}
             href={pageUrl(page)}
-            className={`flex items-center justify-center h-10 min-w-10 px-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`flex h-10 min-w-10 items-center justify-center rounded-full px-2 text-sm font-medium transition-colors ${
               page === currentPage
                 ? "bg-primary text-primary-foreground"
-                : "border border-gray-200 hover:bg-gray-100"
+                : "border border-border text-foreground hover:bg-muted"
             }`}
             aria-current={page === currentPage ? "page" : undefined}
           >
@@ -62,10 +62,10 @@ export default function Pagination({ currentPage, totalPages, basePath, searchPa
       {currentPage < totalPages && (
         <Link
           href={pageUrl(currentPage + 1)}
-          className="flex items-center justify-center h-10 w-10 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
           aria-label="Next page"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       )}
     </nav>

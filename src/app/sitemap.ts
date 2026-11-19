@@ -1,7 +1,7 @@
 import { client } from "@/lib/sanity";
 
 export default async function sitemap() {
-  const baseUrl = "https://www.africvouge.com";
+  const baseUrl = "https://www.africvogue.com";
 
   let productUrls: { url: string; lastModified: Date; changeFrequency: "weekly"; priority: number }[] = [];
   try {

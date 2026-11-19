@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { urlFor } from "../lib/sanity";
 import { ProductCart } from "./AddToBag";
 import { PaystackButton } from "react-paystack";
 import { authClient } from "@/lib/auth/client";
@@ -10,7 +9,6 @@ import { useRouter } from "next/navigation";
 export default function CheckoutNow({
   currency,
   description,
-  image,
   name,
   price,
   price_id,
@@ -18,7 +16,6 @@ export default function CheckoutNow({
   const { data: session } = authClient.useSession();
   const isSignedIn = !!session?.user;
   const router = useRouter();
-  const [error, setError] = useState("");
   const [profile, setProfile] = useState<any>(null);
   const email = (session?.user as any)?.email ?? "";
   useEffect(() => {
@@ -58,7 +55,7 @@ export default function CheckoutNow({
 
   const componentProps = {
     ...config,
-    text: "Buy Now",
+    text: "Buy now",
     onSuccess: async (ref: any) => {
       const orderRef = ref?.reference ?? config.reference;
       await persistOrder(orderRef);
@@ -74,12 +71,12 @@ export default function CheckoutNow({
           type="button"
           disabled
           title={!email ? "Sign in to use Buy Now (we need an email for receipt)" : "Payment not configured"}
-          className="h-11 w-full cursor-not-allowed rounded-md border border-gray-200 bg-white px-6 text-sm font-semibold text-gray-400"
+          className="h-11 w-full cursor-not-allowed rounded-full border border-border bg-background px-6 text-sm font-semibold text-muted-foreground/60"
         >
-          Buy Now
+          Buy now
         </button>
         {!email && (
-          <p className="mt-1 text-xs text-gray-500">Sign in to use Buy Now.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Sign in to use Buy Now.</p>
         )}
       </div>
     );
@@ -87,19 +84,9 @@ export default function CheckoutNow({
 
   return (
     <div className="inline-block">
-      {error && (
-        <p role="alert" className="mb-1 text-xs text-red-600">
-          {error}
-        </p>
-      )}
       <PaystackButton
         {...componentProps}
-        onSuccess={(ref: any) => {
-          setError("");
-          componentProps.onSuccess(ref);
-        }}
-        onClose={() => {}}
-          className="h-11 w-full rounded-md border border-gray-300 bg-white px-6 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="h-11 w-full rounded-full border border-border bg-background px-6 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       />
       <span className="sr-only">
         Buy {name} now for {price} {currency}. {description}

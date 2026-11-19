@@ -11,17 +11,29 @@ export default function ProductCarousel({ products }: { products: simplifiedProd
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el || products.length === 0) return;
-    const oneSet = el.scrollWidth / 3;
-    el.scrollLeft = oneSet;
+
+    let oneSet = 0;
+    const measure = () => {
+      oneSet = el.scrollWidth / 3;
+      el.scrollLeft = oneSet;
+    };
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
 
     const interval = setInterval(() => {
-      if (!el) return;
+      if (!oneSet) return;
       if (el.scrollLeft >= oneSet * 2 - 10) {
         el.scrollLeft = oneSet;
       }
       el.scrollBy({ left: el.clientWidth * 0.8, behavior: "smooth" });
     }, 3000);
-    return () => clearInterval(interval);
+
+    return () => {
+      clearInterval(interval);
+      observer.disconnect();
+    };
   }, [products]);
 
   return (

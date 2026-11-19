@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { urlFor } from "../lib/sanity";
 import { Heart, Minus, Plus } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getCartItemId } from "@/lib/utils";
 
 export interface ProductCart {
   name: string;
@@ -33,14 +33,12 @@ export default function AddToBag({
   const { isInWishlist, toggleItem } = useWishlist();
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState<string | null>(null);
-  const [sizeError, setSizeError] = useState("");
   const inWishlist = isInWishlist(price_id);
-  const imageUrl = urlFor(image).url();
+  const imageUrl = image ? urlFor(image).url() : "";
 
   const handleAdd = () => {
-    // Size is optional for accessories / one-size items, but nudge for apparel
     addItem({
-      id: size ? `${price_id}-${size}` : price_id,
+      id: getCartItemId(price_id, size),
       name: size ? `${name} (${size})` : name,
       description,
       price,
@@ -49,17 +47,16 @@ export default function AddToBag({
       quantity,
     });
     handleCartClick();
-    setSizeError("");
   };
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full space-y-5">
       <div>
-        <div className="mb-2 flex items-center justify-between">
-          <span id="size-label" className="text-sm font-medium text-gray-700">
-            Size
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <span id="size-label" className="eyebrow">
+            Select size
           </span>
-          <span className="text-xs text-gray-500">One-size items can skip this</span>
+          <span className="text-xs text-muted-foreground">One-size? Skip this</span>
         </div>
         <div role="radiogroup" aria-labelledby="size-label" className="flex flex-wrap gap-2">
           {SIZES.map((s) => (
@@ -68,53 +65,48 @@ export default function AddToBag({
               type="button"
               role="radio"
               aria-checked={size === s}
-              onClick={() => {
-                setSize(size === s ? null : s);
-                setSizeError("");
-              }}
+              onClick={() => setSize(size === s ? null : s)}
               className={cn(
-                "flex h-11 min-w-11 items-center justify-center rounded-md border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                "flex h-11 min-w-11 items-center justify-center rounded-full border px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 size === s
                   ? "border-primary bg-primary/10 text-primary"
-                  : "border-gray-200 text-gray-700 hover:border-gray-400",
+                  : "border-border text-foreground hover:border-primary/50",
               )}
             >
               {s}
             </button>
           ))}
         </div>
-        {sizeError && (
-          <p role="alert" className="mt-1 text-xs text-red-600">
-            {sizeError}
-          </p>
-        )}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <div className="flex items-center gap-1" aria-label="Quantity">
+        <div
+          className="flex items-center gap-1 rounded-full border border-border bg-background p-1"
+          aria-label="Quantity"
+        >
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Minus className="h-4 w-4" aria-hidden="true" />
           </button>
-          <span className="w-10 text-center text-sm font-semibold" aria-live="polite">
+          <span className="w-8 text-center text-sm font-semibold" aria-live="polite">
             {quantity}
           </span>
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.min(99, q + 1))}
             aria-label="Increase quantity"
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
-        <Button onClick={handleAdd} className="h-11 flex-1 px-6">
-          Add To Cart
+        <Button onClick={handleAdd} className="h-11 flex-1 rounded-full px-6">
+          Add to bag
         </Button>
         <button
           type="button"
@@ -123,13 +115,11 @@ export default function AddToBag({
           }
           aria-pressed={inWishlist}
           aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-          className="flex h-11 w-11 items-center justify-center rounded-full border hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Heart
             aria-hidden="true"
-            className={`h-5 w-5 ${
-              inWishlist ? "fill-red-500 text-red-500" : "text-gray-500"
-            }`}
+            className={`h-5 w-5 ${inWishlist ? "fill-red-500 text-red-500" : ""}`}
           />
         </button>
       </div>

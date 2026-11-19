@@ -111,19 +111,19 @@ export default async function SearchPage({
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex flex-col items-center gap-2 mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-serif text-3xl font-semibold tracking-tight text-foreground">
             {query ? `Search results for "${query}"` : "Search Products"}
           </h1>
           {query && total > 0 && (
-            <p className="text-sm text-gray-500" aria-live="polite">
+            <p className="text-sm text-muted-foreground" aria-live="polite">
               {total} {total === 1 ? "result" : "results"}
             </p>
           )}
           {!query && (
-            <p className="text-gray-500 flex items-center gap-2">
+            <p className="text-muted-foreground flex items-center gap-2">
               <Search className="h-4 w-4" />
               Type a product name in the search bar above
             </p>
@@ -131,60 +131,60 @@ export default async function SearchPage({
         </div>
         {products.length === 0 && query ? (
           <div className="text-center mt-8 max-w-lg mx-auto">
-            <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-gray-100 mb-4">
-              <Search className="h-6 w-6 text-gray-400" />
+            <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-muted mb-4">
+              <Search className="h-6 w-6 text-muted-foreground" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+            <h3 className="font-serif text-xl font-semibold text-foreground mb-1">
               No results for &ldquo;{query}&rdquo;
             </h3>
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="text-sm text-muted-foreground mb-6">
               We couldn&apos;t find any products matching your search. Try these instead:
             </p>
             <div className="flex flex-col items-center gap-3 mb-8">
-              <div className="flex items-start gap-3 text-left bg-gray-50 rounded-lg p-3 w-full">
+              <div className="flex items-start gap-3 text-left w-full rounded-xl bg-muted/50 p-4">
                 <Lightbulb className="h-5 w-5 text-yellow-500 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-gray-700">Check your spelling</p>
-                  <p className="text-xs text-gray-500">A small typo can change your results</p>
+                  <p className="text-sm font-medium text-foreground">Check your spelling</p>
+                  <p className="text-xs text-muted-foreground">A small typo can change your results</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 text-left bg-gray-50 rounded-lg p-3 w-full">
+              <div className="flex items-start gap-3 text-left w-full rounded-xl bg-muted/50 p-4">
                 <ShoppingBag className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-gray-700">Try different keywords</p>
-                  <p className="text-xs text-gray-500">Use broader terms like &quot;dress&quot; instead of &quot;evening gown&quot;</p>
+                  <p className="text-sm font-medium text-foreground">Try different keywords</p>
+                  <p className="text-xs text-muted-foreground">Use broader terms like &quot;dress&quot; instead of &quot;evening gown&quot;</p>
                 </div>
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               <Link
                 href="/Men"
-                className="px-4 py-2 text-sm font-medium rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm font-medium rounded-full border border-border text-foreground hover:bg-muted transition-colors"
               >
                 Browse Men
               </Link>
               <Link
                 href="/Women"
-                className="px-4 py-2 text-sm font-medium rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm font-medium rounded-full border border-border text-foreground hover:bg-muted transition-colors"
               >
                 Browse Women
               </Link>
               <Link
                 href="/Accessories"
-                className="px-4 py-2 text-sm font-medium rounded-full border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm font-medium rounded-full border border-border text-foreground hover:bg-muted transition-colors"
               >
                 Browse Accessories
               </Link>
               <Link
                 href="/all"
-                className="px-4 py-2 text-sm font-medium rounded-full bg-primary text-white hover:bg-primary/90 transition-colors"
+                className="px-4 py-2 text-sm font-medium rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 View All Products
               </Link>
             </div>
             {similar.length > 0 && (
               <div className="mt-12">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-left">
+                <h3 className="font-serif text-xl font-semibold text-foreground mb-4 text-left">
                   You might like
                 </h3>
                 <div className="grid grid-cols-2 gap-y-8 gap-x-6 sm:grid-cols-2 lg:grid-cols-4">

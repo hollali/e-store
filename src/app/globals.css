@@ -75,3 +75,9 @@
     }
   }
 }
+
+@layer components {
+  .eyebrow {
+    @apply text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground;
+  }
+}

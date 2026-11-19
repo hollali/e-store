@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X } from "lucide-react";
 import Image from "next/image";
+import { formatGHS } from "@/lib/utils";
 
 interface Suggestion {
   _id: string;
@@ -28,7 +29,7 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
   const [listId] = useState(() => `search-list-${Math.random().toString(36).slice(2)}`);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const debounceRef = useRef<NodeJS.Timeout>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   const fetchSuggestions = useCallback(async (q: string) => {
     if (q.length < 2) {
@@ -148,7 +149,7 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
     <div ref={containerRef} className="relative">
       <form onSubmit={handleSubmit}>
         <div className="relative">
-          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 ${isMobile ? "h-4 w-4" : "h-4 w-4"}`} />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
           <input
             ref={inputRef}
             type="search"
@@ -163,25 +164,23 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
             onFocus={() => suggestions.length > 0 && query.length >= 2 && setShowSuggestions(true)}
             onKeyDown={handleKeyDown}
             placeholder={isMobile ? "Search products..." : "Search products..."}
-            className={`w-full pl-10 pr-8 py-2 text-sm border rounded-full focus:outline-none focus:ring-2 focus:ring-primary dark:text-white ${
-              isMobile
-                ? "border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
-                : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+            className={`h-11 w-full rounded-full border border-border bg-background pl-10 pr-10 text-sm text-foreground outline-none placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary ${
+              isMobile ? "bg-muted/40" : ""
             }`}
           />
           {query && (
             <button
               type="button"
               onClick={clear}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               aria-label="Clear search"
             >
               <X className="h-4 w-4" />
             </button>
           )}
           {!isMobile && !query && (
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 hidden sm:block">
-              <kbd className="px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-600 text-gray-400 font-mono">
+            <span className="absolute right-3 top-1/2 hidden -translate-y-1/2 text-[10px] text-muted-foreground sm:block">
+              <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-muted-foreground">
                 /
               </kbd>
             </span>
@@ -194,11 +193,11 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
           id={listId}
           role="listbox"
           aria-label="Product suggestions"
-          className={`absolute left-0 right-0 mt-1 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 ${
+          className={`absolute left-0 right-0 z-50 mt-1 overflow-hidden rounded-xl border border-border bg-card shadow-lg ${
             isMobile ? "static mt-2" : ""
           }`}
         >
-          <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-wider" aria-hidden="true">
+          <div className="eyebrow px-3 py-2" aria-hidden="true">
             {isSearching ? "Searching…" : "Suggestions"}
           </div>
           {suggestions.map((s, i) => (
@@ -210,10 +209,10 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
               className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${
                 i === selectedIndex
                   ? "bg-primary/10 text-primary"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                  : "text-foreground hover:bg-muted"
               }`}
             >
-              <div className="h-10 w-10 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-muted">
                 {s.imageUrl && (
                   <Image
                     src={s.imageUrl}
@@ -226,7 +225,7 @@ export default function SearchBar({ variant = "desktop", onNavigate }: SearchBar
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{s.name}</p>
-                <p className="text-xs text-gray-500">GH₵ {s.price}</p>
+                <p className="text-xs text-muted-foreground">{formatGHS(s.price)}</p>
               </div>
             </button>
           ))}

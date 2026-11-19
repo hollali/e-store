@@ -1,7 +1,8 @@
 "use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { urlFor } from "@/lib/sanity";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ImageGalleryProps {
@@ -19,30 +20,35 @@ export default function ImageGallery({
 }: ImageGalleryProps) {
   const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
   const [activeIndex, setActiveIndex] = useState(0);
-  const bigImage = safeImages[activeIndex] ?? safeImages[0];
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [images]);
 
   if (safeImages.length === 0) {
     return (
-      <div className="grid place-items-center rounded-lg bg-gray-100 aspect-square text-sm text-gray-500">
+      <div className="grid aspect-[4/5] place-items-center rounded-xl bg-muted text-sm text-muted-foreground">
         No image available
       </div>
     );
   }
 
+  const index = Math.min(activeIndex, safeImages.length - 1);
+  const bigImage = safeImages[index];
+
   return (
     <div className="space-y-4">
-      <div className="relative overflow-hidden rounded-3xl bg-gray-100">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted">
         <Image
           src={urlFor(bigImage).url()}
           alt={productName}
-          width={900}
-          height={900}
+          fill
           priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="aspect-square w-full object-cover object-center transition-transform duration-500 hover:scale-[1.02]"
+          sizes="(max-width: 1024px) 100vw, 45vw"
+          className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.02]"
         />
         {onSale && (
-          <span className="absolute left-4 top-4 rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sm">
+          <span className="absolute left-4 top-4 rounded-full bg-destructive px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-destructive-foreground shadow-sm">
             {saleLabel}
           </span>
         )}
@@ -54,7 +60,7 @@ export default function ImageGallery({
           aria-label={`Product images for ${productName}`}
         >
           {safeImages.map((image: any, idx: number) => {
-            const isActive = idx === activeIndex;
+            const isActive = idx === index;
             return (
               <button
                 key={idx}
@@ -64,18 +70,18 @@ export default function ImageGallery({
                 aria-label={`View image ${idx + 1} of ${safeImages.length} for ${productName}`}
                 onClick={() => setActiveIndex(idx)}
                 className={cn(
-                  "h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-gray-100 outline-none transition focus-visible:ring-2 focus-visible:ring-primary",
+                  "relative aspect-[4/5] w-16 shrink-0 overflow-hidden rounded-lg bg-muted outline-none transition focus-visible:ring-2 focus-visible:ring-primary",
                   isActive
-                    ? "ring-2 ring-primary ring-offset-2"
+                    ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
                     : "opacity-70 hover:opacity-100",
                 )}
               >
                 <Image
                   src={urlFor(image).url()}
-                  width={160}
-                  height={160}
+                  fill
+                  sizes="64px"
                   alt={`${productName} thumbnail ${idx + 1}`}
-                  className="h-full w-full object-cover object-center"
+                  className="object-cover object-center"
                 />
               </button>
             );

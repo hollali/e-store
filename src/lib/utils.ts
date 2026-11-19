@@ -13,3 +13,11 @@ export function formatGHS(value: number): string {
     minimumFractionDigits: 2,
   }).format(value);
 }
+
+export function getProductId(product: { price_id?: string; _id: string }): string {
+  return product.price_id || product._id;
+}
+
+export function getCartItemId(productId: string, size?: string | null): string {
+  return size ? `${productId}-${size}` : productId;
+}

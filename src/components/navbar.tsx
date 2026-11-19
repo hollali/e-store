@@ -42,13 +42,13 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="bg-white lg:sticky lg:top-0 lg:z-50">
-      <div className="border-b border-gray-200">
+    <header className="bg-background lg:sticky lg:top-0 lg:z-50">
+      <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16 gap-2">
             <button
               type="button"
-              className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:hidden"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -61,10 +61,10 @@ export default function Navbar() {
               href="/"
               className="flex-shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <span className="text-2xl font-bold tracking-tight">
+              <span className="font-serif text-2xl font-semibold tracking-tight">
                 Afric<span className="text-primary">Vogue</span>
               </span>
-              <span className="block text-[10px] text-gray-500 tracking-[0.2em] uppercase">
+              <span className="eyebrow mt-0.5 block">
                 Leading Online Fashion Store
               </span>
             </Link>
@@ -78,7 +78,7 @@ export default function Navbar() {
             <div className="flex items-center gap-1 sm:gap-2">
               <button
                 type="button"
-                className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:hidden"
+                className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:hidden"
                 onClick={() => setSearchOpen(!searchOpen)}
                 aria-expanded={searchOpen}
                 aria-label={searchOpen ? "Close search" : "Open search"}
@@ -88,7 +88,7 @@ export default function Navbar() {
               <Link
                 href="/wishlist"
                 aria-label={wishlistItems.length > 0 ? `Wishlist, ${wishlistItems.length} items` : "Wishlist"}
-                className="relative hidden h-11 min-w-11 items-center justify-center gap-1 rounded-md px-2 text-sm text-gray-700 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:flex"
+                className="relative hidden h-11 min-w-11 items-center justify-center gap-1 rounded-full px-2 text-sm text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:flex"
               >
                 <Heart size={20} aria-hidden="true" />
                 {wishlistItems.length > 0 && (
@@ -105,7 +105,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => handleCartClick()}
                 aria-label={cartCount > 0 ? `Open cart, ${cartCount} items` : "Open cart"}
-                className="relative flex h-11 min-w-11 items-center justify-center gap-1 rounded-md px-2 text-sm text-gray-700 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="relative flex h-11 min-w-11 items-center justify-center gap-1 rounded-full px-2 text-sm text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <ShoppingBag size={20} aria-hidden="true" />
                 {cartCount > 0 && (
@@ -125,14 +125,14 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => authClient.signOut()}
-                    className="ml-1 inline-flex h-11 items-center rounded-full bg-gray-100 px-4 text-sm font-medium text-gray-900 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="ml-1 inline-flex h-11 items-center rounded-full bg-muted px-4 text-sm font-medium text-foreground hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     Sign out
                   </button>
                 ) : (
                   <Link
                     href="/sign-in"
-                    className="ml-1 inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="ml-1 inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     Sign in
                   </Link>
@@ -144,13 +144,13 @@ export default function Navbar() {
       </div>
 
       {searchOpen && (
-        <div className="border-b border-gray-200 p-4 md:hidden">
+        <div className="border-b border-border p-4 md:hidden">
           <SearchBar onNavigate={() => setSearchOpen(false)} />
         </div>
       )}
 
       {/* Desktop nav */}
-      <div className="border-b border-gray-200 bg-white hidden lg:block">
+      <div className="hidden border-b border-border bg-background lg:block">
         <div className="max-w-7xl mx-auto px-4">
           <nav className="flex items-center" aria-label="Primary">
             {links.map((link) => {
@@ -160,7 +160,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`inline-flex h-12 items-center px-4 text-sm font-semibold uppercase tracking-wide text-gray-800 transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary border-b-2 ${
+                  className={`inline-flex h-12 items-center px-4 text-sm font-semibold uppercase tracking-wide text-foreground transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary border-b-2 ${
                     isActive ? "border-primary text-primary" : "border-transparent"
                   }`}
                 >
@@ -172,7 +172,7 @@ export default function Navbar() {
               <Link
                 href="/orders"
                 aria-current={pathname === "/orders" ? "page" : undefined}
-                className={`inline-flex h-12 items-center px-4 text-sm font-semibold uppercase tracking-wide text-gray-800 transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary border-b-2 ${
+                className={`inline-flex h-12 items-center px-4 text-sm font-semibold uppercase tracking-wide text-foreground transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary border-b-2 ${
                   pathname === "/orders" ? "border-primary text-primary" : "border-transparent"
                 }`}
               >
@@ -194,17 +194,17 @@ export default function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className={`absolute inset-y-0 left-0 w-72 bg-white shadow-xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`absolute inset-y-0 left-0 w-72 border-r border-border bg-background shadow-xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="flex items-center justify-between h-16 px-4 border-b">
-            <Link href="/" className="text-lg font-bold tracking-tight" onClick={() => setIsOpen(false)}>
+            <Link href="/" className="font-serif text-lg font-semibold tracking-tight" onClick={() => setIsOpen(false)}>
               Afric<span className="text-primary">Vogue</span>
             </Link>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close menu"
-              className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <X size={20} aria-hidden="true" />
             </button>
@@ -216,7 +216,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
-                className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-gray-800 hover:bg-gray-50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-gray-100"
+                className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-foreground hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-border"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
@@ -224,25 +224,25 @@ export default function Navbar() {
             ))}
             <Link
               href="/wishlist"
-              className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-gray-800 hover:bg-gray-50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-gray-100"
+              className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-foreground hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-border"
               onClick={() => setIsOpen(false)}
             >
               Wishlist{wishlistItems.length > 0 ? ` (${wishlistItems.length})` : ""}
             </Link>
             <Link
               href="/orders"
-              className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-gray-800 hover:bg-gray-50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-gray-100"
+              className="block rounded-md py-3 px-2 text-sm font-semibold uppercase text-foreground hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-b border-border"
               onClick={() => setIsOpen(false)}
             >
               Orders
             </Link>
           </nav>
 
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-gray-50">
+          <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-muted/40 p-4">
             {!isSignedIn ? (
               <Link
                 href="/sign-in"
-                className="flex h-11 w-full items-center justify-center rounded-md text-sm font-medium text-white bg-primary hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="flex h-11 w-full items-center justify-center rounded-full text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 onClick={() => setIsOpen(false)}
               >
                 Sign in
@@ -251,7 +251,7 @@ export default function Navbar() {
                <button
                  type="button"
                  onClick={() => authClient.signOut()}
-                 className="flex h-11 w-full items-center justify-center rounded-md text-sm font-medium text-white bg-primary hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                 className="flex h-11 w-full items-center justify-center rounded-full text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                >
                  Sign out
                </button>

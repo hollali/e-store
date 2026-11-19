@@ -60,7 +60,6 @@ export default function ReviewSection({ productId }: { productId: string }) {
           rating: formRating,
           title: formTitle,
           body: formBody,
-           userName: (session?.user as any)?.name || (session?.user as any)?.username || (session?.user as any)?.email || "Anonymous",
         }),
       });
 
@@ -88,30 +87,34 @@ export default function ReviewSection({ productId }: { productId: string }) {
   }
 
   return (
-    <div className="mt-16">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-gray-700" />
-          <h3 className="text-lg font-bold text-gray-900">Reviews</h3>
-          <span className="text-sm text-gray-500">({reviews.length})</span>
+    <div>
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <MessageSquare className="h-5 w-5 text-primary" aria-hidden="true" />
+          <h3 className="font-serif text-2xl font-semibold text-foreground">Reviews</h3>
+          <span className="eyebrow">({reviews.length})</span>
         </div>
         <Button
           variant="outline"
           size="sm"
           onClick={() => setShowForm(!showForm)}
+          className="rounded-full"
         >
           {showForm ? (
-            <><ChevronUp className="h-4 w-4 mr-1" /> Cancel</>
+            <><ChevronUp className="mr-1 h-4 w-4" /> Cancel</>
           ) : (
-            <><ChevronDown className="h-4 w-4 mr-1" /> Write a Review</>
+            <><ChevronDown className="mr-1 h-4 w-4" /> Write a review</>
           )}
         </Button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded-lg bg-gray-50">
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+        <form
+          onSubmit={handleSubmit}
+          className="mb-8 space-y-4 rounded-xl border border-border bg-muted/40 p-5"
+        >
+          <div>
+            <p className="eyebrow mb-2">Your rating</p>
             <StarRating
               rating={formRating}
               size="lg"
@@ -119,8 +122,8 @@ export default function ReviewSection({ productId }: { productId: string }) {
               onChange={setFormRating}
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <div>
+            <label htmlFor="title" className="mb-1 block text-sm font-medium text-foreground">
               Title
             </label>
             <input
@@ -128,12 +131,12 @@ export default function ReviewSection({ productId }: { productId: string }) {
               type="text"
               value={formTitle}
               onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
               placeholder="Great product!"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-1">
+          <div>
+            <label htmlFor="body" className="mb-1 block text-sm font-medium text-foreground">
               Review
             </label>
             <textarea
@@ -144,37 +147,37 @@ export default function ReviewSection({ productId }: { productId: string }) {
               value={formBody}
               onChange={(e) => setFormBody(e.target.value)}
               aria-describedby={error ? "review-error" : undefined}
-              className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
               placeholder="Share your experience with this product..."
             />
           </div>
-          {error && <p id="review-error" role="alert" className="text-red-500 text-sm mb-3">{error}</p>}
-          <Button type="submit" disabled={submitting}>
-            {submitting ? "Submitting..." : "Submit Review"}
+          {error && <p id="review-error" role="alert" className="text-sm text-destructive">{error}</p>}
+          <Button type="submit" disabled={submitting} className="rounded-full">
+            {submitting ? "Submitting..." : "Submit review"}
           </Button>
         </form>
       )}
 
       {loading ? (
-        <p className="text-gray-500 text-sm">Loading reviews...</p>
+        <p className="text-sm text-muted-foreground">Loading reviews...</p>
       ) : reviews.length === 0 ? (
-        <p className="text-gray-500 text-sm">No reviews yet. Be the first to review!</p>
+        <p className="text-sm text-muted-foreground">No reviews yet. Be the first to review!</p>
       ) : (
-        <div className="space-y-5">
+        <div className="divide-y divide-border">
           {reviews.map((review) => (
-            <div key={review.id} className="border-b pb-5">
-              <div className="flex items-center gap-2 mb-1">
+            <div key={review.id} className="py-5 first:pt-0">
+              <div className="mb-1 flex flex-wrap items-center gap-2">
                 <StarRating rating={review.rating} size="sm" />
-                <span className="font-semibold text-sm text-gray-900">{review.userName}</span>
-                <span className="text-xs text-gray-400">
+                <span className="text-sm font-semibold text-foreground">{review.userName}</span>
+                <span className="text-xs text-muted-foreground">
                   {new Date(review.createdAt).toLocaleDateString()}
                 </span>
               </div>
               {review.title && (
-                <p className="text-sm font-medium text-gray-800">{review.title}</p>
+                <p className="font-serif text-base font-medium text-foreground">{review.title}</p>
               )}
               {review.body && (
-                <p className="text-sm text-gray-600 mt-1">{review.body}</p>
+                <p className="mt-1 text-sm leading-7 text-muted-foreground">{review.body}</p>
               )}
             </div>
           ))}

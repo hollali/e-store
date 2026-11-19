@@ -34,7 +34,7 @@ African fashion e-commerce platform built with Next.js 14, TypeScript, Tailwind 
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - A Sanity.io project
 - A Neon Auth application
 - A NeonDB database
@@ -94,16 +94,21 @@ src/
 │   ├── api/
 │   │   ├── cart/           # Cart CRUD API (NeonDB)
 │   │   ├── orders/         # Orders API
+│   │   ├── profile/        # Shipping profile API
+│   │   ├── ratings/        # Product reviews API
+│   │   ├── search/suggest/ # Search suggestions API
 │   │   └── wishlist/       # Wishlist API
 │   ├── orders/             # Order history page
 │   ├── product/[slug]/     # Product detail page
 │   ├── search/             # Search results page
-│   ├── sign-in/            # Clerk sign-in
-│   ├── sign-up/            # Clerk sign-up
+│   ├── sign-in/            # Neon Auth sign-in
+│   ├── sign-up/            # Neon Auth sign-up
 │   └── wishlist/           # Wishlist page
 ├── components/
-│   ├── ui/                 # shadcn/ui components (Button, Sheet, Accordion, Skeleton)
-│   ├── ProductCard.tsx     # Reusable product card
+│   ├── ui/                 # shadcn/ui components (Button, Card, Sheet, Accordion, Skeleton)
+│   ├── ProductCard.tsx     # Reusable editorial product card
+│   ├── ProductCarousel.tsx # Auto-scrolling new arrivals
+│   ├── PaymentCarousel.tsx # Accepted payment methods
 │   ├── Pagination.tsx      # Page navigation component
 │   ├── navbar.tsx          # Main navigation with mobile drawer
 │   ├── hero.tsx            # Homepage hero
@@ -132,7 +137,7 @@ src/
 
 ## Deployment
 
-Deploy to Vercel. Set all environment variables in the Vercel dashboard (especially `DATABASE_URL` and Clerk keys).
+Deploy to Vercel. Set all environment variables in the Vercel dashboard (especially `DATABASE_URL` and the Neon Auth keys).
 
 ## License
 

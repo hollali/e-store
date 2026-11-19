@@ -63,18 +63,18 @@ export default async function AllProducts({
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-serif text-3xl font-semibold tracking-tight text-foreground">
             All Products
           </h1>
-          <p className="text-sm text-gray-500" aria-live="polite">
+          <p className="text-sm text-muted-foreground" aria-live="polite">
             {total === 0 ? "No products" : `${total} ${total === 1 ? "product" : "products"}`}
           </p>
         </div>
         {products.length === 0 ? (
-          <p className="py-16 text-center text-gray-500">No products available yet.</p>
+          <p className="py-16 text-center text-muted-foreground">No products available yet.</p>
         ) : (
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product: simplifiedProduct) => (

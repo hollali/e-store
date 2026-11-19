@@ -80,26 +80,26 @@ export default async function CategoryPage({
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:max-w-7xl lg:px-8">
-        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-gray-500">
+        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted-foreground">
           <ol className="flex items-center gap-1.5">
             <li><Link href="/" className="hover:text-primary hover:underline">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="font-medium text-gray-900">{params.category}</li>
+            <li aria-current="page" className="font-medium text-foreground">{params.category}</li>
           </ol>
         </nav>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-serif text-3xl font-semibold tracking-tight text-foreground">
             {params.category}
           </h1>
-          <p className="text-sm text-gray-500" aria-live="polite">
+          <p className="text-sm text-muted-foreground" aria-live="polite">
             {total === 0 ? "No products" : `${total} ${total === 1 ? "product" : "products"}`}
           </p>
         </div>
         {products.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-gray-500">No products in this category yet.</p>
+            <p className="text-muted-foreground">No products in this category yet.</p>
             <Link href="/all" className="mt-4 inline-block font-medium text-primary hover:underline">
               Browse all products
             </Link>
